@@ -11,5 +11,11 @@ config_version=5
 [application]
 
 config/name="projPandemic"
+run/main_scene="uid://d3a4l545v5ubh"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=480

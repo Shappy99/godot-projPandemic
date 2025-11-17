@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkg8csm7n4yrm"]
+
+[ext_resource type="Texture2D" uid="uid://bm77tfhvbe3qv" path="res://Tiles/tilePlaceholder.png" id="1_b7tnw"]
+[ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6kjas"]
+texture = ExtResource("1_b7tnw")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_p1bgi"]
+sources/0 = SubResource("TileSetAtlasSource_6kjas")
+
+[node name="worldGen" type="TileMapLayer"]
+tile_set = SubResource("TileSet_p1bgi")
+script = ExtResource("2_5b7mq")
+map_width = 40
+map_heigth = 30
+map_res_mult = 10.0
