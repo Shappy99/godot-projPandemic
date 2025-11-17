@@ -1,16 +1,17 @@
 [gd_scene load_steps=6 format=3 uid="uid://dkg8csm7n4yrm"]
 
+[ext_resource type="Texture2D" uid="uid://c7lc2jflymha3" path="res://Tiles/tilePlaceholder2.png" id="1_b7tnw"]
 [ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
 [ext_resource type="Texture2D" uid="uid://c7lc2jflymha3" path="res://Tiles/tilePlaceholder2.png" id="2_6kjas"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7tnw"]
-texture = ExtResource("2_6kjas")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5b7mq"]
+texture = ExtResource("1_b7tnw")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_p1bgi"]
-sources/0 = SubResource("TileSetAtlasSource_b7tnw")
+sources/0 = SubResource("TileSetAtlasSource_5b7mq")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b7tnw"]
 
