@@ -22,7 +22,7 @@ func generate_map() -> void:
 			
 			print(str(random_height_value))
 			
-			set_cell (Vector2i(x,y), 2, Vector2i(random_height_value,0), 0)
+			set_cell (Vector2i(x-1,y-1), 2, Vector2i(random_height_value,0), 0)
 
 func set_up_map_height_map() -> void:
 	randomize()
