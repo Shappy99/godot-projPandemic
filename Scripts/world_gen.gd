@@ -22,7 +22,7 @@ func generate_map() -> void:
 			
 			print(str(random_height_value))
 			
-			set_cell (Vector2i(x,y), 0, Vector2i(random_height_value,0), 0)
+			set_cell (Vector2i(x,y), 2, Vector2i(random_height_value,0), 0)
 
 func set_up_map_height_map() -> void:
 	randomize()
@@ -30,3 +30,9 @@ func set_up_map_height_map() -> void:
 
 func clean_terrain_map() -> void:
 	tile_map_data.clear()
+
+func _physics_process(_delta):
+	var mouse_pos_global = get_viewport().get_mouse_position()
+	var mouse_pos_local = to_local(mouse_pos_global)
+	var tile_pos = local_to_map(mouse_pos_local)
+	print(tile_pos)

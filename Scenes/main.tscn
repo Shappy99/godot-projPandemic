@@ -8,6 +8,8 @@
 [node name="map" type="Node2D" parent="."]
 
 [node name="worldGen" parent="map" instance=ExtResource("1_jjgbg")]
+map_width = 26
+map_height = 16
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
