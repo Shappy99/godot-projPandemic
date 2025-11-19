@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
 
 [node name="UI" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,23 +12,119 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ahcct")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="gameUI" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 2
 
-[node name="Button" type="Button" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="gameUI"]
+custom_minimum_size = Vector2(100, 700)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel2" type="Panel" parent="gameUI/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Panel" type="Panel" parent="gameUI/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="gameUI"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="gameUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="gameUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="intStatButton" type="Button" parent="gameUI/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "International Status"
+
+[node name="teamsButton" type="Button" parent="gameUI/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Teams"
+
+[node name="researchButton" type="Button" parent="gameUI/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Research"
+
+[node name="genMapButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 406.0
+offset_top = -90.0
+offset_right = 501.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 20
 text = "Gen Map"
 
-[connection signal="button_down" from="MarginContainer/Button" to="." method="_on_button_button_down"]
+[node name="pauseMenu" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="MarginContainer" type="MarginContainer" parent="pauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="pauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "GAME IS PAUSED"
+
+[node name="unpauseButton" type="Button" parent="pauseMenu/MarginContainer/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "UNPAUSE"
+
+[node name="returnButton" type="Button" parent="pauseMenu/MarginContainer/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "RETURN TO MENU"
+
+[connection signal="button_down" from="genMapButton" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="pauseMenu/MarginContainer/VBoxContainer/unpauseButton" to="." method="_on_unpause_button_button_down"]
+[connection signal="button_down" from="pauseMenu/MarginContainer/VBoxContainer/returnButton" to="." method="_on_return_button_button_down"]
