@@ -41,8 +41,10 @@ func _physics_process(_delta):
 	print (get_is_interactable(tile_pos))
 	if (get_is_interactable(tile_pos)):
 		highlight_hex(tile_pos)
+		print ("highlight")
 	else:
 		highlight_hex(Vector2i(-2,-2))
+		print ("not highlight")
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
