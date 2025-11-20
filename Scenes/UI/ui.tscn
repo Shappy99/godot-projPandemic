@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://buxtindywluys"]
+[gd_scene load_steps=5 format=3 uid="uid://buxtindywluys"]
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
+[ext_resource type="Texture2D" uid="uid://dtkx1bvkrkvp7" path="res://pause_icon.png" id="2_de23q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahcct"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_c7mb3"]
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -12,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ahcct")
 
-[node name="gameUI" type="VBoxContainer" parent="."]
+[node name="HUD" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,111 +40,168 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="gameUI"]
-custom_minimum_size = Vector2(100, 700)
-layout_mode = 2
-size_flags_vertical = 4
+[node name="BottomButtons" type="Panel" parent="HUD"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="Panel2" type="Panel" parent="gameUI/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 2
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/BottomButtons"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="gameUI/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="gameUI"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="gameUI/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="gameUI/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="intStatButton" type="Button" parent="gameUI/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="intStatButton" type="Button" parent="HUD/BottomButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "International Status"
 
-[node name="teamsButton" type="Button" parent="gameUI/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="teamsButton" type="Button" parent="HUD/BottomButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Teams"
 
-[node name="researchButton" type="Button" parent="gameUI/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="researchButton" type="Button" parent="HUD/BottomButtons/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Research"
 
-[node name="genMapButton" type="Button" parent="."]
+[node name="genMapButton" type="Button" parent="HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+text = "Gen Map"
+
+[node name="TeamsPanel" type="Panel" parent="HUD"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 480.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/TeamsPanel"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 480.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/TeamsPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Button2" type="Button" parent="HUD/TeamsPanel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ahcct")
+text = "GRE"
+
+[node name="Button4" type="Button" parent="HUD/TeamsPanel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ahcct")
+text = "FF"
+
+[node name="PausePanel" type="Panel" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 480.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PausePanel"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 480.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PausePanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/PausePanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="pauseButton" type="Button" parent="HUD/PausePanel/HBoxContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_c7mb3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ahcct")
+icon = ExtResource("2_de23q")
+expand_icon = true
+
+[node name="Pause Menu" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 406.0
-offset_top = -90.0
-offset_right = 501.0
-offset_bottom = -54.0
+offset_left = -210.0
+offset_top = -210.0
+offset_right = 210.0
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 20
-text = "Gen Map"
 
-[node name="pauseMenu" type="MarginContainer" parent="."]
-visible = false
+[node name="Main Menu" type="VBoxContainer" parent="Pause Menu"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -190.0
+offset_right = 190.0
+offset_bottom = 190.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/separation = 30
+alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="pauseMenu"]
+[node name="resumeButton" type="Button" parent="Pause Menu/Main Menu"]
 layout_mode = 2
-theme_override_constants/margin_top = 20
+size_flags_vertical = 3
+text = "Resume"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="pauseMenu/MarginContainer"]
+[node name="optionsButton" type="Button" parent="Pause Menu/Main Menu"]
 layout_mode = 2
+size_flags_vertical = 3
+text = "Options"
 
-[node name="Label" type="Label" parent="pauseMenu/MarginContainer/VBoxContainer"]
+[node name="creditsButton" type="Button" parent="Pause Menu/Main Menu"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-text = "GAME IS PAUSED"
+size_flags_vertical = 3
+text = "Credits"
 
-[node name="unpauseButton" type="Button" parent="pauseMenu/MarginContainer/VBoxContainer"]
-process_mode = 2
+[node name="mainMenuButton" type="Button" parent="Pause Menu/Main Menu"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-text = "UNPAUSE"
+size_flags_vertical = 3
+text = "Main Menu"
 
-[node name="returnButton" type="Button" parent="pauseMenu/MarginContainer/VBoxContainer"]
-process_mode = 2
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-text = "RETURN TO MENU"
-
-[connection signal="button_down" from="genMapButton" to="." method="_on_button_button_down"]
-[connection signal="button_down" from="pauseMenu/MarginContainer/VBoxContainer/unpauseButton" to="." method="_on_unpause_button_button_down"]
-[connection signal="button_down" from="pauseMenu/MarginContainer/VBoxContainer/returnButton" to="." method="_on_return_button_button_down"]
+[connection signal="button_down" from="HUD/genMapButton" to="." method="_on_button_button_down"]
+[connection signal="pressed" from="HUD/PausePanel/HBoxContainer/VBoxContainer/MarginContainer/pauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="Pause Menu/Main Menu/resumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Pause Menu/Main Menu/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
