@@ -9,11 +9,26 @@ extends TileMapLayer
 
 @export var map_height_map : FastNoiseLite = null
 
+var mapArray = []
+
+func is_equal_to_0(number):
+	return number == 0
+func is_equal_to_1(number):
+	return number == 1
+func is_equal_to_2(number):
+	return number == 2
+func isSeedOk():
+	if mapArray.filter(is_equal_to_0).size() >= 200 && mapArray.filter(is_equal_to_0).size() <= 250:
+		if mapArray.filter(is_equal_to_1).size() >= 100 && mapArray.filter(is_equal_to_1).size() <= 150:
+			return true
+	else: return false
+
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(0).get_tiles_count()-1
 	
 	clean_terrain_map()
 	set_up_map_height_map()
+	mapArray.clear()
 	
 	for x in map_width:
 		for y in map_height:
@@ -22,9 +37,12 @@ func generate_map() -> void:
 			if random_height_value > tile_map_tile_count:
 				random_height_value = tile_map_tile_count
 			
-			print(str(random_height_value))
+			#print(str(random_height_value))
+			mapArray.append(random_height_value)
 			
 			set_cell (Vector2i(x-1,y-1), 0, Vector2i(random_height_value,0), 0)
+	if !isSeedOk():
+		generate_map()
 
 func set_up_map_height_map() -> void:
 	randomize()
@@ -38,7 +56,7 @@ func _physics_process(_delta):
 	var mouse_pos_local = to_local(mouse_pos_global)
 	var tile_pos = local_to_map(mouse_pos_local)
 	#print(tile_pos)
-	print (get_is_interactable(tile_pos))
+	#print (get_is_interactable(tile_pos))
 	if (get_is_interactable(tile_pos)):
 		highlight_hex(tile_pos)
 	else:
@@ -55,7 +73,7 @@ func get_is_interactable(tile_pos) -> bool:
 	if data:
 		var is_interactable: float = data.get_custom_data("interactable")
 		if is_interactable == 1:
-			print("1")
+			#print("1")
 			return true
-	print("0")
+	#print("0")
 	return false
