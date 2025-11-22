@@ -39,6 +39,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="gameUI"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
