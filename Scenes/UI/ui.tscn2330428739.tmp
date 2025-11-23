@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://buxtindywluys"]
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
-[ext_resource type="Script" uid="uid://dioge7tk33mal" path="res://Scripts/timer.gd" id="2_de23q"]
+[ext_resource type="Script" uid="uid://dioge7tk33mal" path="res://Scenes/UI/timer.gd" id="2_de23q"]
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -92,18 +92,11 @@ process_callback = 0
 script = ExtResource("2_de23q")
 
 [node name="timeLabel" type="Label" parent="genMapButton/Timer"]
-offset_left = 645.0
-offset_top = 12.0
-offset_right = 685.0
-offset_bottom = 35.0
+offset_left = 705.0
+offset_top = 202.0
+offset_right = 745.0
+offset_bottom = 225.0
 text = "test"
-
-[node name="fundsLabel" type="Label" parent="genMapButton/Timer"]
-offset_left = 688.0
-offset_top = 42.0
-offset_right = 732.0
-offset_bottom = 65.0
-text = "funds"
 
 [node name="pauseMenu" type="MarginContainer" parent="."]
 visible = false
