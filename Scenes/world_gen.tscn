@@ -15,6 +15,7 @@ texture_region_size = Vector2i(56, 48)
 1:0/0 = 0
 2:0/0 = 0
 2:0/0/custom_data_0 = true
+2:0/0/custom_data_1 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p1bgi"]
 texture = ExtResource("2_6kjas")
@@ -23,7 +24,10 @@ separation = Vector2i(8, 0)
 texture_region_size = Vector2i(56, 48)
 0:0/0 = 0
 1:0/0 = 0
+1:0/0/custom_data_0 = true
 2:0/0 = 0
+2:0/0/custom_data_0 = true
+2:0/0/custom_data_1 = true
 
 [sub_resource type="TileSet" id="TileSet_p1bgi"]
 tile_shape = 3
@@ -31,6 +35,8 @@ tile_offset_axis = 1
 tile_size = Vector2i(52, 48)
 custom_data_layer_0/name = "interactable"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "isMountain"
+custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_20fb0")
 sources/1 = SubResource("TileSetAtlasSource_p1bgi")
 
