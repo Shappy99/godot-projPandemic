@@ -65,48 +65,6 @@ func generate_map() -> void:
 				if (randomNumber)==5:
 					var peakList = [x,y]
 					peakArray.append(peakList)
-					#var numberOfTiles = (randi()%4)+1
-					#while numberOfTiles!=0:
-						#if (!get_is_peak(Vector2i(x,y))):
-							#$"../peaksLayer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
-							#numberOfTiles-=1
-							##print("Not peak")
-						#else:
-							##print("Already peak")
-							#var randomArray = [0,1,2,3,4,5]
-							#randomArray.shuffle()
-							##print(randomArray)
-							#for randomDirection in randomArray:
-								#if numberOfTiles == 0:
-									#break
-								#else:
-									#match randomDirection:
-										#0:
-											#if get_is_mountain(Vector2i(x,y+1)):
-												#if (!get_is_peak(Vector2i(x,y+1))):
-													#print("Caz 1")
-										#1: 
-											#if get_is_mountain(Vector2i(x,y-1)): 
-												#if (!get_is_peak(Vector2i(x,y-1))):
-													#print("Caz 2")
-										#2:
-											#if get_is_mountain(Vector2i(x+1,y+1)):
-												#if (!get_is_peak(Vector2i(x+1,y+1))):
-													#print("Caz 3")
-										#3: 
-											#if get_is_mountain(Vector2i(x-1, y+1)): 
-												#if (!get_is_peak(Vector2i(x-1,y+1))):
-													#print("Caz 4")
-										#4: 
-											#if get_is_mountain(Vector2i(x+1, y-1)):
-												#if (!get_is_peak(Vector2i(x+1,y-1))):
-													#print("Caz 5")
-										#5: 
-											#if get_is_mountain(Vector2i(x-1, y-1)):
-												#if (!get_is_peak(Vector2i(x-1,y-1))): 
-													#print("Caz 6")
-									#numberOfTiles-=1
-						#print(numberOfTiles)
 	if !isSeedOk():
 		generate_map()
 	else:
@@ -137,7 +95,7 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x,y+1)):
 													if (!get_is_peak(Vector2i(x,y+1))):
 														print("Caz 1")
-														$"../peaksLayer".set_cell (Vector2i(x,y+1), 0, Vector2i(0,0), 0)
+														$"../peaksLayer".set_cell (Vector2i(x,y+1), 0, Vector2i(0,0), 2)
 														numberOfTiles-=1
 											1: 
 												print("e munte jos?", get_is_mountain(Vector2i(x,y-1)))
@@ -145,7 +103,7 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x,y-1)): 
 													if (!get_is_peak(Vector2i(x,y-1))):
 														print("Caz 2")
-														$"../peaksLayer".set_cell (Vector2i(x,y-1), 0, Vector2i(0,0), 0)
+														$"../peaksLayer".set_cell (Vector2i(x,y-1), 0, Vector2i(0,0), 2)
 														numberOfTiles-=1
 											2:
 												print("e munte sus dreapta?", get_is_mountain(Vector2i(x+1,y+1)))
@@ -153,7 +111,7 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x+1,y+1)):
 													if (!get_is_peak(Vector2i(x+1,y+1))):
 														print("Caz 3")
-														$"../peaksLayer".set_cell (Vector2i(x+1,y+1), 0, Vector2i(0,0), 0)
+														$"../peaksLayer".set_cell (Vector2i(x+1,y+1), 0, Vector2i(0,0), 2)
 														numberOfTiles-=1
 											3: 
 												print("e munte sus stanga?", get_is_mountain(Vector2i(x-1,y+1)))
@@ -161,7 +119,7 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x-1, y+1)): 
 													if (!get_is_peak(Vector2i(x-1,y+1))):
 														print("Caz 4")
-														$"../peaksLayer".set_cell (Vector2i(x-1,y+1), 0, Vector2i(0,0), 0)
+														$"../peaksLayer".set_cell (Vector2i(x-1,y+1), 0, Vector2i(0,0), 2)
 														numberOfTiles-=1
 											4: 
 												print("e munte jos dreapta?", get_is_mountain(Vector2i(x+1,y-1)))
@@ -169,7 +127,7 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x+1, y-1)):
 													if (!get_is_peak(Vector2i(x+1,y-1))):
 														print("Caz 5")
-														$"../peaksLayer".set_cell (Vector2i(x+1,y-1), 0, Vector2i(0,0), 0)
+														$"../peaksLayer".set_cell (Vector2i(x+1,y-1), 0, Vector2i(0,0), 2)
 														numberOfTiles-=1
 											5: 
 												print("e munte jos stanga?", get_is_mountain(Vector2i(x-1,y-1)))
@@ -177,10 +135,13 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x-1, y-1)):
 													if (!get_is_peak(Vector2i(x-1,y-1))): 
 														print("Caz 6")
-														$"../peaksLayer".set_cell (Vector2i(x-1,y-1), 0, Vector2i(0,0), 0)
+														$"../peaksLayer".set_cell (Vector2i(x-1,y-1), 0, Vector2i(0,0), 2)
 														numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
+
+func generate_river() -> void:
+	pass
 
 func set_up_map_height_map() -> void:
 	randomize()

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
 [ext_resource type="Texture2D" uid="uid://d3jtdq5vuo8iy" path="res://Tiles/hex_grid - Copy.png" id="2_6kjas"]
 [ext_resource type="Texture2D" uid="uid://w78oxo835lnt" path="res://Tiles/hex_grid.png" id="3_6kjas"]
-[ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scenes/marker.gd" id="5_p1bgi"]
+[ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scripts/marker.gd" id="5_p1bgi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20fb0"]
 texture = ExtResource("3_6kjas")
