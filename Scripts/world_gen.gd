@@ -2,6 +2,7 @@ class_name worldGenerator
 extends TileMapLayer
 
 @onready var marker: Node2D = get_node("Marker") # Child Node2D
+@onready var selMarker: Node2D = get_node("selectMarker") # Child Node2D
 
 @export var map_width : int = 40
 @export var map_height : int = 30
@@ -140,8 +141,8 @@ func generate_map() -> void:
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
 
-func generate_river() -> void:
-	pass
+#func generate_river() -> void:
+	#pass
 
 func set_up_map_height_map() -> void:
 	randomize()
@@ -156,11 +157,16 @@ func _physics_process(_delta):
 	var tile_pos = local_to_map(mouse_pos_local)
 	if (get_is_interactable(tile_pos)):
 		highlight_hex(tile_pos)
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			select_hex(tile_pos)
 	else:
 		highlight_hex(Vector2i(-2,-2))
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
+	
+func select_hex(cellPos: Vector2i):
+	selMarker.position = map_to_local(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
