@@ -3,6 +3,8 @@ extends TileMapLayer
 
 @onready var marker: Node2D = get_node("Marker") # Child Node2D
 @onready var selMarker: Node2D = get_node("selectMarker") # Child Node2D
+@onready var research: Control = $"../../UILayer/UI/Research"
+
 
 @export var map_width : int = 40
 @export var map_height : int = 30
@@ -214,15 +216,18 @@ func clean_terrain_map() -> void:
 	tile_map_data.clear()
 
 func _physics_process(_delta):
-	var mouse_pos_global = get_viewport().get_mouse_position()
-	var mouse_pos_local = to_local(mouse_pos_global)
-	var tile_pos = local_to_map(mouse_pos_local)
-	if (get_is_interactable(tile_pos)):
-		highlight_hex(tile_pos)
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			select_hex(tile_pos)
+	if research.visible == true:
+		pass #how do i disable this function in a better way?
 	else:
-		highlight_hex(Vector2i(-2,-2))
+		var mouse_pos_global = get_viewport().get_mouse_position()
+		var mouse_pos_local = to_local(mouse_pos_global)
+		var tile_pos = local_to_map(mouse_pos_local)
+		if (get_is_interactable(tile_pos)):
+			highlight_hex(tile_pos)
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				select_hex(tile_pos)
+		else:
+			highlight_hex(Vector2i(-2,-2))
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
