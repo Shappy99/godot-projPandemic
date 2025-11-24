@@ -80,7 +80,7 @@ func generate_map() -> void:
 	else:
 		for x in map_width:
 			for y in map_height:
-				if get_is_mountain(Vector2i(x,y)):
+				if get_is_mountain(Vector2i(x,y)) && (x>2 && x<map_width-2) && (y>2 && y<map_height-2):
 					var mountainList = [x,y]
 					mountainArray.append(mountainList)
 		for peak in peakArray:
@@ -197,12 +197,15 @@ func generate_Mountain_city() -> void:
 
 func generate_Mountain_city2() -> void:
 	randomize()
-	var randomCity = randi()%mountainArray.size()
 	var citiesCreated = 0
-	if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
-		$"../peaksLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
-		citiesCreated+=1
-		print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
+	while !citiesCreated:
+		var randomCity = randi()%mountainArray.size()
+		if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
+			var mountainList = [mountainArray[randomCity][0],mountainArray[randomCity][1]]
+			$"../cityLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
+			citiesCreated+=1
+			print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
+			cityArray.append(mountainList)
 #func generate_river() -> void:
 	#pass
 
