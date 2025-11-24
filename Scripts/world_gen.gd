@@ -34,30 +34,29 @@ func clean_terrain_map() -> void:
 	tile_map_data.clear()
 
 func _physics_process(_delta):
-	var mouse_pos_global = get_viewport().get_mouse_position()
-	var mouse_pos_local = to_local(mouse_pos_global)
-	var tile_pos = local_to_map(mouse_pos_local)
-	#print(tile_pos)
-	print (get_is_interactable(tile_pos))
-	if (get_is_interactable(tile_pos)):
-		highlight_hex(tile_pos)
-		print ("highlight")
-	else:
-		highlight_hex(Vector2i(-2,-2))
-		print ("not highlight")
+		var mouse_pos_global = get_viewport().get_mouse_position()
+		var mouse_pos_local = to_local(mouse_pos_global)
+		var tile_pos = local_to_map(mouse_pos_local)
+		#print(tile_pos)
+		print (get_is_interactable(tile_pos))
+		if (get_is_interactable(tile_pos)):
+			highlight_hex(tile_pos)
+			print ("highlight")
+		else:
+			highlight_hex(Vector2i(-2,-2))
+			print ("not highlight")
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
-	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
-	var cell = tile_pos
-	var data: TileData = tilemap.get_cell_tile_data(cell)
-	
-	if data:
-		var is_interactable: float = data.get_custom_data("interactable")
-		if is_interactable == 1:
-			print("1")
-			return true
-	print("0")
-	return false
+		var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
+		var cell = tile_pos
+		var data: TileData = tilemap.get_cell_tile_data(cell)
+		if data:
+			var is_interactable: float = data.get_custom_data("interactable")
+			if is_interactable == 1:
+				print("1")
+				return true
+		print("0")
+		return false

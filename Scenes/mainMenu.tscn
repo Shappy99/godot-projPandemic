@@ -14,13 +14,6 @@ func _ready() -> void:
 	main_menu.visible = true
 	options_menu.visible = false
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
@@ -47,7 +40,6 @@ grow_vertical = 2
 script = SubResource("GDScript_h7grp")
 
 [node name="Main Menu" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -84,6 +76,7 @@ size_flags_vertical = 3
 text = "Quit"
 
 [node name="Options Menu" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
