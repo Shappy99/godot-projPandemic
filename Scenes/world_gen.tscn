@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkg8csm7n4yrm"]
+[gd_scene load_steps=10 format=3 uid="uid://dkg8csm7n4yrm"]
 
 [ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
+[ext_resource type="Texture2D" uid="uid://dj86gwn0ohqyw" path="res://Tiles/hex_grid - Copy.png" id="2_6kjas"]
 [ext_resource type="Texture2D" uid="uid://w78oxo835lnt" path="res://Tiles/hex_grid.png" id="3_6kjas"]
+[ext_resource type="Script" uid="uid://dmxnipyt7deu" path="res://Scenes/select_marker.gd" id="5_20fb0"]
 [ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scenes/marker.gd" id="5_p1bgi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20fb0"]
@@ -14,16 +16,35 @@ texture_region_size = Vector2i(56, 48)
 1:0/0 = 0
 2:0/0 = 0
 2:0/0/custom_data_0 = true
+2:0/0/custom_data_1 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p1bgi"]
+texture = ExtResource("2_6kjas")
+margins = Vector2i(4, 4)
+separation = Vector2i(8, 0)
+texture_region_size = Vector2i(56, 48)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = true
+2:0/0 = 0
+2:0/0/custom_data_0 = true
+2:0/0/custom_data_1 = true
 
 [sub_resource type="TileSet" id="TileSet_p1bgi"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(51, 47)
+tile_size = Vector2i(52, 48)
 custom_data_layer_0/name = "interactable"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "isMountain"
+custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_20fb0")
+sources/1 = SubResource("TileSetAtlasSource_p1bgi")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b7tnw"]
+domain_warp_amplitude = 29.09
+domain_warp_frequency = -2.39
+domain_warp_fractal_type = 0
 
 [node name="worldGen" type="TileMapLayer" groups=["tilemap"]]
 tile_set = SubResource("TileSet_p1bgi")
@@ -31,4 +52,9 @@ script = ExtResource("2_5b7mq")
 map_height_map = SubResource("FastNoiseLite_b7tnw")
 
 [node name="Marker" type="Node2D" parent="."]
+position = Vector2(-50, -50)
 script = ExtResource("5_p1bgi")
+
+[node name="selectMarker" type="Node2D" parent="."]
+position = Vector2(-50, -50)
+script = ExtResource("5_20fb0")

@@ -1,15 +1,109 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3a4l545v5ubh"]
+[gd_scene load_steps=15 format=3 uid="uid://d3a4l545v5ubh"]
 
 [ext_resource type="PackedScene" uid="uid://dkg8csm7n4yrm" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://cf62ejepvbhbl" path="res://Scripts/astar.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
+[ext_resource type="Texture2D" uid="uid://bshtn8v8lg7p4" path="res://Tiles/31231232-re2.png" id="2_jjvhh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_21xkr"]
+texture = ExtResource("2_jjvhh")
+margins = Vector2i(7, 5)
+texture_region_size = Vector2i(18, 24)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_6bp64"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(52, 48)
+sources/0 = SubResource("TileSetAtlasSource_21xkr")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jjvhh"]
+texture = ExtResource("2_jjvhh")
+margins = Vector2i(7, 5)
+texture_region_size = Vector2i(18, 24)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_21xkr"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(52, 48)
+sources/0 = SubResource("TileSetAtlasSource_jjvhh")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_344ge"]
+texture = ExtResource("2_jjvhh")
+margins = Vector2i(7, 5)
+texture_region_size = Vector2i(18, 24)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ynf5e"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(52, 48)
+sources/0 = SubResource("TileSetAtlasSource_344ge")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8gbba"]
+texture = ExtResource("2_jjvhh")
+margins = Vector2i(7, 5)
+texture_region_size = Vector2i(18, 24)
+0:0/next_alternative_id = 3
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/2/custom_data_0 = true
+
+[sub_resource type="TileSet" id="TileSet_jjvhh"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(52, 48)
+custom_data_layer_0/name = "isPeak"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_8gbba")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kry3j"]
+texture = ExtResource("2_jjvhh")
+margins = Vector2i(7, 5)
+texture_region_size = Vector2i(18, 24)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+0:0/1 = 1
+0:0/1/transpose = true
+0:0/1/custom_data_0 = true
+
+[sub_resource type="TileSet" id="TileSet_344ge"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(52, 48)
+custom_data_layer_0/name = "isCity"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_kry3j")
 
 [node name="main" type="Node2D"]
 
 [node name="map" type="Node2D" parent="."]
+script = ExtResource("1_jjvhh")
 
 [node name="worldGen" parent="map" instance=ExtResource("1_jjgbg")]
 map_width = 28
 map_height = 18
+
+[node name="forestLayer" type="TileMapLayer" parent="map"]
+position = Vector2(-10, 4)
+tile_set = SubResource("TileSet_6bp64")
+
+[node name="forest2Layer" type="TileMapLayer" parent="map"]
+tile_set = SubResource("TileSet_21xkr")
+
+[node name="forest3Layer" type="TileMapLayer" parent="map"]
+position = Vector2(10, 4)
+tile_set = SubResource("TileSet_ynf5e")
+
+[node name="peaksLayer" type="TileMapLayer" parent="map" groups=["tilepeak"]]
+tile_set = SubResource("TileSet_jjvhh")
+
+[node name="cityLayer" type="TileMapLayer" parent="map" groups=["tilecity"]]
+tile_set = SubResource("TileSet_344ge")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
