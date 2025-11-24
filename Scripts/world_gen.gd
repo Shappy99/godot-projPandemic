@@ -139,19 +139,30 @@ func generate_map() -> void:
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
 		generate_Mountain_city()
+		generate_Mountain_city()
+		generate_Plain_city()
+		generate_Plain_city()
 		generate_Plain_city()
 
 func generate_Mountain_city() -> void:
 	randomize()
 	var citiesCreated = 0
+	var spawnOk = 0
 	while !citiesCreated:
 		var randomCity = randi()%mountainArray.size()
-		if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
-			var mountainList = [mountainArray[randomCity][0],mountainArray[randomCity][1]]
-			$"../cityLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
-			citiesCreated+=1
-			print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
-			cityArray.append(mountainList)
+		if cityArray.size()>=1:
+			for city in cityArray:
+				if abs(city[0]-mountainArray[randomCity][0])>=3 && abs(city[1]-mountainArray[randomCity][1])>=3:
+					spawnOk = 1
+		else: spawnOk = 1
+		if spawnOk:
+			if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
+				var mountainList = [mountainArray[randomCity][0],mountainArray[randomCity][1]]
+				$"../cityLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
+				citiesCreated+=1
+				print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
+				cityArray.append(mountainList)
+				spawnOk = 0
 #func generate_river() -> void:
 	#pass
 
@@ -161,9 +172,11 @@ func generate_Plain_city() -> void:
 	var spawnOk = 0
 	while !citiesCreated:
 		var randomCity = randi()%plainArray.size()
-		for city in cityArray:
-			if abs(city[0]-plainArray[randomCity][0])>=3 && abs(city[1]-plainArray[randomCity][1])>=3:
-				spawnOk = 1
+		if cityArray.size()>=1:
+			for city in cityArray:
+				if abs(city[0]-plainArray[randomCity][0])>=3 && abs(city[1]-plainArray[randomCity][1])>=3:
+					spawnOk = 1
+		else: spawnOk = 1
 		if spawnOk:
 			if !get_is_city(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1])) && !citiesCreated:
 				var plainList = [plainArray[randomCity][0],plainArray[randomCity][1]]
