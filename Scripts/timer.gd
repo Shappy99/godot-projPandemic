@@ -13,17 +13,17 @@ func _add_funds(bonusFunds):
 	
 func _on_timeout():
 	if day<=30:
-		$VBoxContainer/timeLabel.text=str("Month ", month, ", Day ",day)
-		$VBoxContainer/fundsLabel.text=str("Funds: ", funds)
+		$TimeFundsContainer/timeLabel.text=str("Month ", month, ", Day ",day)
+		$TimeFundsContainer/fundsLabel.text=str("Funds: ", funds)
 		day+=1
 	elif month<12:
 		month+=1
 		_add_funds(10000)
-		$VBoxContainer/fundsLabel.text=str("Funds: ", funds)
+		$TimeFundsContainer/fundsLabel.text=str("Funds: ", funds)
 		if month==12:
-			$VBoxContainer/timeLabel.text="Game over"
+			$TimeFundsContainer/timeLabel.text="Game over"
 		else:
 			day=1
-			$VBoxContainer/timeLabel.text=str("Month ", month, ", Day ",day)
+			$TimeFundsContainer/timeLabel.text=str("Month ", month, ", Day ",day)
 	else:
 		pass
