@@ -29,7 +29,7 @@ var mountainArray = []
 var plainArray = []
 
 func generate_map() -> void:
-	var tile_map_tile_count : int = tile_set.get_source(0).get_tiles_count()-1
+	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
 	
 	clean_terrain_map()
 	$"../forestLayer".clear()
