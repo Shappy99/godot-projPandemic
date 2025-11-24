@@ -208,6 +208,7 @@ func highlight_hex(cellPos: Vector2i):
 	
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
+	set_on_fire(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -263,3 +264,7 @@ func get_is_city(tile_pos) -> bool:
 		if is_city == 1:
 			return true
 	return false
+
+func set_on_fire(tile_pos) -> void:
+	$"../fire".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 1)
+	print("fire added")

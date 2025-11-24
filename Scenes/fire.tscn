@@ -1,0 +1,42 @@
+[gd_scene load_steps=12 format=3 uid="uid://so5e4dsow41p"]
+
+[ext_resource type="Texture2D" uid="uid://dhidcwrm1eoal" path="res://Tiles/Textures/T_1_pixel.jpg" id="3_w35r5"]
+[ext_resource type="Shader" uid="uid://cife5a7np5acn" path="res://Tiles/Textures/Shaders/s_fire.tres" id="4_lcnk6"]
+[ext_resource type="Texture2D" uid="uid://c8b4hi1gohoht" path="res://Tiles/Textures/T_Gradient_circle22.jpg" id="5_3h6i6"]
+[ext_resource type="Texture2D" uid="uid://b8yh1scvyrj78" path="res://Tiles/Textures/T_VFX_Noise_465.png" id="6_gdy38"]
+
+[sub_resource type="Gradient" id="Gradient_d3nas"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b8b1f"]
+gradient = SubResource("Gradient_d3nas")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_ofisa"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hngss"]
+gradient = SubResource("Gradient_ofisa")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_ajrfc"]
+offsets = PackedFloat32Array(0, 0.5222222, 0.5962963, 1)
+colors = PackedColorArray(0.8209799, 0.12315822, 0, 0, 0.8212373, 0.12305469, 3.85046e-07, 1, 1, 0.735357, 0.3491902, 1, 1, 0.95468724, 0.735357, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_efbji"]
+gradient = SubResource("Gradient_ajrfc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tvfp"]
+shader = ExtResource("4_lcnk6")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/speed = Vector2(0, 1)
+shader_parameter/texture5 = ExtResource("6_gdy38")
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_b8b1f")
+shader_parameter/Texture2DParameter2 = ExtResource("5_3h6i6")
+shader_parameter/Texture2DParameter3 = SubResource("GradientTexture2D_hngss")
+shader_parameter/Texture2DParameter4 = SubResource("GradientTexture1D_efbji")
+
+[node name="fire" type="Node2D"]
+
+[node name="statFire" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5tvfp")
+scale = Vector2(100, 100)
+texture = ExtResource("3_w35r5")

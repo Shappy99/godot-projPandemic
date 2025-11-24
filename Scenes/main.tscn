@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://d3a4l545v5ubh"]
+[gd_scene load_steps=23 format=3 uid="uid://d3a4l545v5ubh"]
 
 [ext_resource type="PackedScene" uid="uid://dkg8csm7n4yrm" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cf62ejepvbhbl" path="res://Scripts/astar.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://so5e4dsow41p" path="res://Scenes/fire.tscn" id="4_21xkr"]
 [ext_resource type="Texture2D" uid="uid://du0r8fqa2un7x" path="res://Tiles/tree.png" id="4_kry3j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
@@ -115,6 +116,15 @@ custom_data_layer_0/name = "isCity"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6iyac")
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6bp64"]
+scenes/1/scene = ExtResource("4_21xkr")
+
+[sub_resource type="TileSet" id="TileSet_kry3j"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(106, 96)
+sources/1 = SubResource("TileSetScenesCollectionSource_6bp64")
+
 [node name="main" type="Node2D"]
 
 [node name="map" type="Node2D" parent="."]
@@ -147,6 +157,10 @@ tile_set = SubResource("TileSet_jjvhh")
 visible = false
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_344ge")
+
+[node name="fire" type="TileMapLayer" parent="map"]
+scale = Vector2(0.5, 0.5)
+tile_set = SubResource("TileSet_kry3j")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
