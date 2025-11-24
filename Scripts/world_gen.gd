@@ -139,7 +139,6 @@ func generate_map() -> void:
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
 		generate_Mountain_city()
-		generate_Mountain_city()
 		generate_Plain_city()
 		generate_Plain_city()
 		generate_Plain_city()
