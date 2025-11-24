@@ -24,6 +24,7 @@ func isSeedOk():
 
 var mapArray = []
 var peakArray = []
+var cityArray = []
 
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(0).get_tiles_count()-1
@@ -33,9 +34,11 @@ func generate_map() -> void:
 	$"../forest2Layer".clear()
 	$"../forest3Layer".clear()
 	$"../peaksLayer".clear()
+	$"../cityLayer".clear()
 	set_up_map_height_map()
 	mapArray.clear()
 	peakArray.clear()
+	cityArray.clear()
 	
 	for x in map_width:
 		for y in map_height:
@@ -66,11 +69,13 @@ func generate_map() -> void:
 				if (randomNumber)==5:
 					var peakList = [x,y]
 					peakArray.append(peakList)
+				elif (randomNumber!=5) && cityArray == []:
+					var peakList = [x,y]
+					if (x>2 && x<(map_width-2)) && (y>2 && y<(map_height-2) && !get_is_peak(Vector2i(x,y))):
+						cityArray.append(peakList)
 	if !isSeedOk():
 		generate_map()
 	else:
-		print(mapArray.size())
-		print(peakArray)
 		for peak in peakArray:
 			var numberOfTiles = (randi()%4)+1
 			var x = peak[0]
@@ -79,67 +84,110 @@ func generate_map() -> void:
 							if (!get_is_peak(Vector2i(x,y))):
 								$"../peaksLayer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
 								numberOfTiles-=1
-								print("Not peak")
 							else:
-								print("Already peak")
 								var randomArray = [0,1,2,3,4,5]
 								randomArray.shuffle()
-								#print(randomArray)
 								for randomDirection in randomArray:
 									if numberOfTiles <= 0:
 										break
 									else:
 										match randomDirection:
 											0:
-												print("e munte sus?", get_is_mountain(Vector2i(x,y+1)))
-												print("e varf sus?", !get_is_peak(Vector2i(x,y+1)))
 												if get_is_mountain(Vector2i(x,y+1)):
 													if (!get_is_peak(Vector2i(x,y+1))):
-														print("Caz 1")
-														$"../peaksLayer".set_cell (Vector2i(x,y+1), 0, Vector2i(0,0), 2)
-														numberOfTiles-=1
+														if (!get_is_city(Vector2i(x,y+1))):
+															$"../peaksLayer".set_cell (Vector2i(x,y+1), 0, Vector2i(0,0), 2)
+															numberOfTiles-=1
 											1: 
-												print("e munte jos?", get_is_mountain(Vector2i(x,y-1)))
-												print("e varf jos?", !get_is_peak(Vector2i(x,y-1)))
 												if get_is_mountain(Vector2i(x,y-1)): 
 													if (!get_is_peak(Vector2i(x,y-1))):
-														print("Caz 2")
-														$"../peaksLayer".set_cell (Vector2i(x,y-1), 0, Vector2i(0,0), 2)
-														numberOfTiles-=1
+														if (!get_is_city(Vector2i(x,y-1))):
+															$"../peaksLayer".set_cell (Vector2i(x,y-1), 0, Vector2i(0,0), 2)
+															numberOfTiles-=1
 											2:
-												print("e munte sus dreapta?", get_is_mountain(Vector2i(x+1,y+1)))
-												print("e varf sus dreapta?", !get_is_peak(Vector2i(x+1,y+1)))
 												if get_is_mountain(Vector2i(x+1,y+1)):
 													if (!get_is_peak(Vector2i(x+1,y+1))):
-														print("Caz 3")
-														$"../peaksLayer".set_cell (Vector2i(x+1,y+1), 0, Vector2i(0,0), 2)
-														numberOfTiles-=1
+														if (!get_is_city(Vector2i(x+1,y+1))):
+															$"../peaksLayer".set_cell (Vector2i(x+1,y+1), 0, Vector2i(0,0), 2)
+															numberOfTiles-=1
 											3: 
-												print("e munte sus stanga?", get_is_mountain(Vector2i(x-1,y+1)))
-												print("e varf sus stanga?", !get_is_peak(Vector2i(x-1,y+1)))
 												if get_is_mountain(Vector2i(x-1, y+1)): 
 													if (!get_is_peak(Vector2i(x-1,y+1))):
-														print("Caz 4")
-														$"../peaksLayer".set_cell (Vector2i(x-1,y+1), 0, Vector2i(0,0), 2)
-														numberOfTiles-=1
+														if (!get_is_city(Vector2i(x-1,y+1))):
+															$"../peaksLayer".set_cell (Vector2i(x-1,y+1), 0, Vector2i(0,0), 2)
+															numberOfTiles-=1
 											4: 
-												print("e munte jos dreapta?", get_is_mountain(Vector2i(x+1,y-1)))
-												print("e varf jos dreapta?", !get_is_peak(Vector2i(x+1,y-1)))
 												if get_is_mountain(Vector2i(x+1, y-1)):
 													if (!get_is_peak(Vector2i(x+1,y-1))):
-														print("Caz 5")
-														$"../peaksLayer".set_cell (Vector2i(x+1,y-1), 0, Vector2i(0,0), 2)
-														numberOfTiles-=1
+														if (!get_is_city(Vector2i(x+1,y-1))):
+															$"../peaksLayer".set_cell (Vector2i(x+1,y-1), 0, Vector2i(0,0), 2)
+															numberOfTiles-=1
 											5: 
-												print("e munte jos stanga?", get_is_mountain(Vector2i(x-1,y-1)))
-												print("e varf jos stanga?", !get_is_peak(Vector2i(x-1,y-1)))
 												if get_is_mountain(Vector2i(x-1, y-1)):
 													if (!get_is_peak(Vector2i(x-1,y-1))): 
-														print("Caz 6")
-														$"../peaksLayer".set_cell (Vector2i(x-1,y-1), 0, Vector2i(0,0), 2)
-														numberOfTiles-=1
+														if (!get_is_city(Vector2i(x-1,y-1))):
+															$"../peaksLayer".set_cell (Vector2i(x-1,y-1), 0, Vector2i(0,0), 2)
+															numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
+		generate_Mountain_city()
+
+func generate_Mountain_city() -> void:
+	pass
+	var city=cityArray[0]
+	var numberTiles = 1
+	while numberTiles!=0:
+		if get_is_mountain(Vector2i(city[0], city[1])):
+			if (!get_is_peak(Vector2i(city[0],city[1]))):
+				$"../cityLayer".set_cell (Vector2i(city[0],city[1]), 0, Vector2i(0,0), 1)
+				numberTiles-=1
+			else:
+				var randomArray = [0,1,2,3,4,5]
+				randomArray.shuffle()
+				for randomDirection in randomArray:
+					if numberTiles <= 0:
+						break
+					else:
+						match randomDirection:
+							0:
+								if get_is_mountain(Vector2i(city[0], city[1]+1)):
+									if (!get_is_peak(Vector2i(city[0], city[1]+1))):
+										if (!get_is_city(Vector2i(city[0], city[1]+1))):
+											$"../cityLayer".set_cell (Vector2i(city[0],city[1]+1), 0, Vector2i(0,0), 1)
+											numberTiles-=1
+							1: 
+								if get_is_mountain(Vector2i(city[0], city[1]-1)): 
+									if (!get_is_peak(Vector2i(city[0], city[1]-1))):
+										if (!get_is_city(Vector2i(city[0], city[1]-1))):
+											$"../peaksLayer".set_cell (Vector2i(city[0], city[1]-1), 0, Vector2i(0,0), 1)
+											numberTiles-=1
+							2:
+								if get_is_mountain(Vector2i(city[0]+1, city[1]+1)):
+									if (!get_is_peak(Vector2i(city[0]+1, city[1]+1))):
+										if (!get_is_city(Vector2i(city[0]+1, city[1]+1))):
+											$"../peaksLayer".set_cell (Vector2i(city[0]+1, city[1]+1), 0, Vector2i(0,0), 1)
+											numberTiles-=1
+							3: 
+								if get_is_mountain(Vector2i(city[0]-1, city[1]+1)): 
+									if (!get_is_peak(Vector2i(city[0]-1, city[1]+1))):
+										if (!get_is_city(Vector2i(city[0]-1, city[1]+1))):
+											$"../peaksLayer".set_cell (Vector2i(city[0]-1, city[1]+1), 0, Vector2i(0,0), 2)
+											numberTiles-=1
+							4: 
+								if get_is_mountain(Vector2i(city[0]+1, city[1]-1)):
+									if (!get_is_peak(Vector2i(city[0]+1, city[1]-1))):
+										if (!get_is_city(Vector2i(city[0]+1, city[1]-1))):
+											$"../peaksLayer".set_cell (Vector2i(city[0]+1, city[1]-1), 0, Vector2i(0,0), 2)
+											numberTiles-=1
+							5: 
+								if get_is_mountain(Vector2i(city[0]-1, city[1]-1)):
+									if (!get_is_peak(Vector2i(city[0]-1, city[1]-1))): 
+										if (!get_is_city(Vector2i(city[0]-1, city[1]-1))):
+											$"../peaksLayer".set_cell (Vector2i(city[0]-1, city[1]-1), 0, Vector2i(0,0), 1)
+											numberTiles-=1
+						if randomDirection == randomArray[5]:
+							numberTiles=0
+				numberTiles=0
 
 #func generate_river() -> void:
 	#pass
@@ -198,5 +246,16 @@ func get_is_mountain(tile_pos) -> bool:
 	if data:
 		var is_mountain: float = data.get_custom_data("isMountain")
 		if is_mountain == 1:
+			return true
+	return false
+
+func get_is_city(tile_pos) -> bool:
+	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilecity")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+	
+	if data:
+		var is_city: float = data.get_custom_data("isCity")
+		if is_city == 1:
 			return true
 	return false
