@@ -25,6 +25,7 @@ func isSeedOk():
 var mapArray = []
 var peakArray = []
 var cityArray = []
+var mountainArray = []
 
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(0).get_tiles_count()-1
@@ -39,6 +40,7 @@ func generate_map() -> void:
 	mapArray.clear()
 	peakArray.clear()
 	cityArray.clear()
+	mountainArray.clear()
 	
 	for x in map_width:
 		for y in map_height:
@@ -76,6 +78,11 @@ func generate_map() -> void:
 	if !isSeedOk():
 		generate_map()
 	else:
+		for x in map_width:
+			for y in map_height:
+				if get_is_mountain(Vector2i(x,y)):
+					var mountainList = [x,y]
+					mountainArray.append(mountainList)
 		for peak in peakArray:
 			var numberOfTiles = (randi()%4)+1
 			var x = peak[0]
@@ -130,10 +137,9 @@ func generate_map() -> void:
 															numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
-		generate_Mountain_city()
+		generate_Mountain_city2()
 
 func generate_Mountain_city() -> void:
-	pass
 	var city=cityArray[0]
 	var numberTiles = 1
 	while numberTiles!=0:
@@ -189,6 +195,14 @@ func generate_Mountain_city() -> void:
 							numberTiles=0
 				numberTiles=0
 
+func generate_Mountain_city2() -> void:
+	randomize()
+	var randomCity = randi()%mountainArray.size()
+	var citiesCreated = 0
+	if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
+		$"../peaksLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
+		citiesCreated+=1
+		print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
 #func generate_river() -> void:
 	#pass
 
