@@ -3,8 +3,6 @@ extends TileMapLayer
 
 @onready var marker: Node2D = get_node("Marker") # Child Node2D
 @onready var selMarker: Node2D = get_node("selectMarker") # Child Node2D
-@onready var research: Control = $"../../UILayer/UI/Research"
-
 
 @export var map_width : int = 40
 @export var map_height : int = 30
@@ -28,6 +26,7 @@ var mapArray = []
 var peakArray = []
 var cityArray = []
 var mountainArray = []
+var plainArray = []
 
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(0).get_tiles_count()-1
@@ -43,6 +42,7 @@ func generate_map() -> void:
 	peakArray.clear()
 	cityArray.clear()
 	mountainArray.clear()
+	plainArray.clear()
 	
 	for x in map_width:
 		for y in map_height:
@@ -73,18 +73,17 @@ func generate_map() -> void:
 				if (randomNumber)==5:
 					var peakList = [x,y]
 					peakArray.append(peakList)
-				elif (randomNumber!=5) && cityArray == []:
-					var peakList = [x,y]
-					if (x>2 && x<(map_width-2)) && (y>2 && y<(map_height-2) && !get_is_peak(Vector2i(x,y))):
-						cityArray.append(peakList)
 	if !isSeedOk():
 		generate_map()
 	else:
 		for x in map_width:
 			for y in map_height:
-				if get_is_mountain(Vector2i(x,y)):
+				if get_is_mountain(Vector2i(x,y)) && (x>2 && x<map_width-2) && (y>2 && y<map_height-2):
 					var mountainList = [x,y]
 					mountainArray.append(mountainList)
+				if get_is_plain(Vector2i(x,y)) && (x>2 && x<map_width-2) && (y>2 && y<map_height-2):
+					var plainList = [x,y]
+					plainArray.append(plainList)
 		for peak in peakArray:
 			var numberOfTiles = (randi()%4)+1
 			var x = peak[0]
@@ -139,74 +138,52 @@ func generate_map() -> void:
 															numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
-		generate_Mountain_city2()
+		generate_Mountain_city()
+		generate_Plain_city()
+		generate_Plain_city()
+		generate_Plain_city()
 
 func generate_Mountain_city() -> void:
-	var city=cityArray[0]
-	var numberTiles = 1
-	while numberTiles!=0:
-		if get_is_mountain(Vector2i(city[0], city[1])):
-			if (!get_is_peak(Vector2i(city[0],city[1]))):
-				$"../cityLayer".set_cell (Vector2i(city[0],city[1]), 0, Vector2i(0,0), 1)
-				numberTiles-=1
-			else:
-				var randomArray = [0,1,2,3,4,5]
-				randomArray.shuffle()
-				for randomDirection in randomArray:
-					if numberTiles <= 0:
-						break
-					else:
-						match randomDirection:
-							0:
-								if get_is_mountain(Vector2i(city[0], city[1]+1)):
-									if (!get_is_peak(Vector2i(city[0], city[1]+1))):
-										if (!get_is_city(Vector2i(city[0], city[1]+1))):
-											$"../cityLayer".set_cell (Vector2i(city[0],city[1]+1), 0, Vector2i(0,0), 1)
-											numberTiles-=1
-							1: 
-								if get_is_mountain(Vector2i(city[0], city[1]-1)): 
-									if (!get_is_peak(Vector2i(city[0], city[1]-1))):
-										if (!get_is_city(Vector2i(city[0], city[1]-1))):
-											$"../peaksLayer".set_cell (Vector2i(city[0], city[1]-1), 0, Vector2i(0,0), 1)
-											numberTiles-=1
-							2:
-								if get_is_mountain(Vector2i(city[0]+1, city[1]+1)):
-									if (!get_is_peak(Vector2i(city[0]+1, city[1]+1))):
-										if (!get_is_city(Vector2i(city[0]+1, city[1]+1))):
-											$"../peaksLayer".set_cell (Vector2i(city[0]+1, city[1]+1), 0, Vector2i(0,0), 1)
-											numberTiles-=1
-							3: 
-								if get_is_mountain(Vector2i(city[0]-1, city[1]+1)): 
-									if (!get_is_peak(Vector2i(city[0]-1, city[1]+1))):
-										if (!get_is_city(Vector2i(city[0]-1, city[1]+1))):
-											$"../peaksLayer".set_cell (Vector2i(city[0]-1, city[1]+1), 0, Vector2i(0,0), 2)
-											numberTiles-=1
-							4: 
-								if get_is_mountain(Vector2i(city[0]+1, city[1]-1)):
-									if (!get_is_peak(Vector2i(city[0]+1, city[1]-1))):
-										if (!get_is_city(Vector2i(city[0]+1, city[1]-1))):
-											$"../peaksLayer".set_cell (Vector2i(city[0]+1, city[1]-1), 0, Vector2i(0,0), 2)
-											numberTiles-=1
-							5: 
-								if get_is_mountain(Vector2i(city[0]-1, city[1]-1)):
-									if (!get_is_peak(Vector2i(city[0]-1, city[1]-1))): 
-										if (!get_is_city(Vector2i(city[0]-1, city[1]-1))):
-											$"../peaksLayer".set_cell (Vector2i(city[0]-1, city[1]-1), 0, Vector2i(0,0), 1)
-											numberTiles-=1
-						if randomDirection == randomArray[5]:
-							numberTiles=0
-				numberTiles=0
-
-func generate_Mountain_city2() -> void:
 	randomize()
-	var randomCity = randi()%mountainArray.size()
 	var citiesCreated = 0
-	if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
-		$"../peaksLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
-		citiesCreated+=1
-		print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
+	var spawnOk = 0
+	while !citiesCreated:
+		var randomCity = randi()%mountainArray.size()
+		if cityArray.size()>=1:
+			for city in cityArray:
+				if abs(city[0]-mountainArray[randomCity][0])>=3 && abs(city[1]-mountainArray[randomCity][1])>=3:
+					spawnOk = 1
+		else: spawnOk = 1
+		if spawnOk:
+			if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
+				var mountainList = [mountainArray[randomCity][0],mountainArray[randomCity][1]]
+				$"../cityLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
+				citiesCreated+=1
+				print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
+				cityArray.append(mountainList)
+				spawnOk = 0
 #func generate_river() -> void:
 	#pass
+
+func generate_Plain_city() -> void:
+	randomize()
+	var citiesCreated = 0
+	var spawnOk = 0
+	while !citiesCreated:
+		var randomCity = randi()%plainArray.size()
+		if cityArray.size()>=1:
+			for city in cityArray:
+				if abs(city[0]-plainArray[randomCity][0])>=3 && abs(city[1]-plainArray[randomCity][1])>=3:
+					spawnOk = 1
+		else: spawnOk = 1
+		if spawnOk:
+			if !get_is_city(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1])) && !citiesCreated:
+				var plainList = [plainArray[randomCity][0],plainArray[randomCity][1]]
+				$"../cityLayer".set_cell (Vector2i(plainArray[randomCity][0], plainArray[randomCity][1]), 0, Vector2i(0,0), 1)
+				citiesCreated+=1
+				print("xP", plainArray[randomCity][0], "yP", plainArray[randomCity][1])
+				cityArray.append(plainList)
+				spawnOk = 0
 
 func set_up_map_height_map() -> void:
 	randomize()
@@ -216,18 +193,15 @@ func clean_terrain_map() -> void:
 	tile_map_data.clear()
 
 func _physics_process(_delta):
-	if research.visible == true:
-		pass #how do i disable this function in a better way?
+	var mouse_pos_global = get_viewport().get_mouse_position()
+	var mouse_pos_local = to_local(mouse_pos_global)
+	var tile_pos = local_to_map(mouse_pos_local)
+	if (get_is_interactable(tile_pos)):
+		highlight_hex(tile_pos)
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			select_hex(tile_pos)
 	else:
-		var mouse_pos_global = get_viewport().get_mouse_position()
-		var mouse_pos_local = to_local(mouse_pos_global)
-		var tile_pos = local_to_map(mouse_pos_local)
-		if (get_is_interactable(tile_pos)):
-			highlight_hex(tile_pos)
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				select_hex(tile_pos)
-		else:
-			highlight_hex(Vector2i(-2,-2))
+		highlight_hex(Vector2i(-2,-2))
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
@@ -265,6 +239,17 @@ func get_is_mountain(tile_pos) -> bool:
 	if data:
 		var is_mountain: float = data.get_custom_data("isMountain")
 		if is_mountain == 1:
+			return true
+	return false
+	
+func get_is_plain(tile_pos) -> bool:
+	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+	
+	if data:
+		var is_plain: float = data.get_custom_data("isPlain")
+		if is_plain == 1:
 			return true
 	return false
 
