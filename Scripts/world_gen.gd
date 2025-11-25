@@ -37,6 +37,11 @@ func generate_map() -> void:
 	$"../forest3Layer".clear()
 	$"../peaksLayer".clear()
 	$"../cityLayer".clear()
+	$"../water".clear()
+	$"../quake".clear()
+	$"../tsunami".clear()
+	$"../fire".clear()
+	$"../tornado".clear()
 	set_up_map_height_map()
 	mapArray.clear()
 	peakArray.clear()
@@ -212,6 +217,7 @@ func select_hex(cellPos: Vector2i):
 	#set_on_water(cellPos)
 	#set_on_tornado(cellPos)
 	#set_on_quake(cellPos)
+	set_on_tsunami(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -283,3 +289,20 @@ func set_on_tornado(tile_pos) -> void:
 func set_on_quake(tile_pos) -> void:
 	$"../quake".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
 	print("quake added")
+
+func set_on_tsunami(tile_pos) -> void:
+	$"../tsunami".set_cell(Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(0,1), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(0,-1), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(1,0), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(-1,0), 0, Vector2i.ZERO, 0)
+	if (tile_pos[0]%2==0):
+		$"../tsunami".set_cell(tile_pos+Vector2i(1,-1), 0, Vector2i.ZERO, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(-1,-1), 0, Vector2i.ZERO, 0)
+	else:
+		$"../tsunami".set_cell(tile_pos+Vector2i(1,1), 0, Vector2i.ZERO, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
+
+func tsunami_wave(tile_pos) -> void:
+	#set_on_tsunami(tile_pos)
+	pass
