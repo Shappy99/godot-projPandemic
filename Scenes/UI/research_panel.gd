@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 @onready var label: Label = $Label
 @onready var research: Control = $"../../.."
 @onready var hud: Control = $"../../../../GUI/HUD"
