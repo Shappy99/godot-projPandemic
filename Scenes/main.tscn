@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=3 uid="uid://c63s02v0dw0ut"]
+[gd_scene load_steps=45 format=4 uid="uid://c63s02v0dw0ut"]
 
 [ext_resource type="PackedScene" uid="uid://c7snuliuemxt6" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://bhgfbg1klctsv" path="res://Scripts/astar.gd" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://cf62ejepvbhbl" path="res://Scripts/astar.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
+[ext_resource type="Texture2D" uid="uid://dfrocx2h3xln0" path="res://Tiles/2.png" id="3_fdnlq"]
 [ext_resource type="PackedScene" uid="uid://so5e4dsow41p" path="res://Scenes/fire.tscn" id="4_21xkr"]
 [ext_resource type="Texture2D" uid="uid://cwloc8ssauj3e" path="res://Tiles/6.png" id="4_344ge"]
 [ext_resource type="Texture2D" uid="uid://dn7xna1tuqdc7" path="res://Tiles/quake/cracks2.png" id="4_d1ilt"]
@@ -11,6 +12,26 @@
 [ext_resource type="Texture2D" uid="uid://il6q6yfd7xbu" path="res://Tiles/5.png" id="6_hptm8"]
 [ext_resource type="Texture2D" uid="uid://drehqlj4c2025" path="res://Tiles/water/waterAE.png" id="8_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://bp34n6pkwwvcy" path="res://Tiles/tornado/tornado-ezgif.com-gif-to-sprite-converter.png" id="9_hptm8"]
+[ext_resource type="Script" uid="uid://cil6jhcx3fih5" path="res://Scenes/camera_2d.gd" id="12_6iyac"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hibaj"]
+texture = ExtResource("4_344ge")
+margins = Vector2i(1, 9)
+texture_region_size = Vector2i(110, 96)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pdsj5"]
+texture = ExtResource("3_fdnlq")
+margins = Vector2i(1, 9)
+texture_region_size = Vector2i(110, 96)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_jkdf5"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(116, 96)
+sources/0 = SubResource("TileSetAtlasSource_hibaj")
+sources/1 = SubResource("TileSetAtlasSource_pdsj5")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k12tt"]
 texture = ExtResource("8_ynf5e")
@@ -30,7 +51,7 @@ texture_region_size = Vector2i(110, 96)
 [sub_resource type="TileSet" id="TileSet_hptm8"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/1 = SubResource("TileSetAtlasSource_k12tt")
 tile_proxies/coords_level = [[1, Vector2i(0, 0)], [31, Vector2i(0, 0)], [2, Vector2i(0, 0)], [31, Vector2i(1, 0)], [3, Vector2i(0, 0)], [31, Vector2i(2, 0)], [4, Vector2i(0, 0)], [31, Vector2i(3, 0)], [5, Vector2i(0, 0)], [31, Vector2i(4, 0)], [6, Vector2i(0, 0)], [31, Vector2i(5, 0)], [7, Vector2i(0, 0)], [31, Vector2i(6, 0)], [8, Vector2i(0, 0)], [31, Vector2i(7, 0)], [9, Vector2i(0, 0)], [31, Vector2i(8, 0)], [10, Vector2i(0, 0)], [12, Vector2i(2, 0)], [11, Vector2i(0, 0)], [12, Vector2i(3, 0)], [13, Vector2i(0, 0)], [18, Vector2i(0, 0)], [14, Vector2i(0, 0)], [18, Vector2i(1, 0)], [15, Vector2i(0, 0)], [18, Vector2i(2, 0)], [16, Vector2i(0, 0)], [18, Vector2i(3, 0)], [17, Vector2i(0, 0)], [18, Vector2i(4, 0)], [18, Vector2i(0, 0)], [20, Vector2i(0, 0)], [18, Vector2i(1, 0)], [20, Vector2i(1, 0)], [18, Vector2i(2, 0)], [20, Vector2i(2, 0)], [18, Vector2i(3, 0)], [20, Vector2i(3, 0)], [18, Vector2i(4, 0)], [20, Vector2i(4, 0)], [19, Vector2i(0, 0)], [20, Vector2i(5, 0)], [19, Vector2i(1, 0)], [20, Vector2i(6, 0)], [19, Vector2i(2, 0)], [20, Vector2i(7, 0)], [19, Vector2i(3, 0)], [20, Vector2i(8, 0)]]
 
@@ -43,7 +64,7 @@ texture_region_size = Vector2i(110, 96)
 [sub_resource type="TileSet" id="TileSet_6iyac"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_b3802")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fevyy"]
@@ -64,7 +85,7 @@ texture_region_size = Vector2i(110, 96)
 [sub_resource type="TileSet" id="TileSet_fdnlq"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_fevyy")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
@@ -74,7 +95,6 @@ texture_region_size = Vector2i(36, 48)
 0:0/0 = 0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jjvhh"]
-load_path = "res://.godot/imported/31231232-re2.png-25af6550d517be8e0767fe5810568900.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_21xkr"]
 texture = SubResource("CompressedTexture2D_jjvhh")
@@ -85,7 +105,7 @@ texture_region_size = Vector2i(18, 24)
 [sub_resource type="TileSet" id="TileSet_6bp64"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_6bp64")
 sources/1 = SubResource("TileSetAtlasSource_21xkr")
 
@@ -104,7 +124,7 @@ texture_region_size = Vector2i(18, 24)
 [sub_resource type="TileSet" id="TileSet_21xkr"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_ynf5e")
 sources/2 = SubResource("TileSetAtlasSource_jjvhh")
 
@@ -123,7 +143,7 @@ texture_region_size = Vector2i(18, 24)
 [sub_resource type="TileSet" id="TileSet_ynf5e"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_hptm8")
 sources/2 = SubResource("TileSetAtlasSource_344ge")
 
@@ -174,7 +194,7 @@ texture_region_size = Vector2i(36, 48)
 [sub_resource type="TileSet" id="TileSet_jjvhh"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 custom_data_layer_0/name = "isPeak"
 custom_data_layer_0/type = 1
 sources/9 = SubResource("TileSetAtlasSource_d1ilt")
@@ -197,7 +217,7 @@ texture_region_size = Vector2i(36, 48)
 [sub_resource type="TileSet" id="TileSet_344ge"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 custom_data_layer_0/name = "isCity"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6iyac")
@@ -208,7 +228,7 @@ scenes/1/scene = ExtResource("4_21xkr")
 [sub_resource type="TileSet" id="TileSet_kry3j"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/1 = SubResource("TileSetScenesCollectionSource_6bp64")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1bgf"]
@@ -268,7 +288,7 @@ texture_region_size = Vector2i(256, 256)
 [sub_resource type="TileSet" id="TileSet_d1ilt"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_h1bgf")
 
 [node name="main" type="Node2D"]
@@ -276,9 +296,12 @@ sources/0 = SubResource("TileSetAtlasSource_h1bgf")
 [node name="map" type="Node2D" parent="."]
 script = ExtResource("1_jjvhh")
 
+[node name="border" type="TileMapLayer" parent="map"]
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray("AAAHAP//AQAAAAAAAAAFAP//AQAAAAAAAAADAP//AQAAAAAAAAABAP//AQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAD//wMAAQAAAAAAAAD//wQAAQAAAAAAAAD//wUAAQAAAAAAAAD//wYAAQAAAAAAAAD//wcAAQAAAAAAAAD//wgAAQAAAAAAAAD//wkAAQAAAAAAAAD//woAAQAAAAAAAAAVAP//AQAAAAAAAAATAP//AQAAAAAAAAARAP//AQAAAAAAAAAPAP//AQAAAAAAAAANAP//AQAAAAAAAAALAP//AQAAAAAAAAAJAP//AQAAAAAAAAAAAP//AQAAAAAAAAACAP//AQAAAAAAAAAEAP//AQAAAAAAAAAGAP//AQAAAAAAAAAIAP//AQAAAAAAAAAKAP//AQAAAAAAAAAMAP//AQAAAAAAAAAOAP//AQAAAAAAAAAQAP//AQAAAAAAAAASAP//AQAAAAAAAAAUAP//AQAAAAAAAAAXAP//AQAAAAAAAAAZAP//AQAAAAAAAAAbAP//AQAAAAAAAAAcAAAAAQAAAAAAAAAcAAEAAQAAAAAAAAAcAAIAAQAAAAAAAAAcAAMAAQAAAAAAAAAcAAQAAQAAAAAAAAAcAAUAAQAAAAAAAAAcAAYAAQAAAAAAAAAcAAcAAQAAAAAAAAAcAAgAAQAAAAAAAAAcAAkAAQAAAAAAAAAcAAoAAQAAAAAAAAAcAAsAAQAAAAAAAAAWAP//AQAAAAAAAAAYAP//AQAAAAAAAAAaAP//AQAAAAAAAAD//wsAAQAAAAAAAAD//wwAAQAAAAAAAAD//w0AAQAAAAAAAAD//w4AAQAAAAAAAAD//w8AAQAAAAAAAAD//xAAAQAAAAAAAAD//xEAAQAAAAAAAAAAABIAAQAAAAAAAAABABIAAQAAAAAAAAACABIAAQAAAAAAAAADABIAAQAAAAAAAAAEABIAAQAAAAAAAAAFABIAAQAAAAAAAAAGABIAAQAAAAAAAAAHABIAAQAAAAAAAAAIABIAAQAAAAAAAAAJABIAAQAAAAAAAAAKABIAAQAAAAAAAAALABIAAQAAAAAAAAAMABIAAQAAAAAAAAANABIAAQAAAAAAAAAOABIAAQAAAAAAAAAPABIAAQAAAAAAAAAQABIAAQAAAAAAAAARABIAAQAAAAAAAAASABIAAQAAAAAAAAATABIAAQAAAAAAAAAUABIAAQAAAAAAAAAVABIAAQAAAAAAAAAWABIAAQAAAAAAAAAXABIAAQAAAAAAAAAYABIAAQAAAAAAAAAZABIAAQAAAAAAAAAaABIAAQAAAAAAAAAbABIAAQAAAAAAAAAcABIAAQAAAAAAAAAcABEAAQAAAAAAAAAcABAAAQAAAAAAAAAcAA8AAQAAAAAAAAAcAA4AAQAAAAAAAAAcAA0AAQAAAAAAAAAcAAwAAQAAAAAAAAD+////AQAAAAAAAAD///7/AQAAAAAAAAABAP7/AQAAAAAAAAADAP7/AQAAAAAAAAAFAP7/AQAAAAAAAAAHAP7/AQAAAAAAAAAAAP7/AQAAAAAAAAACAP7/AQAAAAAAAAAEAP7/AQAAAAAAAAAGAP7/AQAAAAAAAAAIAP7/AQAAAAAAAAAJAP7/AQAAAAAAAAAKAP7/AQAAAAAAAAALAP7/AQAAAAAAAAAMAP7/AQAAAAAAAAANAP7/AQAAAAAAAAAOAP7/AQAAAAAAAAAPAP7/AQAAAAAAAAAQAP7/AQAAAAAAAAARAP7/AQAAAAAAAAASAP7/AQAAAAAAAAATAP7/AQAAAAAAAAAUAP7/AQAAAAAAAAAVAP7/AQAAAAAAAAAWAP7/AQAAAAAAAAAXAP7/AQAAAAAAAAAYAP7/AQAAAAAAAAAZAP7/AQAAAAAAAAAaAP7/AQAAAAAAAAAbAP7/AQAAAAAAAAAcAP//AQAAAAAAAAAdAP//AQAAAAAAAAAdAAAAAQAAAAAAAAAdAAEAAQAAAAAAAAAdAAIAAQAAAAAAAAAdAAMAAQAAAAAAAAAdAAQAAQAAAAAAAAAdAAUAAQAAAAAAAAAdAAYAAQAAAAAAAAAdAAcAAQAAAAAAAAAdAAgAAQAAAAAAAAAdAAkAAQAAAAAAAAAdAAoAAQAAAAAAAAAdAAsAAQAAAAAAAAAdAAwAAQAAAAAAAAAdAA0AAQAAAAAAAAAdAA4AAQAAAAAAAAAdAA8AAQAAAAAAAAAdABAAAQAAAAAAAAAdABEAAQAAAAAAAAAdABIAAQAAAAAAAAAcABMAAQAAAAAAAAAbABMAAQAAAAAAAAAaABMAAQAAAAAAAAAZABMAAQAAAAAAAAAYABMAAQAAAAAAAAAXABMAAQAAAAAAAAAWABMAAQAAAAAAAAAVABMAAQAAAAAAAAAUABMAAQAAAAAAAAATABMAAQAAAAAAAAASABMAAQAAAAAAAAARABMAAQAAAAAAAAAQABMAAQAAAAAAAAAPABMAAQAAAAAAAAAOABMAAQAAAAAAAAANABMAAQAAAAAAAAAMABMAAQAAAAAAAAALABMAAQAAAAAAAAAKABMAAQAAAAAAAAAJABMAAQAAAAAAAAAIABMAAQAAAAAAAAAHABMAAQAAAAAAAAAGABMAAQAAAAAAAAAFABMAAQAAAAAAAAAEABMAAQAAAAAAAAADABMAAQAAAAAAAAACABMAAQAAAAAAAAABABMAAQAAAAAAAAAAABMAAQAAAAAAAAD//xIAAQAAAAAAAAD+/xIAAQAAAAAAAAD+/xEAAQAAAAAAAAD+/xAAAQAAAAAAAAD+/w8AAQAAAAAAAAD+/w4AAQAAAAAAAAD+/w0AAQAAAAAAAAD+/wwAAQAAAAAAAAD+/wsAAQAAAAAAAAD+/woAAQAAAAAAAAD+/wkAAQAAAAAAAAD+/wgAAQAAAAAAAAD+/wcAAQAAAAAAAAD+/wYAAQAAAAAAAAD+/wUAAQAAAAAAAAD+/wQAAQAAAAAAAAD+/wMAAQAAAAAAAAD+/wIAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_jkdf5")
+
 [node name="worldGen" parent="map" instance=ExtResource("1_jjgbg")]
-map_width = 28
-map_height = 18
 
 [node name="water" type="TileMapLayer" parent="map"]
 scale = Vector2(0.5, 0.5)
@@ -327,3 +350,12 @@ tile_set = SubResource("TileSet_d1ilt")
 
 [node name="UI" parent="UILayer" node_paths=PackedStringArray("map_gen") instance=ExtResource("2_bo1nx")]
 map_gen = NodePath("../../map/worldGen")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(0.9, 0.9)
+limit_left = 0
+limit_top = 0
+limit_right = 165
+limit_bottom = 288
+script = ExtResource("12_6iyac")

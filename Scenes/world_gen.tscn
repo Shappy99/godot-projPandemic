@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
 [ext_resource type="Texture2D" uid="uid://dfvol6sqn26j2" path="res://Tiles/hex_grid.png" id="3_6kjas"]
-[ext_resource type="Script" uid="uid://dmxnipyt7deu" path="res://Scenes/select_marker.gd" id="5_20fb0"]
-[ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scenes/marker.gd" id="5_p1bgi"]
+[ext_resource type="Script" uid="uid://wpyvkwckrxrq" path="res://Scenes/select_marker.gd" id="5_20fb0"]
+[ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scripts/marker.gd" id="5_p1bgi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6kjas"]
 texture = ExtResource("3_6kjas")
@@ -19,7 +19,7 @@ texture_region_size = Vector2i(110, 96)
 [sub_resource type="TileSet" id="TileSet_p1bgi"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(106, 96)
+tile_size = Vector2i(116, 96)
 custom_data_layer_0/name = "interactable"
 custom_data_layer_0/type = 1
 custom_data_layer_1/name = "isMountain"

@@ -4,11 +4,12 @@ extends TileMapLayer
 @onready var marker: Node2D = get_node("Marker") # Child Node2D
 @onready var selMarker: Node2D = get_node("selectMarker") # Child Node2D
 
-@export var map_width : int = 40
-@export var map_height : int = 30
+@export var map_width : int = 28
+@export var map_height : int = 18
 @export var map_res_mult : float = 10.0
 
 @export var map_height_map : FastNoiseLite = null
+#@export var camera : Node2D
 
 func is_equal_to_0(number):
 	return number == 0
@@ -202,8 +203,12 @@ func set_up_map_height_map() -> void:
 func clean_terrain_map() -> void:
 	tile_map_data.clear()
 
+#func _ready() -> void:
+	#camera = get_node("Camera2D")
+
 func _physics_process(_delta):
-	var mouse_pos_global = get_viewport().get_mouse_position()
+	#var mouse_pos_global = get_viewport().get_mouse_position()
+	var mouse_pos_global = get_global_mouse_position()
 	var mouse_pos_local = to_local(mouse_pos_global)
 	var tile_pos = local_to_map(mouse_pos_local)
 	if (get_is_interactable(tile_pos)):
@@ -223,7 +228,7 @@ func select_hex(cellPos: Vector2i):
 	#set_on_tornado(cellPos)
 	#set_on_quake(cellPos)
 	#set_on_tsunami(cellPos)
-	tsunami_wave(cellPos, 2)
+	#tsunami_wave(cellPos, 2)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
