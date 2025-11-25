@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d3a4l545v5ubh"]
+[gd_scene load_steps=35 format=3 uid="uid://d3a4l545v5ubh"]
 
 [ext_resource type="PackedScene" uid="uid://dkg8csm7n4yrm" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bhgfbg1klctsv" path="res://Scripts/astar.gd" id="1_jjvhh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cv7t6bmt1a215" path="res://Tiles/4.png" id="5_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://il6q6yfd7xbu" path="res://Tiles/5.png" id="6_hptm8"]
 [ext_resource type="Texture2D" uid="uid://drehqlj4c2025" path="res://Tiles/water/waterAE.png" id="8_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://bp34n6pkwwvcy" path="res://Tiles/tornado/tornado-ezgif.com-gif-to-sprite-converter.png" id="9_hptm8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k12tt"]
 texture = ExtResource("8_ynf5e")
@@ -176,6 +177,66 @@ tile_offset_axis = 1
 tile_size = Vector2i(106, 96)
 sources/1 = SubResource("TileSetScenesCollectionSource_6bp64")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1bgf"]
+texture = ExtResource("9_hptm8")
+texture_region_size = Vector2i(256, 256)
+0:0/animation_columns = 5
+0:0/animation_frame_0/duration = 0.02
+0:0/animation_frame_1/duration = 0.02
+0:0/animation_frame_2/duration = 0.02
+0:0/animation_frame_3/duration = 0.02
+0:0/animation_frame_4/duration = 0.02
+0:0/animation_frame_5/duration = 0.02
+0:0/animation_frame_6/duration = 0.02
+0:0/animation_frame_7/duration = 0.02
+0:0/animation_frame_8/duration = 0.02
+0:0/animation_frame_9/duration = 0.02
+0:0/animation_frame_10/duration = 0.02
+0:0/animation_frame_11/duration = 0.02
+0:0/animation_frame_12/duration = 0.02
+0:0/animation_frame_13/duration = 0.02
+0:0/animation_frame_14/duration = 0.02
+0:0/animation_frame_15/duration = 0.02
+0:0/animation_frame_16/duration = 0.02
+0:0/animation_frame_17/duration = 0.02
+0:0/animation_frame_18/duration = 0.02
+0:0/animation_frame_19/duration = 0.02
+0:0/animation_frame_20/duration = 0.02
+0:0/animation_frame_21/duration = 0.02
+0:0/animation_frame_22/duration = 0.02
+0:0/animation_frame_23/duration = 0.02
+0:0/animation_frame_24/duration = 0.02
+0:0/animation_frame_25/duration = 0.02
+0:0/animation_frame_26/duration = 0.02
+0:0/animation_frame_27/duration = 0.02
+0:0/animation_frame_28/duration = 0.02
+0:0/animation_frame_29/duration = 0.02
+0:0/animation_frame_30/duration = 0.02
+0:0/animation_frame_31/duration = 0.02
+0:0/animation_frame_32/duration = 0.02
+0:0/animation_frame_33/duration = 0.02
+0:0/animation_frame_34/duration = 0.02
+0:0/animation_frame_35/duration = 0.02
+0:0/animation_frame_36/duration = 0.02
+0:0/animation_frame_37/duration = 0.02
+0:0/animation_frame_38/duration = 0.02
+0:0/animation_frame_39/duration = 0.02
+0:0/animation_frame_40/duration = 0.02
+0:0/animation_frame_41/duration = 0.02
+0:0/animation_frame_42/duration = 0.02
+0:0/animation_frame_43/duration = 0.02
+0:0/animation_frame_44/duration = 0.02
+0:0/animation_frame_45/duration = 0.02
+0:0/animation_frame_46/duration = 0.02
+0:0/animation_frame_47/duration = 0.02
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_d1ilt"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(106, 96)
+sources/0 = SubResource("TileSetAtlasSource_h1bgf")
+
 [node name="main" type="Node2D"]
 
 [node name="map" type="Node2D" parent="."]
@@ -215,6 +276,10 @@ tile_set = SubResource("TileSet_344ge")
 [node name="fire" type="TileMapLayer" parent="map"]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_kry3j")
+
+[node name="tornado" type="TileMapLayer" parent="map"]
+scale = Vector2(0.5, 0.5)
+tile_set = SubResource("TileSet_d1ilt")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
