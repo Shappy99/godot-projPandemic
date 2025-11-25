@@ -28,10 +28,7 @@ var cityArray = []
 var mountainArray = []
 var plainArray = []
 
-func generate_map() -> void:
-	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
-	
-	clean_terrain_map()
+func clear_all_layers() -> void:
 	$"../forestLayer".clear()
 	$"../forest2Layer".clear()
 	$"../forest3Layer".clear()
@@ -42,13 +39,21 @@ func generate_map() -> void:
 	$"../tsunami".clear()
 	$"../fire".clear()
 	$"../tornado".clear()
-	set_up_map_height_map()
+
+func clear_all_arrays() -> void:
 	mapArray.clear()
 	peakArray.clear()
 	cityArray.clear()
 	mountainArray.clear()
 	plainArray.clear()
-	
+
+func generate_map() -> void:
+	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
+	clear_all_layers()
+	clean_terrain_map()
+	clear_all_arrays()
+	set_up_map_height_map()
+
 	for x in map_width:
 		for y in map_height:
 			var random_height_value = abs(roundi(map_height_map.get_noise_2d(x,y) * map_res_mult))
@@ -217,7 +222,8 @@ func select_hex(cellPos: Vector2i):
 	#set_on_water(cellPos)
 	#set_on_tornado(cellPos)
 	#set_on_quake(cellPos)
-	set_on_tsunami(cellPos)
+	#set_on_tsunami(cellPos)
+	tsunami_wave(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -304,5 +310,28 @@ func set_on_tsunami(tile_pos) -> void:
 		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
 
 func tsunami_wave(tile_pos) -> void:
-	#set_on_tsunami(tile_pos)
-	pass
+	var directions = []
+	var top = tile_pos+Vector2i(0,1)
+	var bot = tile_pos+Vector2i(0,-1)
+	var top_right = Vector2i()
+	var top_left = Vector2i()
+	var bot_right = Vector2i()
+	var bot_left = Vector2i()
+	if tile_pos[0]%2==0:
+		top_right = tile_pos+Vector2i(1,0)
+		top_left = tile_pos+Vector2i(-1,0)
+		bot_right = tile_pos+Vector2i(1,-1)
+		bot_left = tile_pos+Vector2i(-1,-1)
+	else:
+		top_right = tile_pos+Vector2i(1,1)
+		top_left = tile_pos+Vector2i(-1,1)
+		bot_right = tile_pos+Vector2i(1,0)
+		bot_left = tile_pos+Vector2i(-1,0)
+	directions.append(top)
+	directions.append(bot)
+	directions.append(top_right)
+	directions.append(top_left)
+	directions.append(bot_right)
+	directions.append(bot_left)
+	for direction in directions:
+		set_on_tsunami(direction)
