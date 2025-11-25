@@ -223,7 +223,7 @@ func select_hex(cellPos: Vector2i):
 	#set_on_tornado(cellPos)
 	#set_on_quake(cellPos)
 	#set_on_tsunami(cellPos)
-	tsunami_wave(cellPos)
+	tsunami_wave(cellPos, 2)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -309,7 +309,7 @@ func set_on_tsunami(tile_pos) -> void:
 		$"../tsunami".set_cell(tile_pos+Vector2i(1,1), 0, Vector2i.ZERO, 0)
 		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
 
-func tsunami_wave(tile_pos) -> void:
+func tsunami_wave(tile_pos, range) -> void:
 	var directions = []
 	var top = tile_pos+Vector2i(0,1)
 	var bot = tile_pos+Vector2i(0,-1)
@@ -333,5 +333,12 @@ func tsunami_wave(tile_pos) -> void:
 	directions.append(top_left)
 	directions.append(bot_right)
 	directions.append(bot_left)
-	for direction in directions:
-		set_on_tsunami(direction)
+	if range > 1:
+		for direction in directions:
+			range-=1
+			tsunami_wave(direction, range)
+		for direction in directions:
+			set_on_tsunami(direction)
+		range-=1
+	else:
+		set_on_tsunami(tile_pos)
