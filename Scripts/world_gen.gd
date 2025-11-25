@@ -210,7 +210,8 @@ func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
 	#set_on_fire(cellPos)
 	#set_on_water(cellPos)
-	set_on_tornado(cellPos)
+	#set_on_tornado(cellPos)
+	#set_on_quake(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -278,3 +279,7 @@ func set_on_water(tile_pos) -> void:
 func set_on_tornado(tile_pos) -> void:
 	$"../tornado".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
 	print("tornado added")
+
+func set_on_quake(tile_pos) -> void:
+	$"../quake".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+	print("quake added")
