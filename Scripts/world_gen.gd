@@ -9,7 +9,6 @@ extends TileMapLayer
 @export var map_res_mult : float = 10.0
 
 @export var map_height_map : FastNoiseLite = null
-#@export var camera : Node2D
 
 func is_equal_to_0(number):
 	return number == 0
@@ -17,7 +16,7 @@ func is_equal_to_1(number):
 	return number == 1
 func is_equal_to_2(number):
 	return number == 2
-func isSeedOk():
+func isSeedOk(): ## make it percentage rather than fixed number of tiles
 	if mapArray.filter(is_equal_to_2).size() >= 50 && mapArray.filter(is_equal_to_2).size() <= 100:
 		if mapArray.filter(is_equal_to_1).size() >= 250 && mapArray.filter(is_equal_to_1).size() <= 300:
 			return true
@@ -170,11 +169,8 @@ func generate_Mountain_city() -> void:
 				var mountainList = [mountainArray[randomCity][0],mountainArray[randomCity][1]]
 				$"../cityLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
 				citiesCreated+=1
-				print("x", mountainArray[randomCity][0], "y", mountainArray[randomCity][1])
 				cityArray.append(mountainList)
 				spawnOk = 0
-#func generate_river() -> void:
-	#pass
 
 func generate_Plain_city() -> void:
 	randomize()
@@ -192,7 +188,6 @@ func generate_Plain_city() -> void:
 				var plainList = [plainArray[randomCity][0],plainArray[randomCity][1]]
 				$"../cityLayer".set_cell (Vector2i(plainArray[randomCity][0], plainArray[randomCity][1]), 0, Vector2i(0,0), 1)
 				citiesCreated+=1
-				print("xP", plainArray[randomCity][0], "yP", plainArray[randomCity][1])
 				cityArray.append(plainList)
 				spawnOk = 0
 
@@ -203,11 +198,8 @@ func set_up_map_height_map() -> void:
 func clean_terrain_map() -> void:
 	tile_map_data.clear()
 
-#func _ready() -> void:
-	#camera = get_node("Camera2D")
-
 func _physics_process(_delta):
-	#var mouse_pos_global = get_viewport().get_mouse_position()
+	#var mouse_pos_global = get_viewport().get_mouse_position() #old
 	var mouse_pos_global = get_global_mouse_position()
 	var mouse_pos_local = to_local(mouse_pos_global)
 	var tile_pos = local_to_map(mouse_pos_local)
@@ -314,7 +306,7 @@ func set_on_tsunami(tile_pos) -> void:
 		$"../tsunami".set_cell(tile_pos+Vector2i(1,1), 0, Vector2i.ZERO, 0)
 		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
 
-func tsunami_wave(tile_pos, range) -> void:
+func tsunami_wave(tile_pos, waveRange) -> void:
 	var directions = []
 	var top = tile_pos+Vector2i(0,1)
 	var bot = tile_pos+Vector2i(0,-1)
@@ -338,12 +330,12 @@ func tsunami_wave(tile_pos, range) -> void:
 	directions.append(top_left)
 	directions.append(bot_right)
 	directions.append(bot_left)
-	if range > 1:
+	if waveRange > 1:
 		for direction in directions:
-			range-=1
-			tsunami_wave(direction, range)
+			waveRange-=1
+			tsunami_wave(direction, waveRange)
 		for direction in directions:
 			set_on_tsunami(direction)
-		range-=1
+		waveRange-=1
 	else:
 		set_on_tsunami(tile_pos)
