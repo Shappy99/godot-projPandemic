@@ -90,7 +90,7 @@ func generate_map() -> void:
 			var y = peak[1]
 			while numberOfTiles!=0:
 							if (!get_is_peak(Vector2i(x,y))):
-								$"../peaksLayer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
+								$"../peaksLayer".set_cell (Vector2i(x,y), 2, Vector2i(0,0), 0)
 								numberOfTiles-=1
 							else:
 								var randomArray = [0,1,2,3,4,5]
@@ -104,37 +104,37 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x,y+1)):
 													if (!get_is_peak(Vector2i(x,y+1))):
 														if (!get_is_city(Vector2i(x,y+1))):
-															$"../peaksLayer".set_cell (Vector2i(x,y+1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x,y+1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											1: 
 												if get_is_mountain(Vector2i(x,y-1)): 
 													if (!get_is_peak(Vector2i(x,y-1))):
 														if (!get_is_city(Vector2i(x,y-1))):
-															$"../peaksLayer".set_cell (Vector2i(x,y-1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x,y-1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											2:
 												if get_is_mountain(Vector2i(x+1,y+1)):
 													if (!get_is_peak(Vector2i(x+1,y+1))):
 														if (!get_is_city(Vector2i(x+1,y+1))):
-															$"../peaksLayer".set_cell (Vector2i(x+1,y+1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x+1,y+1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											3: 
 												if get_is_mountain(Vector2i(x-1, y+1)): 
 													if (!get_is_peak(Vector2i(x-1,y+1))):
 														if (!get_is_city(Vector2i(x-1,y+1))):
-															$"../peaksLayer".set_cell (Vector2i(x-1,y+1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x-1,y+1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											4: 
 												if get_is_mountain(Vector2i(x+1, y-1)):
 													if (!get_is_peak(Vector2i(x+1,y-1))):
 														if (!get_is_city(Vector2i(x+1,y-1))):
-															$"../peaksLayer".set_cell (Vector2i(x+1,y-1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x+1,y-1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											5: 
 												if get_is_mountain(Vector2i(x-1, y-1)):
 													if (!get_is_peak(Vector2i(x-1,y-1))): 
 														if (!get_is_city(Vector2i(x-1,y-1))):
-															$"../peaksLayer".set_cell (Vector2i(x-1,y-1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x-1,y-1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0

@@ -1,10 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://d3a4l545v5ubh"]
+[gd_scene load_steps=29 format=3 uid="uid://d3a4l545v5ubh"]
 
 [ext_resource type="PackedScene" uid="uid://dkg8csm7n4yrm" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://cf62ejepvbhbl" path="res://Scripts/astar.gd" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://bhgfbg1klctsv" path="res://Scripts/astar.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://so5e4dsow41p" path="res://Scenes/fire.tscn" id="4_21xkr"]
+[ext_resource type="Texture2D" uid="uid://cwloc8ssauj3e" path="res://Tiles/6.png" id="4_344ge"]
 [ext_resource type="Texture2D" uid="uid://du0r8fqa2un7x" path="res://Tiles/tree.png" id="4_kry3j"]
+[ext_resource type="Texture2D" uid="uid://cv7t6bmt1a215" path="res://Tiles/4.png" id="5_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://il6q6yfd7xbu" path="res://Tiles/5.png" id="6_hptm8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
 texture = ExtResource("4_kry3j")
@@ -66,21 +69,43 @@ tile_size = Vector2i(106, 96)
 sources/0 = SubResource("TileSetAtlasSource_hptm8")
 sources/2 = SubResource("TileSetAtlasSource_344ge")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1ilt"]
-texture = ExtResource("4_kry3j")
-margins = Vector2i(14, 11)
-texture_region_size = Vector2i(36, 48)
-0:0/next_alternative_id = 2
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jkdf5"]
+texture = ExtResource("5_ynf5e")
+margins = Vector2i(1, 9)
+texture_region_size = Vector2i(110, 96)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wsu2k"]
+texture = ExtResource("6_hptm8")
+margins = Vector2i(1, 9)
+texture_region_size = Vector2i(110, 96)
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fdnlq"]
+texture = ExtResource("4_344ge")
+margins = Vector2i(1, 9)
+texture_region_size = Vector2i(110, 96)
+0:0/next_alternative_id = 3
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8gbba"]
+texture = SubResource("CompressedTexture2D_jjvhh")
+margins = Vector2i(7, 5)
+texture_region_size = Vector2i(18, 24)
+0:0/next_alternative_id = 3
 0:0/0 = 0
 0:0/0/custom_data_0 = true
 0:0/2 = 2
 0:0/2/flip_v = true
 0:0/2/custom_data_0 = true
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8gbba"]
-texture = SubResource("CompressedTexture2D_jjvhh")
-margins = Vector2i(7, 5)
-texture_region_size = Vector2i(18, 24)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1ilt"]
+texture = ExtResource("4_kry3j")
+margins = Vector2i(14, 11)
+texture_region_size = Vector2i(36, 48)
 0:0/next_alternative_id = 3
 0:0/0 = 0
 0:0/0/custom_data_0 = true
@@ -94,8 +119,11 @@ tile_offset_axis = 1
 tile_size = Vector2i(106, 96)
 custom_data_layer_0/name = "isPeak"
 custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_d1ilt")
-sources/2 = SubResource("TileSetAtlasSource_8gbba")
+sources/9 = SubResource("TileSetAtlasSource_d1ilt")
+sources/8 = SubResource("TileSetAtlasSource_8gbba")
+sources/0 = SubResource("TileSetAtlasSource_jkdf5")
+sources/2 = SubResource("TileSetAtlasSource_fdnlq")
+sources/1 = SubResource("TileSetAtlasSource_wsu2k")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6iyac"]
 texture = ExtResource("4_kry3j")
@@ -149,7 +177,6 @@ scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_ynf5e")
 
 [node name="peaksLayer" type="TileMapLayer" parent="map" groups=["tilepeak"]]
-visible = false
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_jjvhh")
 

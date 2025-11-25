@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
 [ext_resource type="Texture2D" uid="uid://dfvol6sqn26j2" path="res://Tiles/hex_grid.png" id="3_6kjas"]
-[ext_resource type="Script" uid="uid://wpyvkwckrxrq" path="res://Scenes/select_marker.gd" id="5_20fb0"]
-[ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scripts/marker.gd" id="5_p1bgi"]
+[ext_resource type="Script" uid="uid://dmxnipyt7deu" path="res://Scenes/select_marker.gd" id="5_20fb0"]
+[ext_resource type="Script" uid="uid://busc3xds5pw67" path="res://Scenes/marker.gd" id="5_p1bgi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6kjas"]
 texture = ExtResource("3_6kjas")
@@ -27,7 +27,7 @@ custom_data_layer_1/type = 1
 custom_data_layer_2/name = "isPlain"
 custom_data_layer_2/type = 1
 sources/1 = SubResource("TileSetAtlasSource_6kjas")
-tile_proxies/coords_level = [[6, Vector2i(0, 0)], [9, Vector2i(0, 0)], [7, Vector2i(0, 0)], [9, Vector2i(1, 0)], [8, Vector2i(0, 0)], [9, Vector2i(2, 0)], [10, Vector2i(0, 0)], [13, Vector2i(0, 0)], [11, Vector2i(0, 0)], [13, Vector2i(1, 0)], [12, Vector2i(0, 0)], [13, Vector2i(2, 0)], [14, Vector2i(0, 0)], [17, Vector2i(0, 0)], [15, Vector2i(0, 0)], [17, Vector2i(1, 0)], [16, Vector2i(0, 0)], [17, Vector2i(2, 0)]]
+tile_proxies/coords_level = [[0, Vector2i(0, 0)], [5, Vector2i(0, 0)], [1, Vector2i(0, 0)], [9, Vector2i(0, 0)], [2, Vector2i(0, 0)], [5, Vector2i(1, 0)], [3, Vector2i(0, 0)], [5, Vector2i(2, 0)], [6, Vector2i(0, 0)], [9, Vector2i(0, 0)], [7, Vector2i(0, 0)], [9, Vector2i(1, 0)], [8, Vector2i(0, 0)], [9, Vector2i(2, 0)], [10, Vector2i(0, 0)], [13, Vector2i(0, 0)], [11, Vector2i(0, 0)], [13, Vector2i(1, 0)], [12, Vector2i(0, 0)], [13, Vector2i(2, 0)], [14, Vector2i(0, 0)], [17, Vector2i(0, 0)], [15, Vector2i(0, 0)], [17, Vector2i(1, 0)], [16, Vector2i(0, 0)], [17, Vector2i(2, 0)]]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b7tnw"]
 domain_warp_amplitude = 29.09
