@@ -191,6 +191,101 @@ func generate_Plain_city() -> void:
 				cityArray.append(plainList)
 				spawnOk = 0
 
+func generate_river(tilePos) -> void:
+	randomize()
+	var riversCreated = 0
+	var head = Vector2i(tilePos[0],tilePos[1])
+	while !riversCreated:
+		if !get_is_water(head):
+			if (!get_is_peak(head)):
+				$"../river".set_cell (head, 2, Vector2i(0,0), 1)
+		var randomRiver = (randi()%2)+(randi()%2)+(randi()%2)+3
+		for i in randomRiver-1:
+			#$"../river".set_cell (Vector2i(), 0, Vector2i(0,0), 1)
+			var randomArray = [0,1,2,3,4,5]
+			randomArray.shuffle()
+			for randomDirection in randomArray:
+				if i <= 0:
+					break
+				else:
+					match randomDirection:
+						0:
+							if !get_is_water(head+Vector2i(0,1)):
+								if (!get_is_peak(head+Vector2i(0,1))):
+									if !get_is_river(head+Vector2i(0,1)):
+										$"../river".set_cell (head+Vector2i(0,1), 2, Vector2i(0,0), 1)
+										head+=Vector2i(0,1)
+										i=0
+						1: 
+							if !get_is_water(head+Vector2i(0,-1)): 
+								if (!get_is_peak(head+Vector2i(0,-1))):
+									if !get_is_river(head+Vector2i(0,-1)): 
+										$"../river".set_cell (head+Vector2i(0,-1), 2, Vector2i(0,0), 1)
+										head+=Vector2i(0,-1)
+										i=0
+						2:
+							if head[0]%2==0:
+								if !get_is_water(head+Vector2i(1,-1)):
+									if (!get_is_peak(head+Vector2i(1,-1))):
+										if !get_is_river(head+Vector2i(1,-1)):
+											$"../river".set_cell (head+Vector2i(1,-1), 2, Vector2i(0,0), 1)
+											head+=Vector2i(1,-1)
+											i=0
+							else:
+								if !get_is_water(head+Vector2i(1,0)):
+									if (!get_is_peak(head+Vector2i(1,0))):
+										if !get_is_river(head+Vector2i(1,0)):
+											$"../river".set_cell (head+Vector2i(1,0), 2, Vector2i(0,0), 1)
+											head+=Vector2i(1,0)
+											i=0
+						3: 
+							if head[0]%2==0:
+								if !get_is_water(head+Vector2i(1,0)): 
+									if (!get_is_peak(head+Vector2i(1,0))):
+										if !get_is_river(head+Vector2i(1,0)):
+											$"../river".set_cell (head+Vector2i(1,0), 2, Vector2i(0,0), 1)
+											head+=Vector2i(1,0)
+											i=0
+							else:
+								if !get_is_water(head+Vector2i(1,1)): 
+									if (!get_is_peak(head+Vector2i(1,1))):
+										if !get_is_river(head+Vector2i(1,1)):
+											$"../river".set_cell (head+Vector2i(1,1), 2, Vector2i(0,0), 1)
+											head+=Vector2i(1,1)
+											i=0
+						4: 
+							if head[0]%2==0:
+								if !get_is_water(head+Vector2i(-1,0)):
+									if (!get_is_peak(head+Vector2i(-1,0))):
+										if !get_is_river(head+Vector2i(-1,0)):
+											$"../river".set_cell (head+Vector2i(-1,0), 2, Vector2i(0,0), 1)
+											head+=Vector2i(-1,0)
+											i=0
+							else:
+								if !get_is_water(head+Vector2i(-1,1)):
+									if (!get_is_peak(head+Vector2i(-1,1))):
+										if !get_is_river(head+Vector2i(-1,1)):
+											$"../river".set_cell (head+Vector2i(-1,1), 2, Vector2i(0,0), 1)
+											head+=Vector2i(-1,1)
+											i=0
+						5: 
+							if head[0]%2==0:
+								if !get_is_water(head+Vector2i(-1,-1)):
+									if (!get_is_peak(head+Vector2i(-1,-1))): 
+										if !get_is_river(head+Vector2i(-1,-1)):
+											$"../river".set_cell (head+Vector2i(-1,-1), 2, Vector2i(0,0), 1)
+											head+=Vector2i(-1,-1)
+											i=0
+							else:
+								if !get_is_water(head+Vector2i(-1,0)):
+									if (!get_is_peak(head+Vector2i(-1,0))): 
+										if !get_is_river(head+Vector2i(-1,0)):
+											$"../river".set_cell (head+Vector2i(-1,0), 2, Vector2i(0,0), 1)
+											head+=Vector2i(-1,0)
+											i=0
+					i=0
+		riversCreated=1
+
 func set_up_map_height_map() -> void:
 	randomize()
 	map_height_map.seed = randi()
@@ -220,7 +315,24 @@ func select_hex(cellPos: Vector2i):
 	#set_on_tornado(cellPos)
 	#set_on_quake(cellPos)
 	#set_on_tsunami(cellPos)
-	#tsunami_wave(cellPos, 2)
+	var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
+	#tsunami_wave(Vector2i(6,5), 3)
+	#tsunami_wave(Vector2i(14,4), 3)
+	#tsunami_wave(Vector2i(22,7), 3)
+	#tsunami_wave(Vector2i(8,13), 3)
+	#tsunami_wave(Vector2i(19,14), 3)
+	
+	#var numberOfCountries = 4
+	#for cell in countrySpawnCells:
+		#currentRange=2
+		#country_wave(cell, currentRange, 6, 4-numberOfCountries)
+		#numberOfCountries-=1
+	#numberOfCountries = 4
+	#currentRange=2
+	generate_river(cellPos)
+	
+	#print("ClickPos", cellPos)
+	#tsunami_wave(cellPos, 5)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -266,6 +378,28 @@ func get_is_plain(tile_pos) -> bool:
 			return true
 	return false
 
+func get_is_water(tile_pos) -> bool:
+	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+	
+	if data:
+		var is_water: float = data.get_custom_data("isWater")
+		if is_water == 1:
+			return true
+	return false
+
+func get_is_river(tile_pos) -> bool:
+	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("rivermap")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+	
+	if data:
+		var is_river: float = data.get_custom_data("isRiver")
+		if is_river == 1:
+			return true
+	return false
+
 func get_is_city(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilecity")
 	var cell = tile_pos
@@ -276,6 +410,16 @@ func get_is_city(tile_pos) -> bool:
 		if is_city == 1:
 			return true
 	return false
+
+func get_country_number(tile_pos) -> int:
+	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("countrymap")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+	
+	if data:
+		var countryNumber: int = data.get_custom_data("countryNumber")
+		return countryNumber
+	return 10	
 
 func set_on_fire(tile_pos) -> void:
 	$"../fire".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 1)
@@ -315,27 +459,99 @@ func tsunami_wave(tile_pos, waveRange) -> void:
 	var bot_right = Vector2i()
 	var bot_left = Vector2i()
 	if tile_pos[0]%2==0:
-		top_right = tile_pos+Vector2i(1,0)
-		top_left = tile_pos+Vector2i(-1,0)
-		bot_right = tile_pos+Vector2i(1,-1)
-		bot_left = tile_pos+Vector2i(-1,-1)
-	else:
-		top_right = tile_pos+Vector2i(1,1)
-		top_left = tile_pos+Vector2i(-1,1)
+		top_right = tile_pos+Vector2i(1,-1)
+		top_left = tile_pos+Vector2i(-1,-1)
 		bot_right = tile_pos+Vector2i(1,0)
 		bot_left = tile_pos+Vector2i(-1,0)
+	else:
+		top_right = tile_pos+Vector2i(1,0)
+		top_left = tile_pos+Vector2i(-1,0)
+		bot_right = tile_pos+Vector2i(1,1)
+		bot_left = tile_pos+Vector2i(-1,1)
 	directions.append(top)
 	directions.append(bot)
 	directions.append(top_right)
 	directions.append(top_left)
 	directions.append(bot_right)
 	directions.append(bot_left)
-	if waveRange > 1:
-		for direction in directions:
-			waveRange-=1
-			tsunami_wave(direction, waveRange)
-		for direction in directions:
-			set_on_tsunami(direction)
-		waveRange-=1
+	print("directions: ", directions)
+	set_on_tsunami(tile_pos)
+	#for x in range(2,waveRange):
+		#for direction in directions:
+			#set_on_tsunami(direction)
+	#if currentwaveRange <= waveRange:
+		#for direction in directions:
+			#set_on_tsunami(direction)
+		#currentwaveRange+=1
+		#for direction in directions:
+			#tsunami_wave(direction, waveRange)
+
+func set_country_territory(tile_pos, countryNumber) -> void:
+	if get_country_number(tile_pos) == 10:
+		$"../countries".set_cell(Vector2i(tile_pos), countryNumber, Vector2i.ZERO, 0)
+	if get_country_number(tile_pos+Vector2i(0,1)) == 10:
+		$"../countries".set_cell(tile_pos+Vector2i(0,1), countryNumber, Vector2i.ZERO, 0)
+	if get_country_number(tile_pos+Vector2i(0,-1)) == 10:
+		$"../countries".set_cell(tile_pos+Vector2i(0,-1), countryNumber, Vector2i.ZERO, 0)
+	if get_country_number(tile_pos+Vector2i(1,0)) == 10:
+		$"../countries".set_cell(tile_pos+Vector2i(1,0), countryNumber, Vector2i.ZERO, 0)
+	if get_country_number(tile_pos+Vector2i(-1,0)) == 10:
+		$"../countries".set_cell(tile_pos+Vector2i(-1,0), countryNumber, Vector2i.ZERO, 0)
+	if (tile_pos[0]%2==0):
+		if get_country_number(tile_pos+Vector2i(1,-1)) == 10:
+			$"../countries".set_cell(tile_pos+Vector2i(1,-1), countryNumber, Vector2i.ZERO, 0)
+		if get_country_number(tile_pos+Vector2i(-1,-1)) == 10:
+			$"../countries".set_cell(tile_pos+Vector2i(-1,-1), countryNumber, Vector2i.ZERO, 0)
 	else:
-		set_on_tsunami(tile_pos)
+		if get_country_number(tile_pos+Vector2i(1,1)) == 10:
+			$"../countries".set_cell(tile_pos+Vector2i(1,1), countryNumber, Vector2i.ZERO, 0)
+		if get_country_number(tile_pos+Vector2i(-1,1)) == 10:
+			$"../countries".set_cell(tile_pos+Vector2i(-1,1), countryNumber, Vector2i.ZERO, 0)
+
+var currentRange = 1
+
+func country_wave(tile_pos, currentRange, countryRange, countryNumber) -> void:
+	var directions = []
+	set_country_territory(tile_pos, countryNumber)
+	var top = tile_pos+Vector2i(0,1)
+	if get_country_number(top)==10 || get_country_number(top)==countryNumber:
+		directions.append(top)
+	var bot = tile_pos+Vector2i(0,-1)
+	if get_country_number(bot)==10 || get_country_number(bot)==countryNumber:
+		directions.append(bot)
+	var top_right = Vector2i()
+	var top_left = Vector2i()
+	var bot_right = Vector2i()
+	var bot_left = Vector2i()
+	if tile_pos[0]%2==0:
+		top_right = tile_pos+Vector2i(1,-1)
+		if get_country_number(top_right)==10 || get_country_number(top_right)==countryNumber:
+			directions.append(top_right)
+		top_left = tile_pos+Vector2i(-1,-1)
+		if get_country_number(top_left)==10 || get_country_number(top_left)==countryNumber:
+			directions.append(top_left)
+		bot_right = tile_pos+Vector2i(1,0)
+		if get_country_number(bot_right)==10 || get_country_number(bot_right)==countryNumber:
+			directions.append(bot_right)
+		bot_left = tile_pos+Vector2i(-1,0)
+		if get_country_number(bot_left)==10 || get_country_number(bot_left)==countryNumber:
+			directions.append(bot_left)
+	else:
+		top_right = tile_pos+Vector2i(1,0)
+		if get_country_number(top_right)==10 || get_country_number(top_right)==countryNumber:
+			directions.append(top_right)
+		top_left = tile_pos+Vector2i(-1,0)
+		if get_country_number(top_left)==10 || get_country_number(top_left)==countryNumber:
+			directions.append(top_left)
+		bot_right = tile_pos+Vector2i(1,1)
+		if get_country_number(bot_right)==10 || get_country_number(bot_right)==countryNumber:
+			directions.append(bot_right)
+		bot_left = tile_pos+Vector2i(-1,1)
+		if get_country_number(bot_left)==10 || get_country_number(bot_left)==countryNumber:
+			directions.append(bot_left)
+	for direction in directions:
+		set_country_territory(direction, countryNumber)
+	if currentRange < countryRange:
+		currentRange+=1
+		for direction in directions:
+			country_wave(direction, currentRange, countryRange, countryNumber)
