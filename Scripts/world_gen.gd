@@ -157,34 +157,51 @@ func generate_map() -> void:
 		#generate_Plain_city()
 	pass
 
-func generate_Mountain_city() -> void:
+func generate_Mountain_city(cityNumber) -> void:
 	randomize()
-	var citiesCreated = 0
-	var spawnOk = 0
-	while !citiesCreated:
-		var randomCity = randi()%mountainArray.size()
-		if cityArray.size()>=1:
-			for city in cityArray:
-				if abs(city[0]-mountainArray[randomCity][0])>=3 && abs(city[1]-mountainArray[randomCity][1])>=3:
-					spawnOk = 1
-		else: spawnOk = 1
-		if spawnOk:
-			if !get_is_peak(Vector2i(mountainArray[randomCity][0],mountainArray[randomCity][1])) && !citiesCreated:
-				var mountainList = [mountainArray[randomCity][0],mountainArray[randomCity][1]]
-				$"../cityLayer".set_cell (Vector2i(mountainArray[randomCity][0], mountainArray[randomCity][1]), 0, Vector2i(0,0), 1)
-				citiesCreated+=1
-				cityArray.append(mountainList)
-				spawnOk = 0
+	var spawnable = 0
+	mountainArray.shuffle()
+	var cityLocation = Vector2i.ZERO
+	for i in mountainArray:
+		if cityLocation == Vector2i.ZERO:
+			if get_country_number(Vector2i(i[0],i[1]))==cityNumber:
+				spawnable = 1
+				cityLocation = Vector2i(i[0],i[1])
+	if spawnable == 1:
+		if get_country_number(cityLocation)==cityNumber:
+			if !get_is_peak(cityLocation):
+				if !get_is_city(cityLocation):
+					$"../cityLayer".set_cell (cityLocation, 0, Vector2i(0,0), 1)
 
 func generate_Plain_city(cityNumber) -> void:
 	randomize()
-	var citiesCreated = 0
-	while !citiesCreated:
-		var randomCity = randi()%plainArray.size()
-		if get_country_number(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1]))==cityNumber:
-			if !get_is_city(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1])):
-				$"../cityLayer".set_cell (Vector2i(plainArray[randomCity][0], plainArray[randomCity][1]), 0, Vector2i(0,0), 1)
-				citiesCreated+=1
+	var spawnable = 0
+	plainArray.shuffle()
+	var cityLocation = Vector2i.ZERO
+	for i in plainArray:
+		if cityLocation == Vector2i.ZERO:
+			if get_country_number(Vector2i(i[0],i[1]))==cityNumber:
+				spawnable = 1
+				cityLocation = Vector2i(i[0],i[1])
+	if spawnable == 1:
+		if get_country_number(cityLocation)==cityNumber:
+			if !get_is_city(cityLocation):
+				$"../cityLayer".set_cell (cityLocation, 0, Vector2i(0,0), 1)
+
+func generate_River_city(cityNumber) -> void:
+	randomize()
+	var spawnable = 0
+	riversArray.shuffle()
+	var cityLocation = Vector2i.ZERO
+	for i in riversArray:
+		if cityLocation == Vector2i.ZERO:
+			if get_country_number(Vector2i(i[0],i[1]))==cityNumber:
+				spawnable = 1
+				cityLocation = Vector2i(i[0],i[1])
+	if spawnable == 1:
+		if get_country_number(cityLocation)==cityNumber:
+			if !get_is_city(cityLocation):
+				$"../cityLayer".set_cell (cityLocation, 0, Vector2i(0,0), 1)
 
 func generate_river(tilePos) -> void:
 	randomize()
@@ -194,6 +211,7 @@ func generate_river(tilePos) -> void:
 		if !get_is_water(head):
 			if (!get_is_peak(head)):
 				$"../river".set_cell (head, 2, Vector2i(0,0), 1)
+				riversArray.append(head)
 		var randomRiver = (randi()%2)+(randi()%2)+(randi()%2)+3
 		for i in randomRiver-1:
 			#$"../river".set_cell (Vector2i(), 0, Vector2i(0,0), 1)
@@ -209,6 +227,7 @@ func generate_river(tilePos) -> void:
 								if (!get_is_peak(head+Vector2i(0,1))):
 									if !get_is_river(head+Vector2i(0,1)):
 										$"../river".set_cell (head+Vector2i(0,1), 2, Vector2i(0,0), 1)
+										riversArray.append(head)
 										head+=Vector2i(0,1)
 										i=0
 						1: 
@@ -216,6 +235,7 @@ func generate_river(tilePos) -> void:
 								if (!get_is_peak(head+Vector2i(0,-1))):
 									if !get_is_river(head+Vector2i(0,-1)): 
 										$"../river".set_cell (head+Vector2i(0,-1), 2, Vector2i(0,0), 1)
+										riversArray.append(head)
 										head+=Vector2i(0,-1)
 										i=0
 						2:
@@ -224,6 +244,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(1,-1))):
 										if !get_is_river(head+Vector2i(1,-1)):
 											$"../river".set_cell (head+Vector2i(1,-1), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(1,-1)
 											i=0
 							else:
@@ -231,6 +252,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(1,0))):
 										if !get_is_river(head+Vector2i(1,0)):
 											$"../river".set_cell (head+Vector2i(1,0), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(1,0)
 											i=0
 						3: 
@@ -239,6 +261,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(1,0))):
 										if !get_is_river(head+Vector2i(1,0)):
 											$"../river".set_cell (head+Vector2i(1,0), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(1,0)
 											i=0
 							else:
@@ -246,6 +269,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(1,1))):
 										if !get_is_river(head+Vector2i(1,1)):
 											$"../river".set_cell (head+Vector2i(1,1), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(1,1)
 											i=0
 						4: 
@@ -254,6 +278,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(-1,0))):
 										if !get_is_river(head+Vector2i(-1,0)):
 											$"../river".set_cell (head+Vector2i(-1,0), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(-1,0)
 											i=0
 							else:
@@ -261,6 +286,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(-1,1))):
 										if !get_is_river(head+Vector2i(-1,1)):
 											$"../river".set_cell (head+Vector2i(-1,1), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(-1,1)
 											i=0
 						5: 
@@ -269,6 +295,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(-1,-1))): 
 										if !get_is_river(head+Vector2i(-1,-1)):
 											$"../river".set_cell (head+Vector2i(-1,-1), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(-1,-1)
 											i=0
 							else:
@@ -276,6 +303,7 @@ func generate_river(tilePos) -> void:
 									if (!get_is_peak(head+Vector2i(-1,0))): 
 										if !get_is_river(head+Vector2i(-1,0)):
 											$"../river".set_cell (head+Vector2i(-1,0), 2, Vector2i(0,0), 1)
+											riversArray.append(head)
 											head+=Vector2i(-1,0)
 											i=0
 					i=0
@@ -303,7 +331,7 @@ func _physics_process(_delta):
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
 
-var clicks=1
+var clicks=-5
 
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
@@ -326,14 +354,16 @@ func select_hex(cellPos: Vector2i):
 	numberOfCountries = 4
 	currentRange=2
 	
-	if clicks==0:
+	if clicks>=0:
 		for i in range(0,5):
+			#generate_Plain_city(i)
+			#generate_Plain_city(i)
 			generate_Plain_city(i)
-			generate_Plain_city(i)
-			generate_Plain_city(i)
+			generate_Mountain_city(i)
+			generate_River_city(i)
 	else:
-		clicks=0
-	#generate_river(cellPos)
+		clicks+=1
+		generate_river(cellPos)
 	
 	#print("ClickPos", cellPos)
 	#tsunami_wave(cellPos, 5)
