@@ -27,6 +27,7 @@ var peakArray = []
 var cityArray = []
 var mountainArray = []
 var plainArray = []
+var riversArray = []
 
 func clear_all_layers() -> void:
 	$"../forestLayer".clear()
@@ -39,6 +40,8 @@ func clear_all_layers() -> void:
 	$"../tsunami".clear()
 	$"../fire".clear()
 	$"../tornado".clear()
+	$"../countries".clear()
+	$"../river".clear()
 
 func clear_all_arrays() -> void:
 	mapArray.clear()
@@ -46,6 +49,7 @@ func clear_all_arrays() -> void:
 	cityArray.clear()
 	mountainArray.clear()
 	plainArray.clear()
+	riversArray.clear()
 
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
@@ -148,10 +152,10 @@ func generate_map() -> void:
 															numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
-		generate_Mountain_city()
-		generate_Plain_city()
-		generate_Plain_city()
-		generate_Plain_city()
+		#generate_Mountain_city()
+		#generate_Plain_city()
+		#generate_Plain_city()
+	pass
 
 func generate_Mountain_city() -> void:
 	randomize()
@@ -172,24 +176,15 @@ func generate_Mountain_city() -> void:
 				cityArray.append(mountainList)
 				spawnOk = 0
 
-func generate_Plain_city() -> void:
+func generate_Plain_city(cityNumber) -> void:
 	randomize()
 	var citiesCreated = 0
-	var spawnOk = 0
 	while !citiesCreated:
 		var randomCity = randi()%plainArray.size()
-		if cityArray.size()>=1:
-			for city in cityArray:
-				if abs(city[0]-plainArray[randomCity][0])>=3 && abs(city[1]-plainArray[randomCity][1])>=3:
-					spawnOk = 1
-		else: spawnOk = 1
-		if spawnOk:
-			if !get_is_city(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1])) && !citiesCreated:
-				var plainList = [plainArray[randomCity][0],plainArray[randomCity][1]]
+		if get_country_number(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1]))==cityNumber:
+			if !get_is_city(Vector2i(plainArray[randomCity][0],plainArray[randomCity][1])):
 				$"../cityLayer".set_cell (Vector2i(plainArray[randomCity][0], plainArray[randomCity][1]), 0, Vector2i(0,0), 1)
 				citiesCreated+=1
-				cityArray.append(plainList)
-				spawnOk = 0
 
 func generate_river(tilePos) -> void:
 	randomize()
@@ -307,7 +302,9 @@ func _physics_process(_delta):
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
-	
+
+var clicks=1
+
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
 	#set_on_fire(cellPos)
@@ -315,21 +312,28 @@ func select_hex(cellPos: Vector2i):
 	#set_on_tornado(cellPos)
 	#set_on_quake(cellPos)
 	#set_on_tsunami(cellPos)
-	var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
 	#tsunami_wave(Vector2i(6,5), 3)
 	#tsunami_wave(Vector2i(14,4), 3)
 	#tsunami_wave(Vector2i(22,7), 3)
 	#tsunami_wave(Vector2i(8,13), 3)
 	#tsunami_wave(Vector2i(19,14), 3)
+	var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
+	var numberOfCountries = 4
+	for cell in countrySpawnCells:
+		currentRange=2
+		country_wave(cell, currentRange, 6, 4-numberOfCountries)
+		numberOfCountries-=1
+	numberOfCountries = 4
+	currentRange=2
 	
-	#var numberOfCountries = 4
-	#for cell in countrySpawnCells:
-		#currentRange=2
-		#country_wave(cell, currentRange, 6, 4-numberOfCountries)
-		#numberOfCountries-=1
-	#numberOfCountries = 4
-	#currentRange=2
-	generate_river(cellPos)
+	if clicks==0:
+		for i in range(0,5):
+			generate_Plain_city(i)
+			generate_Plain_city(i)
+			generate_Plain_city(i)
+	else:
+		clicks=0
+	#generate_river(cellPos)
 	
 	#print("ClickPos", cellPos)
 	#tsunami_wave(cellPos, 5)
@@ -512,7 +516,8 @@ var currentRange = 1
 
 func country_wave(tile_pos, currentRange, countryRange, countryNumber) -> void:
 	var directions = []
-	set_country_territory(tile_pos, countryNumber)
+	if (tile_pos[0]>=3 && tile_pos[0]<map_width-3) && (tile_pos[1]>=3 && tile_pos[1]<map_height-3):
+		set_country_territory(tile_pos, countryNumber)
 	var top = tile_pos+Vector2i(0,1)
 	if get_country_number(top)==10 || get_country_number(top)==countryNumber:
 		directions.append(top)
@@ -550,7 +555,8 @@ func country_wave(tile_pos, currentRange, countryRange, countryNumber) -> void:
 		if get_country_number(bot_left)==10 || get_country_number(bot_left)==countryNumber:
 			directions.append(bot_left)
 	for direction in directions:
-		set_country_territory(direction, countryNumber)
+		if (direction[0]>=3 && direction[0]<map_width-3) && (direction[1]>=3 && direction[1]<map_height-3):
+			set_country_territory(direction, countryNumber)
 	if currentRange < countryRange:
 		currentRange+=1
 		for direction in directions:
