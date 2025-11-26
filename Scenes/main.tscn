@@ -386,6 +386,7 @@ map_height = 18
 map_res_mult = 10.0
 
 [node name="countries" type="TileMapLayer" parent="map" groups=["countrymap"]]
+visible = false
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_wsu2k")
 

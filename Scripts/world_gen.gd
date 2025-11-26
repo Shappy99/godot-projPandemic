@@ -335,6 +335,7 @@ var clicks=-5
 
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
+	
 	#set_on_fire(cellPos)
 	#set_on_water(cellPos)
 	#set_on_tornado(cellPos)
@@ -345,28 +346,32 @@ func select_hex(cellPos: Vector2i):
 	#tsunami_wave(Vector2i(22,7), 3)
 	#tsunami_wave(Vector2i(8,13), 3)
 	#tsunami_wave(Vector2i(19,14), 3)
-	var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
-	var numberOfCountries = 4
-	for cell in countrySpawnCells:
-		currentRange=2
-		country_wave(cell, currentRange, 6, 4-numberOfCountries)
-		numberOfCountries-=1
-	numberOfCountries = 4
-	currentRange=2
 	
-	if clicks>=0:
-		for i in range(0,5):
+	#HERE
+	#var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
+	#var numberOfCountries = 4
+	#for cell in countrySpawnCells:
+		#currentRange=2
+		#country_wave(cell, currentRange, 6, 4-numberOfCountries)
+		#numberOfCountries-=1
+	#numberOfCountries = 4
+	#currentRange=2
+	#
+	#if clicks>=0:
+		#for i in range(0,5):
 			#generate_Plain_city(i)
-			#generate_Plain_city(i)
-			generate_Plain_city(i)
-			generate_Mountain_city(i)
-			generate_River_city(i)
-	else:
-		clicks+=1
-		generate_river(cellPos)
+			#generate_Mountain_city(i)
+			#generate_River_city(i)
+	#else:
+		#clicks+=1
+		#
+		#generate_river(cellPos)
+	#HERE
 	
 	#print("ClickPos", cellPos)
-	#tsunami_wave(cellPos, 5)
+	currentRange=2
+	tsunami_wave(cellPos, currentRange, 5)
+	currentRange=2
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -484,41 +489,52 @@ func set_on_tsunami(tile_pos) -> void:
 		$"../tsunami".set_cell(tile_pos+Vector2i(1,1), 0, Vector2i.ZERO, 0)
 		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
 
-func tsunami_wave(tile_pos, waveRange) -> void:
+func tsunami_wave(tile_pos, currentRange, waveRange) -> void:
 	var directions = []
+	set_on_tsunami(tile_pos)
 	var top = tile_pos+Vector2i(0,1)
+	if get_is_water(top):
+		directions.append(top)
 	var bot = tile_pos+Vector2i(0,-1)
+	if get_is_water(bot):
+		directions.append(bot)
 	var top_right = Vector2i()
 	var top_left = Vector2i()
 	var bot_right = Vector2i()
 	var bot_left = Vector2i()
 	if tile_pos[0]%2==0:
 		top_right = tile_pos+Vector2i(1,-1)
+		if get_is_water(top_right):
+			directions.append(top_right)
 		top_left = tile_pos+Vector2i(-1,-1)
+		if get_is_water(top_left):
+			directions.append(top_left)
 		bot_right = tile_pos+Vector2i(1,0)
+		if get_is_water(bot_right):
+			directions.append(bot_right)
 		bot_left = tile_pos+Vector2i(-1,0)
+		if get_is_water(bot_left):
+			directions.append(bot_left)
 	else:
 		top_right = tile_pos+Vector2i(1,0)
+		if get_is_water(top_right):
+			directions.append(top_right)
 		top_left = tile_pos+Vector2i(-1,0)
+		if get_is_water(top_left):
+			directions.append(top_left)
 		bot_right = tile_pos+Vector2i(1,1)
+		if get_is_water(bot_right):
+			directions.append(bot_right)
 		bot_left = tile_pos+Vector2i(-1,1)
-	directions.append(top)
-	directions.append(bot)
-	directions.append(top_right)
-	directions.append(top_left)
-	directions.append(bot_right)
-	directions.append(bot_left)
-	print("directions: ", directions)
-	set_on_tsunami(tile_pos)
-	#for x in range(2,waveRange):
-		#for direction in directions:
-			#set_on_tsunami(direction)
-	#if currentwaveRange <= waveRange:
-		#for direction in directions:
-			#set_on_tsunami(direction)
-		#currentwaveRange+=1
-		#for direction in directions:
-			#tsunami_wave(direction, waveRange)
+		if get_is_water(bot_left):
+			directions.append(bot_left)
+	for direction in directions:
+		if (direction[0]>=3 && direction[0]<map_width-3) && (direction[1]>=3 && direction[1]<map_height-3):
+			set_on_tsunami(direction)
+	if currentRange < waveRange:
+		currentRange+=1
+		for direction in directions:
+			tsunami_wave(direction, currentRange, waveRange)
 
 func set_country_territory(tile_pos, countryNumber) -> void:
 	if get_country_number(tile_pos) == 10:
