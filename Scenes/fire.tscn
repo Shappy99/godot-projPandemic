@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://so5e4dsow41p"]
+[gd_scene load_steps=13 format=3 uid="uid://so5e4dsow41p"]
 
 [ext_resource type="Texture2D" uid="uid://dhidcwrm1eoal" path="res://Tiles/Textures/T_1_pixel.jpg" id="3_w35r5"]
 [ext_resource type="Shader" uid="uid://cife5a7np5acn" path="res://Tiles/Textures/Shaders/s_fire.tres" id="4_lcnk6"]
 [ext_resource type="Texture2D" uid="uid://c8b4hi1gohoht" path="res://Tiles/Textures/T_Gradient_circle22.jpg" id="5_3h6i6"]
+[ext_resource type="Script" uid="uid://nxuygb2qlgnf" path="res://Scenes/extension_timer.gd" id="5_8uni6"]
 [ext_resource type="Texture2D" uid="uid://b8yh1scvyrj78" path="res://Tiles/Textures/T_VFX_Noise_465.png" id="6_gdy38"]
 
 [sub_resource type="Gradient" id="Gradient_d3nas"]
@@ -40,3 +41,13 @@ shader_parameter/Texture2DParameter4 = SubResource("GradientTexture1D_efbji")
 material = SubResource("ShaderMaterial_5tvfp")
 scale = Vector2(100, 100)
 texture = ExtResource("3_w35r5")
+
+[node name="extensionTimer" type="Timer" parent="."]
+wait_time = 5.0
+script = ExtResource("5_8uni6")
+
+[node name="runOutTimer" type="Timer" parent="."]
+wait_time = 30.0
+
+[connection signal="timeout" from="extensionTimer" to="extensionTimer" method="_on_timeout"]
+[connection signal="timeout" from="runOutTimer" to="extensionTimer" method="_on_run_out_timer_timeout"]
