@@ -12,6 +12,8 @@ func _add_funds(bonusFunds):
 	return funds
 	
 func _on_timeout():
+	if randi()%3==1:
+		$"../../../../../map/worldGen".set_on_fire(Vector2i(randi()%28,randi()%18))
 	if day<=30:
 		$TimeFundsContainer/timeLabel.text=str("Month ", month, ", Day ",day)
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", funds)

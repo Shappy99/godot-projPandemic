@@ -28,6 +28,7 @@ var cityArray = []
 var mountainArray = []
 var plainArray = []
 var riversArray = []
+var forestArray = []
 
 func clear_all_layers() -> void:
 	$"../forestLayer".clear()
@@ -50,6 +51,7 @@ func clear_all_arrays() -> void:
 	mountainArray.clear()
 	plainArray.clear()
 	riversArray.clear()
+	forestArray.clear()
 
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
@@ -73,14 +75,20 @@ func generate_map() -> void:
 				if randi()%2==0:
 					if randi()%2==1:
 						$"../forestLayer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
+						if Vector2i(x,y) not in forestArray:
+							forestArray.append(Vector2i(x,y))
 				randomize()
 				if randi()%2==1:
 					if randi()%2==0:
 						$"../forest2Layer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
+						if Vector2i(x,y) not in forestArray:
+							forestArray.append(Vector2i(x,y))
 				randomize()
 				if randi()%2==0:
 					if randi()%2==1:
 						$"../forest3Layer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
+						if Vector2i(x,y) not in forestArray:
+							forestArray.append(Vector2i(x,y))
 			elif (random_height_value==2):
 				randomize()
 				var randomNumber = randi()%10
@@ -460,8 +468,21 @@ func get_country_number(tile_pos) -> int:
 		return countryNumber
 	return 10	
 
+func get_has_forest(tile_pos) -> bool:
+	var tilemaps = get_tree().get_nodes_in_group("hasForest")
+	for tilemap in tilemaps:
+		var cell = tile_pos
+		var data: TileData = tilemap.get_cell_tile_data(cell)
+		
+		if data:
+			var has_forest: float = data.get_custom_data("hasForest")
+			if has_forest == 1:
+				return true
+	return false
+
 func set_on_fire(tile_pos) -> void:
-	$"../fire".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 1)
+	forestArray.shuffle()
+	$"../fire".set_cell (Vector2i(forestArray[0]), 1, Vector2i.ZERO, 1)
 	print("fire added")
 
 func set_on_water(tile_pos) -> void:
