@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://xd4x5hidh1gn" path="res://Scenes/UI/research_panel.gd" id="4_alcrr"]
 [ext_resource type="Texture2D" uid="uid://7snd7x23xt3v" path="res://back_button_icon.png" id="5_1c2ca"]
 [ext_resource type="PackedScene" uid="uid://ynrmosy74ech" path="res://Scenes/UI/skill_button.tscn" id="6_duuxe"]
-[ext_resource type="PackedScene" uid="uid://hkwj00hccrqp" path="res://Scripts/UI/research/tier.tscn" id="6_jfwrg"]
+[ext_resource type="Script" uid="uid://6lpuh837ky3k" path="res://Scenes/UI/research_funds.gd" id="7_jfwrg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahcct"]
 content_margin_left = 4.0
@@ -309,6 +309,7 @@ button_group = SubResource("ButtonGroup_duuxe")
 text = "GRE"
 
 [node name="ResearchPanel" type="Control" parent="Research/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_alcrr")
@@ -320,35 +321,10 @@ offset_bottom = 23.0
 text = "No Research Selected"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="Tier" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer" instance=ExtResource("6_jfwrg")]
-layout_mode = 2
-
-[node name="SkillButton" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier" instance=ExtResource("6_duuxe")]
-layout_mode = 2
-
-[node name="Tier2" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer" instance=ExtResource("6_jfwrg")]
-layout_mode = 2
-
-[node name="SkillButton" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier2" instance=ExtResource("6_duuxe")]
-layout_mode = 2
-
-[node name="SkillButton2" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier2" instance=ExtResource("6_duuxe")]
-layout_mode = 2
-
 [node name="BackButtonPanel" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 10
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel"]
@@ -369,6 +345,107 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ahcct")
 icon = ExtResource("5_1c2ca")
 icon_alignment = 1
 expand_icon = true
+
+[node name="researchFunds" type="Label" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+script = ExtResource("7_jfwrg")
+
+[node name="ResearchTier" type="Control" parent="Research"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+size_flags_horizontal = 3
+
+[node name="SkillButton" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 100.0
+offset_right = 20.0
+offset_bottom = 140.0
+grow_horizontal = 2
+root = []
+
+[node name="SkillButton2" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -291.0
+offset_top = 203.0
+offset_right = -91.0
+offset_bottom = 263.0
+grow_horizontal = 2
+disabled = true
+
+[node name="SkillButton3" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 100.0
+offset_top = 203.0
+offset_right = 300.0
+offset_bottom = 263.0
+grow_horizontal = 2
+disabled = true
+
+[node name="SkillButton4" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -385.0
+offset_top = 303.0
+offset_right = -185.0
+offset_bottom = 363.0
+grow_horizontal = 2
+disabled = true
+root = [1]
+
+[node name="SkillButton5" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -148.0
+offset_top = 303.0
+offset_right = 52.0
+offset_bottom = 363.0
+grow_horizontal = 2
+disabled = true
+root = [1]
+
+[node name="SkillButton6" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 100.0
+offset_top = 303.0
+offset_right = 300.0
+offset_bottom = 363.0
+grow_horizontal = 2
+disabled = true
+root = [2]
+
+[node name="SkillButton7" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 449.0
+offset_right = 100.0
+offset_bottom = 509.0
+grow_horizontal = 2
+disabled = true
+root = [4, 5]
 
 [connection signal="timeout" from="GUI/HUD/Timer" to="GUI/HUD/Timer" method="_on_timeout"]
 [connection signal="pressed" from="GUI/HUD/BottomButtons/HBoxContainer/researchButton" to="." method="_on_research_button_pressed"]
