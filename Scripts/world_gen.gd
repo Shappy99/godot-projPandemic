@@ -481,9 +481,53 @@ func get_has_forest(tile_pos) -> bool:
 	return false
 
 func set_on_fire(tile_pos) -> void:
-	forestArray.shuffle()
-	$"../fire".set_cell (Vector2i(forestArray[0]), 1, Vector2i.ZERO, 1)
-	print("fire added")
+	if tile_pos == Vector2i.ZERO:
+		#forestArray.shuffle()
+		#$"../fire".set_cell (Vector2i(forestArray[0]), 1, Vector2i.ZERO, 1)
+		print("no pos")
+	else:
+		var directions = []
+		if get_has_forest(tile_pos):
+			$"../fire".set_cell (tile_pos, 1, Vector2i.ZERO, 1)
+			print("fire added")
+		var top = tile_pos+Vector2i(0,1)
+		if get_has_forest(top):
+			directions.append(top)
+		var bot = tile_pos+Vector2i(0,-1)
+		if get_has_forest(bot):
+			directions.append(bot)
+		var top_right = Vector2i()
+		var top_left = Vector2i()
+		var bot_right = Vector2i()
+		var bot_left = Vector2i()
+		if tile_pos[0]%2==0:
+			top_right = tile_pos+Vector2i(1,-1)
+			if get_has_forest(top_right):
+				directions.append(top_right)
+			top_left = tile_pos+Vector2i(-1,-1)
+			if get_has_forest(top_left):
+				directions.append(top_left)
+			bot_right = tile_pos+Vector2i(1,0)
+			if get_has_forest(bot_right):
+				directions.append(bot_right)
+			bot_left = tile_pos+Vector2i(-1,0)
+			if get_has_forest(bot_left):
+				directions.append(bot_left)
+		else:
+			top_right = tile_pos+Vector2i(1,0)
+			if get_has_forest(top_right):
+				directions.append(top_right)
+			top_left = tile_pos+Vector2i(-1,0)
+			if get_has_forest(top_left):
+				directions.append(top_left)
+			bot_right = tile_pos+Vector2i(1,1)
+			if get_has_forest(bot_right):
+				directions.append(bot_right)
+			bot_left = tile_pos+Vector2i(-1,1)
+			if get_has_forest(bot_left):
+				directions.append(bot_left)
+		for direction in directions:
+			$"../fire".set_cell (direction, 1, Vector2i.ZERO, 1)
 
 func set_on_water(tile_pos) -> void:
 	$"../water".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 0)
