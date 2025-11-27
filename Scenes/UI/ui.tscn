@@ -370,6 +370,7 @@ offset_right = 20.0
 offset_bottom = 140.0
 grow_horizontal = 2
 root = []
+price = 100
 
 [node name="SkillButton2" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
@@ -382,6 +383,7 @@ offset_right = -91.0
 offset_bottom = 263.0
 grow_horizontal = 2
 disabled = true
+price = 500
 
 [node name="SkillButton3" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
@@ -394,6 +396,7 @@ offset_right = 300.0
 offset_bottom = 263.0
 grow_horizontal = 2
 disabled = true
+price = 600
 
 [node name="SkillButton4" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
@@ -407,6 +410,7 @@ offset_bottom = 363.0
 grow_horizontal = 2
 disabled = true
 root = [1]
+price = 1000
 
 [node name="SkillButton5" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
@@ -420,6 +424,7 @@ offset_bottom = 363.0
 grow_horizontal = 2
 disabled = true
 root = [1]
+price = 20000
 
 [node name="SkillButton6" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
@@ -433,6 +438,7 @@ offset_bottom = 363.0
 grow_horizontal = 2
 disabled = true
 root = [2]
+price = 500
 
 [node name="SkillButton7" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
@@ -446,6 +452,7 @@ offset_bottom = 509.0
 grow_horizontal = 2
 disabled = true
 root = [4, 5]
+price = 50000
 
 [connection signal="timeout" from="GUI/HUD/Timer" to="GUI/HUD/Timer" method="_on_timeout"]
 [connection signal="pressed" from="GUI/HUD/BottomButtons/HBoxContainer/researchButton" to="." method="_on_research_button_pressed"]
