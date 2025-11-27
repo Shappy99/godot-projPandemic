@@ -18,13 +18,6 @@ func _ready() -> void:
 	
 	get_tree().paused = false
 
-
-func _on_button_button_down():
-	map_gen.generate_map()
-	$"../../map/border".show()
-	print("Map Gen")
-
-
 func _on_resume_button_pressed() -> void:
 	hud.visible = true
 	pause_menu.visible = false
@@ -47,3 +40,13 @@ func _on_research_button_pressed() -> void:
 	hud.visible=false
 	research.visible=true
 	
+func _on_skip_button_button_down():
+	startGame()
+
+func startGame():
+	map_gen.generate_map()
+	$"../../map/border".show()
+	print("Map Gen")
+	$GUI/HUD/Timer.start()
+	$"../../disastersTimer".start(10)
+	$Tutorial.hide()

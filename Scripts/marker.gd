@@ -15,4 +15,4 @@ func _draw():
 	var pt5 = Vector2(-26,0)
 	var array = PackedVector2Array([pt0,pt1,pt2,pt3,pt4,pt5])
 	draw_polygon(array,[color2])
-	draw_rect(Rect2(-size / 2.0, size), color)
+	#draw_rect(Rect2(-size / 2.0, size), color)

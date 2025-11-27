@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://buxtindywluys"]
+[gd_scene load_steps=29 format=3 uid="uid://buxtindywluys"]
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
 [ext_resource type="Script" uid="uid://dveke0h57lc0u" path="res://Scripts/timer.gd" id="2_c7mb3"]
@@ -8,6 +8,20 @@
 [ext_resource type="Texture2D" uid="uid://7snd7x23xt3v" path="res://back_button_icon.png" id="5_1c2ca"]
 [ext_resource type="PackedScene" uid="uid://ynrmosy74ech" path="res://Scenes/UI/skill_button.tscn" id="6_duuxe"]
 [ext_resource type="Script" uid="uid://6lpuh837ky3k" path="res://Scenes/UI/research_funds.gd" id="7_jfwrg"]
+[ext_resource type="Script" uid="uid://052qqhjpsd2i" path="res://Scenes/UI/tutorial.gd" id="9_1eb8u"]
+[ext_resource type="Texture2D" uid="uid://qtp1klo5weqx" path="res://Tiles/1.png" id="9_mbl0m"]
+[ext_resource type="Texture2D" uid="uid://cht777oiqq5a8" path="res://Tiles/3.png" id="9_pmm6b"]
+[ext_resource type="Texture2D" uid="uid://dfrocx2h3xln0" path="res://Tiles/2.png" id="11_vy225"]
+[ext_resource type="Texture2D" uid="uid://bwv5bul5ubdaj" path="res://Tiles/Tutorial/tutf.png" id="12_fy0us"]
+[ext_resource type="Texture2D" uid="uid://cjkildtxg40g5" path="res://Tiles/Tutorial/tutf2.png" id="13_h6tq4"]
+[ext_resource type="Texture2D" uid="uid://dmirfw2yk3htx" path="res://Tiles/Tutorial/qua2.png" id="14_fevae"]
+[ext_resource type="Texture2D" uid="uid://lhlrtd5vqexx" path="res://Tiles/Tutorial/qua1.png" id="15_ny3ap"]
+[ext_resource type="Texture2D" uid="uid://2q8yrgn21u2w" path="res://Tiles/Tutorial/flo.png" id="16_vqjbf"]
+[ext_resource type="Texture2D" uid="uid://1k3igukbfdyf" path="res://Tiles/Tutorial/tsunami.png" id="17_cqvjp"]
+[ext_resource type="Texture2D" uid="uid://djs2jtk4p6g5s" path="res://Tiles/Tutorial/tornado.png" id="18_vqjbf"]
+[ext_resource type="Texture2D" uid="uid://bdelcig0neof0" path="res://Tiles/Tutorial/tut3.png" id="19_cqvjp"]
+[ext_resource type="Texture2D" uid="uid://2y7txfxm4kam" path="res://Tiles/Tutorial/Screenshot 2025-11-27 211239.png" id="20_hfaco"]
+[ext_resource type="Texture2D" uid="uid://bcsljwnive6v" path="res://Tiles/Tutorial/Screenshot 2025-11-27 211310.png" id="21_1eb8u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahcct"]
 content_margin_left = 4.0
@@ -29,6 +43,15 @@ corner_detail = 5
 [sub_resource type="Theme" id="Theme_c7mb3"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_duuxe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vhchw"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_hfaco"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_jx4bj"]
+font_size = 38
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -60,6 +83,25 @@ grow_vertical = 2
 [node name="Timer" type="Timer" parent="GUI/HUD"]
 process_callback = 0
 script = ExtResource("2_c7mb3")
+
+[node name="genMapButton" type="Button" parent="GUI/HUD/Timer"]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -18.0
+offset_right = 27.5
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+text = "Start"
 
 [node name="TimeFundsContainer" type="VBoxContainer" parent="GUI/HUD/Timer"]
 anchors_preset = 5
@@ -171,14 +213,6 @@ alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/HUD/LateralButtons/PausePanel/HBoxContainer"]
 layout_mode = 2
 
-[node name="genMapButton" type="Button" parent="GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer"]
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 20
-text = "Gen Map"
-
 [node name="MarginContainer" type="MarginContainer" parent="GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -246,6 +280,7 @@ size_flags_vertical = 3
 text = "Main Menu"
 
 [node name="Research" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -454,12 +489,771 @@ disabled = true
 root = [4, 5]
 price = 50000
 
+[node name="Tutorial" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_1eb8u")
+
+[node name="Panel" type="Panel" parent="Tutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -21.0
+offset_right = 129.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Read the tutorial?"
+label_settings = SubResource("LabelSettings_vhchw")
+
+[node name="MarginContainer" type="MarginContainer" parent="Tutorial/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -40.0
+offset_right = 52.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Panel/MarginContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+
+[node name="yesButton" type="Button" parent="Tutorial/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+text = "YES"
+
+[node name="skipButton" type="Button" parent="Tutorial/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 6
+text = "SKIP
+"
+
+[node name="Tiles" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/Tiles"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Tiles/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Types of tiles:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Tiles/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Mountain" type="Control" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer/Mountain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -56.0
+offset_right = 56.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_pmm6b")
+
+[node name="Label" type="Label" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer/Mountain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -11.5
+offset_right = 58.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Mountain tiles:"
+
+[node name="Water" type="Control" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer/Water"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.389282
+offset_top = -56.0
+offset_right = 62.389282
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_mbl0m")
+
+[node name="Label2" type="Label" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer/Water"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -11.5
+offset_right = 46.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Water tiles: "
+
+[node name="Plain" type="Control" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer/Plain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -56.0
+offset_right = 56.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_vy225")
+
+[node name="Label" type="Label" parent="Tutorial/Tiles/VBoxContainer/HBoxContainer/Plain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_right = 40.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Plain tiles:"
+
+[node name="nextButton1" type="Button" parent="Tutorial/Tiles/VBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "NEXT"
+
+[node name="Disasters" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Disasters"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_top = 18.0
+offset_right = 72.0
+offset_bottom = 41.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Types of disasters:"
+
+[node name="nextButton2" type="Button" parent="Tutorial/Disasters"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -105.0
+offset_right = 25.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "NEXT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Tutorial/Disasters"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -349.99994
+offset_top = -196.99998
+offset_right = 34.00006
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Tutorial/Disasters/HBoxContainer2"]
+layout_mode = 2
+text = "Forest fire:"
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Disasters/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_fy0us")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Disasters"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -311.0
+offset_top = -341.0
+offset_right = 508.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+size_flags_vertical = 2
+
+[node name="Label2" type="Label" parent="Tutorial/Disasters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "If not taken care of in time, nearby forests might catch on fire too"
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Disasters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("13_h6tq4")
+
+[node name="Disasters2" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Disasters2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_top = 18.0
+offset_right = 72.0
+offset_bottom = 41.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Types of disasters:"
+
+[node name="nextButton3" type="Button" parent="Tutorial/Disasters2"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -105.0
+offset_right = 25.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "NEXT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Tutorial/Disasters2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -112.999985
+offset_right = 33.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Tutorial/Disasters2/HBoxContainer2"]
+layout_mode = 2
+text = "Small earthquakes: "
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Disasters2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("14_fevae")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Disasters2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.00003
+offset_top = -399.0
+offset_right = 790.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+size_flags_vertical = 2
+
+[node name="Label2" type="Label" parent="Tutorial/Disasters2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Major earthquakes: "
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Disasters2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("15_ny3ap")
+
+[node name="Disasters3" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Disasters3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_top = 19.0
+offset_right = 72.0
+offset_bottom = 42.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Types of disasters:"
+
+[node name="nextButton4" type="Button" parent="Tutorial/Disasters3"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -105.0
+offset_right = 25.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "NEXT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Tutorial/Disasters3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -341.0
+offset_top = -128.0
+offset_right = 43.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Tutorial/Disasters3/HBoxContainer2"]
+layout_mode = 2
+text = "Flood: "
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Disasters3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("16_vqjbf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Disasters3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -468.0
+offset_right = 881.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.45, 0.45)
+size_flags_vertical = 2
+
+[node name="Label2" type="Label" parent="Tutorial/Disasters3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Tsunami: "
+label_settings = SubResource("LabelSettings_hfaco")
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Disasters3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("17_cqvjp")
+
+[node name="Disasters4" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Disasters4"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_top = 19.0
+offset_right = 72.0
+offset_bottom = 42.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Types of disasters:"
+
+[node name="nextButton5" type="Button" parent="Tutorial/Disasters4"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -105.0
+offset_right = 25.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "NEXT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Tutorial/Disasters4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.99997
+offset_top = -129.99998
+offset_right = 251.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Tutorial/Disasters4/HBoxContainer2"]
+layout_mode = 2
+text = "Tornado: "
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Disasters4/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_vqjbf")
+
+[node name="Disasters5" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Disasters5"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = 20.0
+offset_right = 94.0
+offset_bottom = 43.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Taking care of disasters:"
+
+[node name="nextButton6" type="Button" parent="Tutorial/Disasters5"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -105.0
+offset_right = 25.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "NEXT"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Tutorial/Disasters5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -371.0
+offset_top = -200.0
+offset_right = 269.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Tutorial/Disasters5/HBoxContainer2"]
+layout_mode = 2
+text = "Right click the affected cell to deploy a team"
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Disasters5/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_fy0us")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Disasters5"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -334.0
+offset_right = 607.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+size_flags_vertical = 2
+
+[node name="Label2" type="Label" parent="Tutorial/Disasters5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "After enough time has passed, the disaster will be resolved"
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Disasters5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("19_cqvjp")
+
+[node name="Disasters6" type="Panel" parent="Tutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Tutorial/Disasters6"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.5
+offset_right = 71.5
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Goal of the game:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Tutorial/Disasters6"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -219.0
+offset_right = 1417.0
+offset_bottom = 595.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Tutorial/Disasters6/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Every month, funds will be gained and can be used to unlock team/city upgrades in order to deal with natural disasters"
+label_settings = SubResource("LabelSettings_jx4bj")
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Disasters6/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("20_hfaco")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tutorial/Disasters6"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = -284.0
+offset_right = 674.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+size_flags_vertical = 2
+
+[node name="Label2" type="Label" parent="Tutorial/Disasters6/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Keep the trust factor high enough and deploy permanent solutions in order to survive the year"
+autowrap_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Disasters6/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("21_1eb8u")
+
+[node name="startGameButton" type="Button" parent="Tutorial/Disasters6"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -105.0
+offset_right = 48.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Start Game"
+
 [connection signal="timeout" from="GUI/HUD/Timer" to="GUI/HUD/Timer" method="_on_timeout"]
+[connection signal="button_down" from="GUI/HUD/Timer/genMapButton" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="GUI/HUD/BottomButtons/HBoxContainer/researchButton" to="." method="_on_research_button_pressed"]
-[connection signal="button_down" from="GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/genMapButton" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/MarginContainer/pauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="GUI/Pause Menu/Main Menu/resumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="GUI/Pause Menu/Main Menu/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button3" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_3_toggled"]
 [connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button4" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_4_toggled"]
 [connection signal="pressed" from="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer/backButton" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_back_button_pressed"]
+[connection signal="button_down" from="Tutorial/Panel/MarginContainer/HBoxContainer/yesButton" to="Tutorial" method="_on_yes_button_button_down"]
+[connection signal="button_down" from="Tutorial/Panel/MarginContainer/HBoxContainer/skipButton" to="." method="_on_skip_button_button_down"]
+[connection signal="button_down" from="Tutorial/Tiles/VBoxContainer/nextButton1" to="Tutorial" method="_on_next_button_1_button_down"]
+[connection signal="button_down" from="Tutorial/Disasters/nextButton2" to="Tutorial" method="_on_next_button_2_button_down"]
+[connection signal="button_down" from="Tutorial/Disasters2/nextButton3" to="Tutorial" method="_on_next_button_3_button_down"]
+[connection signal="button_down" from="Tutorial/Disasters3/nextButton4" to="Tutorial" method="_on_next_button_4_button_down"]
+[connection signal="button_down" from="Tutorial/Disasters4/nextButton5" to="Tutorial" method="_on_next_button_5_button_down"]
+[connection signal="button_down" from="Tutorial/Disasters5/nextButton6" to="Tutorial" method="_on_next_button_6_button_down"]
+[connection signal="button_down" from="Tutorial/Disasters6/startGameButton" to="Tutorial" method="_on_start_game_button_button_down"]

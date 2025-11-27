@@ -16,7 +16,6 @@ var rollSucces = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	$".".start(10)
 
 func _on_timeout() -> void:
 	match (failedRolls):

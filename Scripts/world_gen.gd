@@ -387,8 +387,8 @@ func deploy_team(tile_pos) -> void:
 		$"../quake".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		$"../tsunami".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		$"../fire".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
-		$"../../disastersTimer/fireTimer/fireExtension".stop()
 		$"../tornado".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		$"../../disastersTimer/fireTimer/fireExtension".stop()
 		deployableTeam=1
 
 func select_hex(cellPos: Vector2i):

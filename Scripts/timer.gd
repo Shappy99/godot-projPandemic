@@ -1,7 +1,7 @@
 extends Timer
 
 func _ready():
-	$".".start()
+	pass
 
 func _add_funds(bonusFunds):
 	Globals.funds+=bonusFunds
