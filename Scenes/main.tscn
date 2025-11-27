@@ -437,7 +437,7 @@ tile_set = SubResource("TileSet_jjvhh")
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_wsu2k")
 
-[node name="water" type="TileMapLayer" parent="map"]
+[node name="water" type="TileMapLayer" parent="map" groups=["isDisaster"]]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_hptm8")
 
@@ -445,11 +445,11 @@ tile_set = SubResource("TileSet_hptm8")
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_h1bgf")
 
-[node name="quake" type="TileMapLayer" parent="map"]
+[node name="quake" type="TileMapLayer" parent="map" groups=["isDisaster"]]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_6iyac")
 
-[node name="tsunami" type="TileMapLayer" parent="map"]
+[node name="tsunami" type="TileMapLayer" parent="map" groups=["isDisaster"]]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_fdnlq")
 
@@ -471,11 +471,11 @@ tile_set = SubResource("TileSet_ynf5e")
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_344ge")
 
-[node name="fire" type="TileMapLayer" parent="map"]
+[node name="fire" type="TileMapLayer" parent="map" groups=["isDisaster"]]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_kry3j")
 
-[node name="tornado" type="TileMapLayer" parent="map"]
+[node name="tornado" type="TileMapLayer" parent="map" groups=["isDisaster"]]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_d1ilt")
 
@@ -512,9 +512,13 @@ wait_time = 30.0
 [node name="tornadoTimer" type="Timer" parent="disastersTimer"]
 wait_time = 30.0
 
+[node name="teamTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="timeout" from="disastersTimer" to="disastersTimer" method="_on_timeout"]
 [connection signal="timeout" from="disastersTimer/tsunamiTimer" to="disastersTimer" method="_on_tsunami_timer_timeout"]
 [connection signal="timeout" from="disastersTimer/fireTimer" to="disastersTimer" method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="disastersTimer/fireTimer/fireExtension" to="disastersTimer" method="_on_fire_extension_timeout"]
 [connection signal="timeout" from="disastersTimer/floodTimer" to="disastersTimer" method="_on_flood_timer_timeout"]
 [connection signal="timeout" from="disastersTimer/tornadoTimer" to="disastersTimer" method="_on_tornado_timer_timeout"]
+[connection signal="timeout" from="teamTimer" to="map/worldGen" method="_on_team_timer_timeout"]

@@ -166,6 +166,22 @@ func generate_map() -> void:
 		#generate_Plain_city()
 		#generate_Plain_city()
 		mapDone=1
+		if mapDone && (citiesNotGenerated==1):
+			var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
+			var numberOfCountries = 4
+			for cell in countrySpawnCells:
+				currentRange=2
+				country_wave(cell, currentRange, 6, 4-numberOfCountries)
+				numberOfCountries-=1
+			numberOfCountries = 4
+			currentRange=2
+			for i in range(0,5):
+				generate_Plain_city(i)
+				generate_Plain_city(i)
+				generate_Plain_city(i)
+				generate_Plain_city(i)
+				generate_Mountain_city(i)
+			citiesNotGenerated=0
 
 func generate_Mountain_city(cityNumber) -> void:
 	randomize()
@@ -335,6 +351,9 @@ func _physics_process(_delta):
 		highlight_hex(tile_pos)
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			select_hex(tile_pos)
+		if (isTeamDeployed==0):
+			if Input.is_action_just_pressed("deployTroops"):
+				deploy_team(tile_pos)
 	else:
 		highlight_hex(Vector2i(-2,-2))
 
@@ -343,6 +362,31 @@ func highlight_hex(cellPos: Vector2i):
 
 var clicks=-5
 var citiesNotGenerated=1
+
+var isTeamDeployed=0
+var deployableTeam=1
+
+var teamDeployLocation = Vector2i.ZERO
+
+func deploy_team(tile_pos) -> void:
+	print("DEPLO",deployableTeam)
+	if deployableTeam==1:
+		isTeamDeployed=1
+		print("DEPLOYED")
+		teamDeployLocation = Vector2i(tile_pos[0],tile_pos[1])
+		$"../../teamTimer".paused = false
+		$"../../teamTimer".start(5)
+	elif deployableTeam==0:
+		isTeamDeployed=0
+		print("DONE DEPLOYING")
+		$"../../teamTimer".paused = true
+		$"../water".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		$"../quake".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		$"../tsunami".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		$"../fire".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		$"../../disastersTimer/fireTimer/fireExtension".stop()
+		$"../tornado".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		deployableTeam=1
 
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
@@ -360,22 +404,7 @@ func select_hex(cellPos: Vector2i):
 	
 	#HERE
 	
-	if mapDone && (citiesNotGenerated==1):
-		var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
-		var numberOfCountries = 4
-		for cell in countrySpawnCells:
-			currentRange=2
-			country_wave(cell, currentRange, 6, 4-numberOfCountries)
-			numberOfCountries-=1
-		numberOfCountries = 4
-		currentRange=2
-		for i in range(0,5):
-			generate_Plain_city(i)
-			generate_Plain_city(i)
-			generate_Plain_city(i)
-			generate_Plain_city(i)
-			generate_Mountain_city(i)
-		citiesNotGenerated=0
+	
 			#generate_River_city(i)
 	#if clicks>=0:
 		#for i in range(0,5):
@@ -777,3 +806,9 @@ func country_wave(tile_pos, currentRange, countryRange, countryNumber) -> void:
 		currentRange+=1
 		for direction in directions:
 			country_wave(direction, currentRange, countryRange, countryNumber)
+
+func _on_team_timer_timeout() -> void:
+	print("DEP0")
+	deployableTeam=0
+	$"../../teamTimer".stop()
+	deploy_team(teamDeployLocation)
