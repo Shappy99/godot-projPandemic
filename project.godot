@@ -13,6 +13,7 @@ config_version=5
 config/name="projPandemic"
 run/main_scene="uid://bgfilayd2xr0u"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/bg_color=Color(0.08394878, 0.16038945, 0.1229736, 1)
 config/icon="res://icon.svg"
 
 [autoload]

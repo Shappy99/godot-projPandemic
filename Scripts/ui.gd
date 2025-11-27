@@ -21,6 +21,7 @@ func _ready() -> void:
 
 func _on_button_button_down():
 	map_gen.generate_map()
+	$"../../map/border".show()
 	print("Map Gen")
 
 
