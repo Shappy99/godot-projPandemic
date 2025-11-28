@@ -25,7 +25,7 @@ func _on_timeout():
 		Globals.day+=1
 	elif Globals.month<12:
 		Globals.month+=1
-		_add_funds(10000)
+		_add_funds(Globals.trustFactor*5)
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", Globals.funds)
 		if Globals.month==12:
 			$TimeFundsContainer/timeLabel.text="Game over"
