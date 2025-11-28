@@ -8,6 +8,16 @@ func _add_funds(bonusFunds):
 	return Globals.funds
 	
 func _on_timeout():
+	if Globals.trustFactor < 500:
+		$TimeFundsContainer/timeLabel.text="Game over"
+		$"../../../../../disastersTimer".stop()
+		$"../../../../../disastersTimer/tsunamiTimer".stop()
+		$"../../../../../disastersTimer/fireTimer".stop()
+		$"../../../../../disastersTimer/fireTimer/fireExtension".stop()
+		$"../../../../../disastersTimer/floodTimer".stop()
+		$"../../../../../disastersTimer/tornadoTimer".stop()
+		$"../../../../../teamTimer".stop()
+		$"../../../GameOver".show()
 	if Globals.day<=30:
 		$TimeFundsContainer/timeLabel.text=str("Month ", Globals.month, ", Day ",Globals.day)
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", Globals.funds)
@@ -17,7 +27,7 @@ func _on_timeout():
 		Globals.month+=1
 		_add_funds(10000)
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", Globals.funds)
-		if Globals.month==12 || Globals.trustFactor < 500:
+		if Globals.month==12:
 			$TimeFundsContainer/timeLabel.text="Game over"
 			$"../../../../../disastersTimer".stop()
 			$"../../../../../disastersTimer/tsunamiTimer".stop()
