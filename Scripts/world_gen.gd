@@ -663,17 +663,17 @@ func set_on_quake(tile_pos, add) -> void:
 		if randi()%2==0:
 			plainArray.shuffle()
 			tile_pos = plainArray[0]
-			lastQuakeLoc=Vector2i(tile_pos)
+			lastQuakeLoc=Vector2i(tile_pos[0],tile_pos[1])
 		else:
 			mountainArray.shuffle()
 			while mountainArray[0] in peakArray:
 				mountainArray.shuffle()
 			tile_pos = mountainArray[0]
-			lastQuakeLoc=Vector2i(tile_pos)
+			lastQuakeLoc=Vector2i(tile_pos[0],tile_pos[1])
 		print("PL",plainArray[0],"TP",tile_pos)
 		print("PL2",plainArray[0][0],"PL3",plainArray[0][1],"PL4")
 		$"../quake".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
-		lastQuakeLoc=Vector2i(tile_pos)
+		lastQuakeLoc=Vector2i(tile_pos[0],tile_pos[1])
 	print("quake added")
 
 var tsunamiTile = Vector2i.ZERO
