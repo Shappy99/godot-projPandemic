@@ -359,6 +359,16 @@ func _physics_process(_delta):
 				deploy_team(tile_pos)
 	else:
 		highlight_hex(Vector2i(-2,-2))
+	if firstTeamT.is_visible_in_tree():
+		firstTeamT.text = str(int(1+$"../../teamTimer".time_left))
+	if secondTeamT.is_visible_in_tree():
+		secondTeamT.text = str(int(1+$"../../teamTimer".time_left))
+	if thirdTeamT.is_visible_in_tree():
+		thirdTeamT.text = str(int(1+$"../../teamTimer".time_left))
+
+@onready var firstTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/firstTeam/firstTeamTimeLeft"
+@onready var secondTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/secondTeam/secondTeamTimeLeft"
+@onready var thirdTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/thirdTeam/thirdTeamTimeLeft"
 
 func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
@@ -375,12 +385,14 @@ var teamDeployLocation = Vector2i.ZERO
 @onready var secondTeam = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/secondTeam"
 @onready var thirdTeam = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/thirdTeam"
 
-
 func deploy_team(tile_pos) -> void:
 	print("DEPLO",deployableTeam)
 	if deployableTeam==1:
 		isTeamDeployed=1
 		print("DEPLOYED")
+		firstTeamT.show()
+		secondTeamT.show()
+		thirdTeamT.show()
 		firstTeam.texture = ResourceLoader.load("res://Tiles/Teams/Firefighters2.png")
 		secondTeam.texture = ResourceLoader.load("res://Tiles/Teams/Search_and_Rescue2.png")
 		thirdTeam.texture = ResourceLoader.load("res://Tiles/Teams/Coordinators2.png")
@@ -390,6 +402,9 @@ func deploy_team(tile_pos) -> void:
 	elif deployableTeam==0:
 		isTeamDeployed=0
 		print("DONE DEPLOYING")
+		firstTeamT.hide()
+		secondTeamT.hide()
+		thirdTeamT.hide()
 		firstTeam.texture = ResourceLoader.load("res://Tiles/Teams/Firefighters.png")
 		secondTeam.texture = ResourceLoader.load("res://Tiles/Teams/Search_and_Rescue.png")
 		thirdTeam.texture = ResourceLoader.load("res://Tiles/Teams/Coordinators.png")
@@ -404,7 +419,6 @@ func deploy_team(tile_pos) -> void:
 
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
-	
 	#set_on_fire(cellPos)
 	#set_on_water(cellPos)
 	#set_on_tornado(cellPos)
