@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://jukto30w76kt"]
+[gd_scene load_steps=69 format=4 uid="uid://jukto30w76kt"]
 
 [ext_resource type="PackedScene" uid="uid://ccivspgvtm5mi" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
@@ -432,6 +432,10 @@ tile_offset_axis = 1
 tile_size = Vector2i(116, 96)
 sources/1 = SubResource("TileSetScenesCollectionSource_6bp64")
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_gt3je"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_3pmx8"]
+
 [node name="main" type="Node2D"]
 
 [node name="map" type="Node2D" parent="."]
@@ -509,6 +513,15 @@ tile_set = SubResource("TileSet_kry3j")
 [node name="UI" parent="UILayer" node_paths=PackedStringArray("map_gen") instance=ExtResource("2_bo1nx")]
 map_gen = NodePath("../../map/worldGen")
 
+[node name="Button3" parent="UILayer/UI/Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_gt3je")
+
+[node name="Button4" parent="UILayer/UI/Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="1"]
+button_group = SubResource("ButtonGroup_gt3je")
+
+[node name="Button5" parent="UILayer/UI/Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="2"]
+button_group = SubResource("ButtonGroup_3pmx8")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(0.8, 0.8)
@@ -547,3 +560,5 @@ wait_time = 5.0
 [connection signal="timeout" from="disastersTimer/floodTimer" to="disastersTimer" method="_on_flood_timer_timeout"]
 [connection signal="timeout" from="disastersTimer/tornadoTimer" to="disastersTimer" method="_on_tornado_timer_timeout"]
 [connection signal="timeout" from="teamTimer" to="map/worldGen" method="_on_team_timer_timeout"]
+
+[editable path="UILayer/UI"]

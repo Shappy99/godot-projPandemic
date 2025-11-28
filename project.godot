@@ -28,6 +28,12 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 display_server/driver.windows="windows"
 
+[global_group]
+
+firstTeam=""
+secondTeam=""
+thirdTeam=""
+
 [input]
 
 pressingEsc={
