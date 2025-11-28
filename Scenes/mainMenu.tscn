@@ -6,6 +6,8 @@
 script/source = "extends Control
 @onready var main_menu: VBoxContainer = $\"Main Menu\"
 @onready var options_menu: Panel = $\"Options Menu\"
+@onready var credits_menu: Panel = $\"Credits Menu\"
+
 
 
 
@@ -13,7 +15,7 @@ script/source = "extends Control
 func _ready() -> void:
 	main_menu.visible = true
 	options_menu.visible = false
-
+	credits_menu.visible = false
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
@@ -23,10 +25,19 @@ func _on_play_button_pressed() -> void:
 func _on_options_button_pressed() -> void:
 	main_menu.visible = false
 	options_menu.visible = true
-
-func _on_back_pressed() -> void:
+	
+func _on_options_back_button_pressed() -> void:
 	main_menu.visible = true
 	options_menu.visible = false
+
+
+func _on_credits_button_pressed() -> void:
+	main_menu.visible = false
+	credits_menu.visible = true
+
+func _on_credits_back_button_pressed() -> void:
+	main_menu.visible = true
+	credits_menu.visible = false
 "
 
 [node name="MenuUI" type="Control"]
@@ -39,6 +50,7 @@ grow_vertical = 2
 script = SubResource("GDScript_h7grp")
 
 [node name="Main Menu" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,6 +85,117 @@ text = "Credits"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
+
+[node name="Credits Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -225.0
+offset_right = 225.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Options Menu Title" type="Label" parent="Credits Menu/VBoxContainer"]
+custom_minimum_size = Vector2(450, 40)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="Credits Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits Menu/VBoxContainer/VBoxContainer6"]
+layout_mode = 2
+
+[node name="Heading1" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Game Designer/Narative Director"
+horizontal_alignment = 1
+
+[node name="Heading2" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer"]
+layout_mode = 2
+text = "-Calin-Constantin Hanganu-"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Credits Menu/VBoxContainer/VBoxContainer6"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Heading1" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer2"]
+layout_mode = 2
+text = "Game Director and Lead Programmer"
+horizontal_alignment = 1
+
+[node name="Heading2" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer2"]
+layout_mode = 2
+text = "-Andrei-Viorel Lepadatu (Shappy)-"
+horizontal_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Credits Menu/VBoxContainer/VBoxContainer6"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Heading1" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer3"]
+layout_mode = 2
+text = "UX/UI Programmer"
+horizontal_alignment = 1
+
+[node name="Heading2" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer3"]
+layout_mode = 2
+text = "-Florin-Alexandru Anghelescu-"
+horizontal_alignment = 1
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Credits Menu/VBoxContainer/VBoxContainer6"]
+layout_mode = 2
+
+[node name="Heading1" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer4"]
+layout_mode = 2
+text = "2D Artist"
+horizontal_alignment = 1
+
+[node name="Heading2" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer4"]
+layout_mode = 2
+text = "-Ciobanu Madalina Alexandra Florentina (MadaSN)-"
+horizontal_alignment = 1
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="Credits Menu/VBoxContainer/VBoxContainer6"]
+layout_mode = 2
+
+[node name="Heading1" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer5"]
+layout_mode = 2
+text = "Additional Programming"
+horizontal_alignment = 1
+
+[node name="Heading2" type="Label" parent="Credits Menu/VBoxContainer/VBoxContainer6/VBoxContainer5"]
+layout_mode = 2
+text = "-Nicolae-Sorin Iancso-"
+horizontal_alignment = 1
+
+[node name="creditsBackButton" type="Button" parent="Credits Menu/VBoxContainer"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back"
 
 [node name="Options Menu" type="Panel" parent="."]
 visible = false
@@ -114,7 +237,7 @@ grow_vertical = 2
 text = "Full Screen"
 script = ExtResource("1_60k44")
 
-[node name="Back" type="Button" parent="Options Menu"]
+[node name="optionsBackButton" type="Button" parent="Options Menu"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -131,6 +254,8 @@ text = "Back"
 
 [connection signal="pressed" from="Main Menu/playButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Main Menu/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Main Menu/creditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="Main Menu/quitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Credits Menu/VBoxContainer/creditsBackButton" to="." method="_on_credits_back_button_pressed"]
 [connection signal="toggled" from="Options Menu/fullScreenControl" to="Options Menu/fullScreenControl" method="_on_toggled"]
-[connection signal="pressed" from="Options Menu/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Options Menu/optionsBackButton" to="." method="_on_options_back_button_pressed"]
