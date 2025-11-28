@@ -9,19 +9,13 @@ class_name SkillNode
 @export var root = [0]
 @export var unlocked = false
 @export var price = 0
-@export var title = ""
-@export var description = ""
 @onready var list = get_parent().get_children()
-@onready var title_label: Label = $MarginContainer/Title
-@onready var description_label: Label = $MarginContainer/Description
 
 const skillButtonIcon := preload("res://skill_placeholder.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	texture_rect.set_texture(skillButtonIcon)
 	price_label.text= str(price) + "$"
-	title_label.text = title
-	description_label.text = description
 	for i in range(list.size()):
 		if i in root:
 			print (i,"radacina nod")

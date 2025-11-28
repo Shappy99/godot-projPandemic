@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=14 format=3 uid="uid://buxtindywluys"]
-=======
 [gd_scene load_steps=32 format=3 uid="uid://buxtindywluys"]
->>>>>>> 4b9c023664bb9f55d9b9afe5c7565d06c426b7cc
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
 [ext_resource type="Script" uid="uid://dveke0h57lc0u" path="res://Scripts/timer.gd" id="2_c7mb3"]
@@ -14,11 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://jf5xtnobn6fv" path="res://Tiles/Teams/Search_and_Rescue.png" id="5_l5iwa"]
 [ext_resource type="Texture2D" uid="uid://o2jes0nw1ma1" path="res://Tiles/Teams/Coordinators.png" id="6_3h0f6"]
 [ext_resource type="PackedScene" uid="uid://ynrmosy74ech" path="res://Scenes/UI/skill_button.tscn" id="6_duuxe"]
-[ext_resource type="Script" uid="uid://wlmhoyd578k" path="res://Scripts/UI/research/v_scroll_bar.gd" id="6_mbl0m"]
 [ext_resource type="Script" uid="uid://6lpuh837ky3k" path="res://Scenes/UI/research_funds.gd" id="7_jfwrg"]
-<<<<<<< HEAD
-[ext_resource type="Script" uid="uid://dfvp0o1hah8fm" path="res://Scripts/UI/research/research_tier.gd" id="9_s3gqk"]
-=======
 [ext_resource type="Script" uid="uid://052qqhjpsd2i" path="res://Scenes/UI/tutorial.gd" id="9_1eb8u"]
 [ext_resource type="Texture2D" uid="uid://qtp1klo5weqx" path="res://Tiles/1.png" id="9_mbl0m"]
 [ext_resource type="Texture2D" uid="uid://cht777oiqq5a8" path="res://Tiles/3.png" id="9_pmm6b"]
@@ -33,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://bdelcig0neof0" path="res://Tiles/Tutorial/tut3.png" id="19_cqvjp"]
 [ext_resource type="Texture2D" uid="uid://2y7txfxm4kam" path="res://Tiles/Tutorial/Screenshot 2025-11-27 211239.png" id="20_hfaco"]
 [ext_resource type="Texture2D" uid="uid://bcsljwnive6v" path="res://Tiles/Tutorial/Screenshot 2025-11-27 211310.png" id="21_1eb8u"]
->>>>>>> 4b9c023664bb9f55d9b9afe5c7565d06c426b7cc
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahcct"]
 content_margin_left = 4.0
@@ -409,6 +400,7 @@ button_group = SubResource("ButtonGroup_duuxe")
 text = "GRE"
 
 [node name="ResearchPanel" type="Control" parent="Research/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_alcrr")
@@ -425,11 +417,6 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
-
-[node name="VScrollBar" type="VScrollBar" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel"]
-layout_mode = 2
-value = 50.0
-script = ExtResource("6_mbl0m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel"]
 layout_mode = 2
@@ -462,17 +449,16 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 size_flags_horizontal = 3
-script = ExtResource("9_s3gqk")
 
 [node name="SkillButton" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -292.0
-offset_top = 98.0
-offset_right = -92.0
-offset_bottom = 158.0
+offset_left = -20.0
+offset_top = 100.0
+offset_right = 20.0
+offset_bottom = 140.0
 grow_horizontal = 2
 root = []
 price = 100
@@ -559,9 +545,6 @@ disabled = true
 root = [4, 5]
 price = 50000
 
-<<<<<<< HEAD
-[node name="SkillButton8" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
-=======
 [node name="Tutorial" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -781,20 +764,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Tutorial/Disasters"]
->>>>>>> 4b9c023664bb9f55d9b9afe5c7565d06c426b7cc
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-<<<<<<< HEAD
-offset_left = 94.0
-offset_top = 97.0
-offset_right = 294.0
-offset_bottom = 157.0
-grow_horizontal = 2
-root = []
-price = 100
-=======
 offset_left = -71.0
 offset_top = 18.0
 offset_right = 72.0
@@ -1322,7 +1295,6 @@ grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 6
 text = "Start Game"
->>>>>>> 4b9c023664bb9f55d9b9afe5c7565d06c426b7cc
 
 [connection signal="timeout" from="GUI/HUD/Timer" to="GUI/HUD/Timer" method="_on_timeout"]
 [connection signal="button_down" from="GUI/HUD/Timer/genMapButton" to="." method="_on_button_button_down"]
@@ -1332,7 +1304,6 @@ text = "Start Game"
 [connection signal="pressed" from="GUI/Pause Menu/Main Menu/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button3" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_3_toggled"]
 [connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button4" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_4_toggled"]
-[connection signal="value_changed" from="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VScrollBar" to="Research/ResearchTier" method="_on_v_scroll_bar_value_changed"]
 [connection signal="pressed" from="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer/backButton" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_back_button_pressed"]
 [connection signal="button_down" from="Tutorial/Panel/MarginContainer/HBoxContainer/yesButton" to="Tutorial" method="_on_yes_button_button_down"]
 [connection signal="button_down" from="Tutorial/Panel/MarginContainer/HBoxContainer/skipButton" to="." method="_on_skip_button_button_down"]
