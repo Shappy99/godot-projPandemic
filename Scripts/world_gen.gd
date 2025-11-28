@@ -368,7 +368,7 @@ func _physics_process(_delta):
 	if (int($"../../disastersTimer/fireTimer".time_left) > 0) && (int(lastFireDisTimer) != int($"../../disastersTimer/fireTimer".time_left)):
 		if $"../fire".get_cell_source_id(lastFireLoc) == 1:
 			lastFireDisTimer = int($"../../disastersTimer/fireTimer".time_left)
-			Globals.trustFactor -= 0.5
+			Globals.trustFactor -= 1
 	elif lastFireBonus == 0:
 		Globals.trustFactor += 10
 		if Globals.trustFactor >= 1000:
@@ -376,7 +376,7 @@ func _physics_process(_delta):
 		lastFireBonus = 1
 	if int($"../../disastersTimer/floodTimer".time_left) > 0 && int(lastFloodDisTimer) != int($"../../disastersTimer/floodTimer".time_left) && $"../../disastersTimer/floodTimer".paused==false && $"../water".get_cell_source_id(lastFloodLoc) == 1:
 		lastFloodDisTimer = int($"../../disastersTimer/floodTimer".time_left)
-		Globals.trustFactor -= 0.5
+		Globals.trustFactor -= 1
 	elif lastFloodBonus == 0:
 		Globals.trustFactor += 10
 		if Globals.trustFactor >= 1000:
@@ -384,7 +384,7 @@ func _physics_process(_delta):
 		lastFloodBonus = 1
 	if (int($"../../disastersTimer".time_left) > 0) && (int(lastQuakeTimer) != int($"../../disastersTimer".time_left)) && ($"../water".get_cell_source_id(lastQuakeLoc) == 0 && get_is_city(lastQuakeLoc)):
 		lastQuakeTimer = int($"../../disastersTimer".time_left)
-		Globals.trustFactor -= 0.5
+		Globals.trustFactor -= 1
 	elif lastQuakeBonus == 0:
 		Globals.trustFactor += 10
 		if Globals.trustFactor >= 1000:
