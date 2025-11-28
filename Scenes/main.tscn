@@ -513,13 +513,13 @@ tile_set = SubResource("TileSet_kry3j")
 [node name="UI" parent="UILayer" node_paths=PackedStringArray("map_gen") instance=ExtResource("2_bo1nx")]
 map_gen = NodePath("../../map/worldGen")
 
-[node name="Button3" parent="UILayer/UI/Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="0"]
+[node name="Button3" parent="UILayer/UI/Research/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="0"]
 button_group = SubResource("ButtonGroup_gt3je")
 
-[node name="Button4" parent="UILayer/UI/Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="1"]
+[node name="Button4" parent="UILayer/UI/Research/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="1"]
 button_group = SubResource("ButtonGroup_gt3je")
 
-[node name="Button5" parent="UILayer/UI/Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="2"]
+[node name="Button5" parent="UILayer/UI/Research/HBoxContainer/TeamsSelectPanel/VBoxContainer" index="2"]
 button_group = SubResource("ButtonGroup_3pmx8")
 
 [node name="Camera2D" type="Camera2D" parent="."]

@@ -382,7 +382,7 @@ func _physics_process(_delta):
 		if Globals.trustFactor >= 1000:
 			Globals.trustFactor = 1000
 		lastFloodBonus = 1
-	if (int($"../../disastersTimer".time_left) > 0) && (int(lastQuakeTimer) != int($"../../disastersTimer".time_left)) && ($"../water".get_cell_source_id(lastQuakeLoc) == 0 && get_is_city(lastQuakeLoc)):
+	if (int($"../../disastersTimer".time_left) > 0) && (int(lastQuakeTimer) != int($"../../disastersTimer".time_left)) && ($"../quake".get_cell_source_id(lastQuakeLoc) == 0 && get_is_city(lastQuakeLoc)):
 		lastQuakeTimer = int($"../../disastersTimer".time_left)
 		Globals.trustFactor -= 1.4
 	elif lastQuakeBonus == 0:
