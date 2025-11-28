@@ -17,6 +17,7 @@ func _on_timeout():
 		$"../../../../../disastersTimer/floodTimer".stop()
 		$"../../../../../disastersTimer/tornadoTimer".stop()
 		$"../../../../../teamTimer".stop()
+		$".".stop()
 		$"../../../GameOver".show()
 	if Globals.day<=30:
 		$TimeFundsContainer/timeLabel.text=str("Month ", Globals.month, ", Day ",Globals.day)
@@ -36,6 +37,7 @@ func _on_timeout():
 			$"../../../../../disastersTimer/floodTimer".stop()
 			$"../../../../../disastersTimer/tornadoTimer".stop()
 			$"../../../../../teamTimer".stop()
+			$".".stop()
 			$"../../../GameOver".show()
 		else:
 			Globals.day=1
