@@ -365,6 +365,41 @@ func _physics_process(_delta):
 		secondTeamT.text = str(int(1+$"../../teamTimer".time_left))
 	if thirdTeamT.is_visible_in_tree():
 		thirdTeamT.text = str(int(1+$"../../teamTimer".time_left))
+	if (int($"../../disastersTimer/fireTimer".time_left) > 0) && (int(lastFireDisTimer) != int($"../../disastersTimer/fireTimer".time_left)):
+		if $"../fire".get_cell_source_id(lastFireLoc) == 1:
+			lastFireDisTimer = int($"../../disastersTimer/fireTimer".time_left)
+			Globals.trustFactor -= 0.5
+	elif lastFireBonus == 0:
+		Globals.trustFactor += 10
+		if Globals.trustFactor >= 1000:
+			Globals.trustFactor = 1000
+		lastFireBonus = 1
+	if int($"../../disastersTimer/floodTimer".time_left) > 0 && int(lastFloodDisTimer) != int($"../../disastersTimer/floodTimer".time_left) && $"../../disastersTimer/floodTimer".paused==false && $"../water".get_cell_source_id(lastFloodLoc) == 1:
+		lastFloodDisTimer = int($"../../disastersTimer/floodTimer".time_left)
+		Globals.trustFactor -= 0.5
+	elif lastFloodBonus == 0:
+		Globals.trustFactor += 10
+		if Globals.trustFactor >= 1000:
+			Globals.trustFactor = 1000
+		lastFloodBonus = 1
+	if (int($"../../disastersTimer".time_left) > 0) && (int(lastQuakeTimer) != int($"../../disastersTimer".time_left)) && ($"../water".get_cell_source_id(lastQuakeLoc) == 0 && get_is_city(lastQuakeLoc)):
+		lastQuakeTimer = int($"../../disastersTimer".time_left)
+		Globals.trustFactor -= 0.5
+	elif lastQuakeBonus == 0:
+		Globals.trustFactor += 10
+		if Globals.trustFactor >= 1000:
+			Globals.trustFactor = 1000
+		lastQuakeBonus = 1
+
+var lastFireBonus = 1
+var lastFloodBonus = 1
+var lastQuakeBonus = 1
+var lastFireDisTimer = 0
+var lastFloodDisTimer = 0
+var lastQuakeTimer = 0
+var lastFireLoc = Vector2i.ZERO
+var lastFloodLoc = Vector2i.ZERO
+var lastQuakeLoc = Vector2i.ZERO
 
 @onready var firstTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/firstTeam/firstTeamTimeLeft"
 @onready var secondTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/secondTeam/secondTeamTimeLeft"
@@ -409,10 +444,19 @@ func deploy_team(tile_pos) -> void:
 		secondTeam.texture = ResourceLoader.load("res://Tiles/Teams/Search_and_Rescue.png")
 		thirdTeam.texture = ResourceLoader.load("res://Tiles/Teams/Coordinators.png")
 		$"../../teamTimer".paused = true
-		$"../water".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		if $"../water".get_cell_source_id(teamDeployLocation) == 1:
+			$"../water".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+			lastFloodBonus=0
+			lastFloodLoc=teamDeployLocation
+		if $"../quake".get_cell_source_id(teamDeployLocation) == 0 && get_is_city(teamDeployLocation):
+			lastQuakeBonus=0
+			lastQuakeLoc=teamDeployLocation
 		$"../quake".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		$"../tsunami".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
-		$"../fire".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+		if $"../fire".get_cell_source_id(teamDeployLocation) == 1:
+			$"../fire".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
+			lastFireBonus=0
+			lastFireLoc=teamDeployLocation
 		$"../tornado".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		$"../../disastersTimer/fireTimer/fireExtension".stop()
 		deployableTeam=1
@@ -547,6 +591,7 @@ func set_on_fire(tile_pos, add) -> void:
 	var bot_left = Vector2i.ZERO
 	if get_has_forest(tile_pos) || get_has_forest2(tile_pos) || get_has_forest3(tile_pos):
 			$"../fire".set_cell (tile_pos, add, Vector2i.ZERO, 1)
+			lastFireLoc=tile_pos
 			print("fire added")
 			addedRandomFire = 0
 	elif add==-1:
@@ -557,6 +602,7 @@ func set_on_fire(tile_pos, add) -> void:
 		$"../fire".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 1)
 		print("random fire deleted")
 		addedRandomFire = 0
+		lastFireLoc=tile_pos
 	else:
 		forestArray.shuffle()
 		$"../fire".set_cell (Vector2i(forestArray[0]), 1, Vector2i.ZERO, 1)
@@ -564,6 +610,7 @@ func set_on_fire(tile_pos, add) -> void:
 		print("random fire added")
 		addedRandomFire = 1
 		randomFire = tile_pos
+		lastFireLoc=tile_pos
 	if add==-1:
 		if addedRandomFire == 1:
 			tile_pos = randomFire
@@ -585,8 +632,23 @@ func set_on_fire(tile_pos, add) -> void:
 		$"../fire".set_cell (bot_left, add, Vector2i.ZERO, 1)
 
 func set_on_water(tile_pos, add) -> void:
-	$"../water".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
-	print("water added")
+	if get_is_plain(tile_pos) || (get_is_mountain(tile_pos) && !get_is_peak(tile_pos)):
+		$"../water".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
+		lastFloodLoc=tile_pos
+		print("water added")
+	else:
+		if randi()%2==0:
+			plainArray.shuffle()
+			tile_pos = plainArray[0]
+			lastFloodLoc=Vector2i(tile_pos[0],tile_pos[1])
+		else:
+			mountainArray.shuffle()
+			while mountainArray[0] in peakArray:
+				mountainArray.shuffle()
+			tile_pos = mountainArray[0]
+			lastFloodLoc=Vector2i(tile_pos[0],tile_pos[1])
+		$"../water".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
+		lastFloodLoc=Vector2i(tile_pos[0],tile_pos[1])
 
 func set_on_tornado(tile_pos, add) -> void:
 	$"../tornado".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
@@ -596,18 +658,22 @@ func set_on_quake(tile_pos, add) -> void:
 	if get_is_plain(tile_pos) || (get_is_mountain(tile_pos) && !get_is_peak((tile_pos))):
 		print("QUAKE AVAILABLE", tile_pos)
 		$"../quake".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
+		lastQuakeLoc=Vector2i(tile_pos)
 	else:
 		if randi()%2==0:
 			plainArray.shuffle()
 			tile_pos = plainArray[0]
+			lastQuakeLoc=Vector2i(tile_pos)
 		else:
 			mountainArray.shuffle()
 			while mountainArray[0] in peakArray:
 				mountainArray.shuffle()
 			tile_pos = mountainArray[0]
+			lastQuakeLoc=Vector2i(tile_pos)
 		print("PL",plainArray[0],"TP",tile_pos)
 		print("PL2",plainArray[0][0],"PL3",plainArray[0][1],"PL4")
 		$"../quake".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
+		lastQuakeLoc=Vector2i(tile_pos)
 	print("quake added")
 
 var tsunamiTile = Vector2i.ZERO
