@@ -43,13 +43,13 @@ offset_left = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label2" type="Label" parent="MarginContainer"]
+[node name="Title" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Title"
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="MarginContainer"]
+[node name="Description" type="Label" parent="MarginContainer"]
 layout_mode = 2
 text = "Description"
 vertical_alignment = 1

@@ -1,0 +1,42 @@
+{
+	"fire_fighter_tree": [
+		{
+			"title": "Signaling Lessons",
+			"description": "Cooldown decreased to 6 days",
+			"price": 1000,
+			"root": [],
+			"unlocked": false
+		},
+		{
+			"title": "Versatility Training",
+			"description": "Can be used in place of Search and Rescue, cooldown increased by 50%",
+			"price": 5000,
+			"root": [0],
+			"unlocked": false
+		}
+	],
+
+	"search_rescue_tree": [
+		{
+			"title": "Navigation Basics",
+			"description": "Pathfinding efficiency increased",
+			"price": 800,
+			"root": [],
+			"unlocked": false
+		},
+		{
+			"title": "Advanced Tracking",
+			"description": "Locate missing persons faster",
+			"price": 4000,
+			"root": [0],
+			"unlocked": false
+		},
+		{
+			"title": "Joint Operation Training",
+			"description": "Requires skill 1 and 2",
+			"price": 9000,
+			"root": [0, 1],
+			"unlocked": false
+		}
+	]
+}

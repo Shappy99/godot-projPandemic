@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://buxtindywluys"]
+[gd_scene load_steps=14 format=3 uid="uid://buxtindywluys"]
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
 [ext_resource type="Script" uid="uid://dveke0h57lc0u" path="res://Scripts/timer.gd" id="2_c7mb3"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://xd4x5hidh1gn" path="res://Scenes/UI/research_panel.gd" id="4_alcrr"]
 [ext_resource type="Texture2D" uid="uid://7snd7x23xt3v" path="res://back_button_icon.png" id="5_1c2ca"]
 [ext_resource type="PackedScene" uid="uid://ynrmosy74ech" path="res://Scenes/UI/skill_button.tscn" id="6_duuxe"]
+[ext_resource type="Script" uid="uid://wlmhoyd578k" path="res://Scripts/UI/research/v_scroll_bar.gd" id="6_mbl0m"]
 [ext_resource type="Script" uid="uid://6lpuh837ky3k" path="res://Scenes/UI/research_funds.gd" id="7_jfwrg"]
+[ext_resource type="Script" uid="uid://dfvp0o1hah8fm" path="res://Scripts/UI/research/research_tier.gd" id="9_s3gqk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahcct"]
 content_margin_left = 4.0
@@ -309,7 +311,6 @@ button_group = SubResource("ButtonGroup_duuxe")
 text = "GRE"
 
 [node name="ResearchPanel" type="Control" parent="Research/VBoxContainer/HBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_alcrr")
@@ -326,6 +327,11 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+
+[node name="VScrollBar" type="VScrollBar" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel"]
+layout_mode = 2
+value = 50.0
+script = ExtResource("6_mbl0m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel"]
 layout_mode = 2
@@ -358,16 +364,17 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 size_flags_horizontal = 3
+script = ExtResource("9_s3gqk")
 
 [node name="SkillButton" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_top = 100.0
-offset_right = 20.0
-offset_bottom = 140.0
+offset_left = -292.0
+offset_top = 98.0
+offset_right = -92.0
+offset_bottom = 158.0
 grow_horizontal = 2
 root = []
 price = 100
@@ -454,6 +461,19 @@ disabled = true
 root = [4, 5]
 price = 50000
 
+[node name="SkillButton8" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 94.0
+offset_top = 97.0
+offset_right = 294.0
+offset_bottom = 157.0
+grow_horizontal = 2
+root = []
+price = 100
+
 [connection signal="timeout" from="GUI/HUD/Timer" to="GUI/HUD/Timer" method="_on_timeout"]
 [connection signal="pressed" from="GUI/HUD/BottomButtons/HBoxContainer/researchButton" to="." method="_on_research_button_pressed"]
 [connection signal="button_down" from="GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/genMapButton" to="." method="_on_button_button_down"]
@@ -462,4 +482,5 @@ price = 50000
 [connection signal="pressed" from="GUI/Pause Menu/Main Menu/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button3" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_3_toggled"]
 [connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button4" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_4_toggled"]
+[connection signal="value_changed" from="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VScrollBar" to="Research/ResearchTier" method="_on_v_scroll_bar_value_changed"]
 [connection signal="pressed" from="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer/backButton" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_back_button_pressed"]
