@@ -17,7 +17,7 @@ func _on_timeout():
 		Globals.month+=1
 		_add_funds(10000)
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", Globals.funds)
-		if Globals.month==12:
+		if Globals.month==12 || Globals.trustFactor < 500:
 			$TimeFundsContainer/timeLabel.text="Game over"
 			$"../../../../../disastersTimer".stop()
 			$"../../../../../disastersTimer/tsunamiTimer".stop()
