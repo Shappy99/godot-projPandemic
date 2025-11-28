@@ -3,14 +3,20 @@
 [ext_resource type="Script" uid="uid://c7301kuxwvtxk" path="res://Scripts/UI/research/skill_button.gd" id="2_o71j7"]
 
 [node name="SkillButton" type="Button"]
-custom_minimum_size = Vector2(200, 60)
-offset_right = 200.0
-offset_bottom = 60.0
+custom_minimum_size = Vector2(250, 60)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_right = 125.0
+offset_bottom = 80.0
+grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 toggle_mode = true
 icon_alignment = 1
 script = ExtResource("2_o71j7")
+root = []
 
 [node name="TextureRect" type="TextureRect" parent="."]
 clip_contents = true
@@ -34,29 +40,42 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882354, 0.105882354, 0.105882354, 0.27450982)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 60.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -41.0
+offset_bottom = 39.0
+grow_horizontal = 0
 grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer"]
+[node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
 text = "Title"
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="MarginContainer"]
+[node name="Description" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 38)
 layout_mode = 2
-text = "Description"
-vertical_alignment = 1
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+text = "Can be used in place of Search and Rescue, cooldown increased by 50%"
+autowrap_mode = 2
+justification_flags = 35
+clip_text = true
 
-[node name="Price" type="Label" parent="MarginContainer"]
+[node name="Price" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
 text = "Price"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -64,6 +83,6 @@ vertical_alignment = 1
 [node name="Line2D" type="Line2D" parent="."]
 top_level = true
 z_index = -1
-default_color = Color(0.49705678, 0.00017543658, 0.49705327, 1)
+default_color = Color(0.12955844, 0.12955847, 0.12955844, 1)
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

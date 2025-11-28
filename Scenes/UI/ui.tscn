@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://buxtindywluys"]
+[gd_scene load_steps=33 format=3 uid="uid://buxtindywluys"]
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
 [ext_resource type="Script" uid="uid://dveke0h57lc0u" path="res://Scripts/timer.gd" id="2_c7mb3"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cht777oiqq5a8" path="res://Tiles/3.png" id="9_pmm6b"]
 [ext_resource type="Texture2D" uid="uid://dfrocx2h3xln0" path="res://Tiles/2.png" id="11_vy225"]
 [ext_resource type="Texture2D" uid="uid://bwv5bul5ubdaj" path="res://Tiles/Tutorial/tutf.png" id="12_fy0us"]
+[ext_resource type="Script" uid="uid://mtwrfiwqjb2m" path="res://Scenes/UI/research_tier_test.gd" id="12_l5iwa"]
 [ext_resource type="Texture2D" uid="uid://cjkildtxg40g5" path="res://Tiles/Tutorial/tutf2.png" id="13_h6tq4"]
 [ext_resource type="Texture2D" uid="uid://dmirfw2yk3htx" path="res://Tiles/Tutorial/qua2.png" id="14_fevae"]
 [ext_resource type="Texture2D" uid="uid://lhlrtd5vqexx" path="res://Tiles/Tutorial/qua1.png" id="15_ny3ap"]
@@ -67,6 +68,7 @@ grow_vertical = 2
 script = ExtResource("1_ahcct")
 
 [node name="GUI" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -336,7 +338,6 @@ size_flags_vertical = 3
 text = "Main Menu"
 
 [node name="Research" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -344,32 +345,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Research"]
+[node name="ColorRect" type="ColorRect" parent="Research"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.17254902, 0.17254902, 0.17254902, 0.9411765)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Research"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Research/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TeamsSelectPanel" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer"]
+[node name="TeamsSelectPanel" type="HBoxContainer" parent="Research/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Research/HBoxContainer/TeamsSelectPanel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="Button3" type="Button" parent="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer"]
+[node name="Button3" type="Button" parent="Research/HBoxContainer/TeamsSelectPanel/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -379,7 +386,7 @@ toggle_mode = true
 button_group = ExtResource("4_1c2ca")
 text = "GRE"
 
-[node name="Button4" type="Button" parent="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer"]
+[node name="Button4" type="Button" parent="Research/HBoxContainer/TeamsSelectPanel/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -389,7 +396,7 @@ toggle_mode = true
 button_group = ExtResource("4_1c2ca")
 text = "GRE"
 
-[node name="Button5" type="Button" parent="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer"]
+[node name="Button5" type="Button" parent="Research/HBoxContainer/TeamsSelectPanel/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -399,35 +406,39 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_duuxe")
 text = "GRE"
 
-[node name="ResearchPanel" type="Control" parent="Research/VBoxContainer/HBoxContainer"]
-visible = false
+[node name="ResearchPanel" type="Control" parent="Research/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_alcrr")
 
-[node name="Label" type="Label" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel"]
-layout_mode = 0
-offset_right = 752.0
-offset_bottom = 23.0
+[node name="Label" type="Label" parent="Research/HBoxContainer/ResearchPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.5
+offset_right = 83.5
+offset_bottom = 25.0
+grow_horizontal = 2
 text = "No Research Selected"
 horizontal_alignment = 1
 
-[node name="BackButtonPanel" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer"]
+[node name="BackButtonPanel" type="HBoxContainer" parent="Research/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 0
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Research/HBoxContainer/BackButtonPanel"]
 layout_mode = 2
 size_flags_horizontal = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Research/HBoxContainer/BackButtonPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/margin_top = 50
 
-[node name="backButton" type="Button" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer"]
+[node name="backButton" type="Button" parent="Research/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -437,12 +448,13 @@ icon = ExtResource("5_1c2ca")
 icon_alignment = 1
 expand_icon = true
 
-[node name="researchFunds" type="Label" parent="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer"]
+[node name="researchFunds" type="Label" parent="Research/HBoxContainer/BackButtonPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 script = ExtResource("7_jfwrg")
 
 [node name="ResearchTier" type="Control" parent="Research"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -452,98 +464,81 @@ size_flags_horizontal = 3
 
 [node name="SkillButton" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = -20.0
 offset_top = 100.0
 offset_right = 20.0
 offset_bottom = 140.0
-grow_horizontal = 2
 root = []
 price = 100
+title = "Signaling Lessons"
+description = "Can be used in place of Search and Rescue, cooldown increased by 50%"
 
 [node name="SkillButton2" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = -291.0
 offset_top = 203.0
 offset_right = -91.0
 offset_bottom = 263.0
-grow_horizontal = 2
 disabled = true
 price = 500
 
 [node name="SkillButton3" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = 100.0
 offset_top = 203.0
 offset_right = 300.0
 offset_bottom = 263.0
-grow_horizontal = 2
 disabled = true
 price = 600
 
 [node name="SkillButton4" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = -385.0
 offset_top = 303.0
 offset_right = -185.0
 offset_bottom = 363.0
-grow_horizontal = 2
 disabled = true
 root = [1]
 price = 1000
 
 [node name="SkillButton5" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = -148.0
 offset_top = 303.0
 offset_right = 52.0
 offset_bottom = 363.0
-grow_horizontal = 2
 disabled = true
 root = [1]
 price = 20000
 
 [node name="SkillButton6" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = 100.0
 offset_top = 303.0
 offset_right = 300.0
 offset_bottom = 363.0
-grow_horizontal = 2
 disabled = true
 root = [2]
 price = 500
 
 [node name="SkillButton7" parent="Research/ResearchTier" instance=ExtResource("6_duuxe")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
 offset_left = -100.0
 offset_top = 449.0
 offset_right = 100.0
 offset_bottom = 509.0
-grow_horizontal = 2
 disabled = true
 root = [4, 5]
 price = 50000
+
+[node name="ResearchTierTest" type="Control" parent="Research"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("12_l5iwa")
 
 [node name="Tutorial" type="Control" parent="."]
 visible = false
@@ -1302,9 +1297,9 @@ text = "Start Game"
 [connection signal="pressed" from="GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/MarginContainer/pauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="GUI/Pause Menu/Main Menu/resumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="GUI/Pause Menu/Main Menu/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button3" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_3_toggled"]
-[connection signal="toggled" from="Research/VBoxContainer/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button4" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_button_4_toggled"]
-[connection signal="pressed" from="Research/VBoxContainer/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer/backButton" to="Research/VBoxContainer/HBoxContainer/ResearchPanel" method="_on_back_button_pressed"]
+[connection signal="toggled" from="Research/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button3" to="Research/HBoxContainer/ResearchPanel" method="_on_button_3_toggled"]
+[connection signal="toggled" from="Research/HBoxContainer/TeamsSelectPanel/VBoxContainer/Button4" to="Research/HBoxContainer/ResearchPanel" method="_on_button_4_toggled"]
+[connection signal="pressed" from="Research/HBoxContainer/BackButtonPanel/VBoxContainer/MarginContainer/backButton" to="." method="_on_back_button_pressed"]
 [connection signal="button_down" from="Tutorial/Panel/MarginContainer/HBoxContainer/yesButton" to="Tutorial" method="_on_yes_button_button_down"]
 [connection signal="button_down" from="Tutorial/Panel/MarginContainer/HBoxContainer/skipButton" to="." method="_on_skip_button_button_down"]
 [connection signal="button_down" from="Tutorial/Tiles/VBoxContainer/nextButton1" to="Tutorial" method="_on_next_button_1_button_down"]

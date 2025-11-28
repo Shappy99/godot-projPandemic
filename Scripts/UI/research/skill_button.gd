@@ -2,13 +2,15 @@ extends Button
 class_name SkillNode
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var color_rect: ColorRect = $ColorRect
-@onready var price_label: Label = $MarginContainer/Price
-
-@onready var label: Label = $MarginContainer/Label
+@onready var price_label: Label = $VBoxContainer/Price
+@onready var title_label: Label = $VBoxContainer/Title
+@onready var description_label: Label = $VBoxContainer/Description
 @onready var line_2d: Line2D = $Line2D
 @export var root = [0]
 @export var unlocked = false
 @export var price = 0
+@export var title = ""
+@export var description = ""
 @onready var list = get_parent().get_children()
 
 const skillButtonIcon := preload("res://skill_placeholder.png")
@@ -16,6 +18,8 @@ const skillButtonIcon := preload("res://skill_placeholder.png")
 func _ready() -> void:
 	texture_rect.set_texture(skillButtonIcon)
 	price_label.text= str(price) + "$"
+	title_label.text = title
+	description_label.text = description
 	for i in range(list.size()):
 		if i in root:
 			print (i,"radacina nod")

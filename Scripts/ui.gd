@@ -41,6 +41,11 @@ func _on_research_button_pressed() -> void:
 	hud.visible=false
 	research.visible=true
 	
+func _on_back_button_pressed() -> void:
+	time_funds_container.visible = true
+	hud.visible=true
+	research.visible=false
+
 func _on_skip_button_button_down():
 	startGame()
 
