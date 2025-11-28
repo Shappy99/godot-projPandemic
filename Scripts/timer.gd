@@ -11,6 +11,7 @@ func _on_timeout():
 	if Globals.day<=30:
 		$TimeFundsContainer/timeLabel.text=str("Month ", Globals.month, ", Day ",Globals.day)
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", Globals.funds)
+		$TimeFundsContainer/trustLabel.text=str("Trust Factor: ", int(Globals.trustFactor),"/1000")
 		Globals.day+=1
 	elif Globals.month<12:
 		Globals.month+=1

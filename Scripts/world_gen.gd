@@ -365,6 +365,23 @@ func _physics_process(_delta):
 		secondTeamT.text = str(int(1+$"../../teamTimer".time_left))
 	if thirdTeamT.is_visible_in_tree():
 		thirdTeamT.text = str(int(1+$"../../teamTimer".time_left))
+	if int($"../../disastersTimer/fireTimer".time_left) > 0 && int(lastFireDisTimer) != int($"../../disastersTimer/fireTimer".time_left) && $"../../disastersTimer/fireTimer".paused==false:
+		lastFireDisTimer = int($"../../disastersTimer/fireTimer".time_left)
+		Globals.trustFactor -= 0.5
+	elif lastFireBonus == 0:
+		Globals.trustFactor += 10
+		lastFloodBonus = 1
+	if int($"../../disastersTimer/floodTimer".time_left) > 0 && int(lastFloodDisTimer) != int($"../../disastersTimer/floodTimer".time_left) && $"../../disastersTimer/floodTimer".paused==false:
+		lastFloodDisTimer = int($"../../disastersTimer/floodTimer".time_left)
+		Globals.trustFactor -= 0.5
+	elif lastFloodBonus == 0:
+		Globals.trustFactor += 10
+		lastFloodBonus = 1
+
+var lastFireBonus = 1
+var lastFloodBonus = 1
+var lastFireDisTimer = 0
+var lastFloodDisTimer = 0
 
 @onready var firstTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/firstTeam/firstTeamTimeLeft"
 @onready var secondTeamT = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/secondTeam/secondTeamTimeLeft"

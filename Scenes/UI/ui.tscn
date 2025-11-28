@@ -120,6 +120,9 @@ layout_mode = 2
 [node name="fundsLabel" type="Label" parent="GUI/HUD/Timer/TimeFundsContainer"]
 layout_mode = 2
 
+[node name="trustLabel" type="Label" parent="GUI/HUD/Timer/TimeFundsContainer"]
+layout_mode = 2
+
 [node name="BottomButtons" type="Panel" parent="GUI/HUD"]
 layout_mode = 1
 anchors_preset = 12
